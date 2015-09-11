@@ -21,6 +21,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private static final String TRACKING_CODE = "UA-67477240-1";
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
