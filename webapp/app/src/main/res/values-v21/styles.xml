@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Material">
         <!-- Customize your theme here. -->
         <item name="colorAccent">#FF4081</item>
         <item name="colorPrimary">#e46c0a</item>
-        <item name="colorPrimaryDark">#303F9F</item>
+        <item name="colorPrimaryDark">#b75709</item>
         <item name="colorControlHighlight">#00CC55</item>
         <item name="colorControlNormal">#FF0000</item>
         <item name="android:toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
