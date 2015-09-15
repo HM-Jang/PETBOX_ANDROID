@@ -19,6 +19,8 @@ import com.viewpagerindicator.PageIndicator;
 
 import java.util.ArrayList;
 
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -39,8 +41,8 @@ public class BestGoodFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
-    private GridView gridView;
 
+    GridViewWithHeaderAndFooter gridView;
     ArrayList<BestGoodInfo> mItemList;
     BestGoodGridAdapter gridAdapter;
     PageIndicator mIndicator;
@@ -99,12 +101,14 @@ public class BestGoodFragment extends Fragment {
             mItemList.add(info[i]);
         }
 
-        viewPager = (ViewPager)v.findViewById(R.id.pager_best_good);
+
+        View headerView = inflater.inflate(R.layout.custom_slide_image, null);
+        viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
 
         BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
         viewPager.setAdapter(bestGoodPagerAdapter);
 
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)v.findViewById(R.id.indicator_best_good);
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
         mIndicator = circlePageIndicator;
         mIndicator.setViewPager(viewPager);
 
@@ -112,9 +116,11 @@ public class BestGoodFragment extends Fragment {
         circlePageIndicator.setFillColor(0xFFe46c0a);
         circlePageIndicator.setStrokeColor(0x00000000);
 
-        gridView = (GridView)v.findViewById(R.id.grid_best_good);
+        gridView = (GridViewWithHeaderAndFooter)v.findViewById(R.id.grid_best_good);
         gridAdapter = new BestGoodGridAdapter(getActivity().getApplicationContext(), mItemList);
+        gridView.addHeaderView(headerView);
         gridView.setAdapter(gridAdapter);
+
 
         return  v;
     }

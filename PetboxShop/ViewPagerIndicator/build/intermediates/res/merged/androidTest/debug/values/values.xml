@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/C:/Users/petbox/Documents/GitHub/PetboxShop/ViewPagerIndicator/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/C:/Users/petbox/Documents/GitHub/PETBOX_ANDROID/PetboxShop/ViewPagerIndicator/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <attr format="boolean" name="centered"/>
     <attr format="color" name="selectedColor"/>
