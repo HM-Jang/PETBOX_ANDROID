@@ -7,50 +7,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <FrameLayout
-        android:id="@+id/frame_best_good"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentTop="true"
-            android:id="@+id/pager_best_good">
-
-        </android.support.v4.view.ViewPager>
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator_best_good"
-            android:layout_gravity="bottom|center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="6dp"
-            app:centered="true"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#88FFFFFF"
-            app:radius="4dp"
-            app:strokeColor="#FF1047A9"
-            app:strokeWidth="1dp" />
-
-
-    </FrameLayout>
-
-
-
-
-
-    <GridView
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/frame_best_good"
-        android:layout_alignParentBottom="true"
         android:id="@+id/grid_best_good"
         android:numColumns="auto_fit"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="5dp">
-
-    </GridView>
+    </in.srain.cube.views.GridViewWithHeaderAndFooter>
 
 </RelativeLayout>
