@@ -15,17 +15,20 @@
  *******************************************************************************/
 package com.handmark.pulltorefresh.library;
 
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.GridView;
+
 
 import com.handmark.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 
-public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridView> {
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
+
+public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridViewWithHeaderAndFooter> {
 
 	public PullToRefreshGridView(Context context) {
 		super(context);
@@ -49,20 +52,23 @@ public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridView
 	}
 
 	@Override
-	protected final GridView createRefreshableView(Context context, AttributeSet attrs) {
-		final GridView gv;
+	protected final GridViewWithHeaderAndFooter createRefreshableView(Context context, AttributeSet attrs) {
+		final GridViewWithHeaderAndFooter gv;
+
+        gv = new GridViewWithHeaderAndFooter(context, attrs);
+        /*
 		if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
 			gv = new InternalGridViewSDK9(context, attrs);
 		} else {
 			gv = new InternalGridView(context, attrs);
 		}
-
+        */
 		// Use Generated ID (from res/values/ids.xml)
 		gv.setId(R.id.gridview);
 		return gv;
 	}
 
-	class InternalGridView extends GridView implements EmptyViewMethodAccessor {
+	class InternalGridView extends GridViewWithHeaderAndFooter implements EmptyViewMethodAccessor {
 
 		public InternalGridView(Context context, AttributeSet attrs) {
 			super(context, attrs);
