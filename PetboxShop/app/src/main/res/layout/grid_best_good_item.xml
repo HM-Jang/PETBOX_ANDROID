@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="3dp"
+    android:background="@drawable/border_black">
 
     <ImageView
         android:layout_width="match_parent"
@@ -10,7 +12,7 @@
         android:src="@drawable/no_image"
         android:scaleType="fitXY"
         android:layout_weight="1"
-        android:padding="5dp" />
+        android:padding="2dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,15 +20,12 @@
         android:layout_height="match_parent"
         android:id="@+id/linear_best_good_grid"
         android:layout_weight="1.5"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+        android:padding="2dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="상품명이 두줄이어도 \n 두줄까지는 노출"
             android:id="@+id/tv_best_good_grid_name"
             android:textColor="#ff000000" />
@@ -35,13 +34,13 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp">
+            android:paddingTop="2dp">
 
             <FrameLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1.5">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -63,14 +62,16 @@
                             android:id="@+id/tv_best_good_grid_rate"
                             android:layout_gravity="center"
                             android:textSize="30sp"
-                            android:layout_centerInParent="true" />
+                            android:layout_centerInParent="true"
+                            android:textColor="#ff000000" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="%"
-                            android:layout_gravity="bottom" />
+                            android:layout_gravity="bottom"
+                            android:textColor="#ff202020" />
 
                     </LinearLayout>
 
@@ -98,7 +99,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="9,000원"
                     android:id="@+id/tv_best_good_grid_price"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#ff000000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -110,15 +112,18 @@
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ratingBar" />
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_gravity="bottom" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="(13)"
                 android:id="@+id/tv_best_good_grid_rate_person"
-                android:layout_gravity="bottom" />
+                android:layout_gravity="bottom"
+                android:textColor="#ff000000" />
 
         </LinearLayout>
     </LinearLayout>

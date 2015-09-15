@@ -78,10 +78,16 @@ public class BestGoodGridAdapter extends BaseAdapter {
         //holder.iv_image.setImageResource(R.drawable.no_image);
         holder.tv_name.setText(item.name);
         holder.tv_rate.setText(item.rate);
-        holder.tv_origin_price.setText(item.origin_price);
-        holder.tv_price.setText(item.price);
-        holder.ratingBar.setRating(item.rating);
-        holder.tv_rate_person.setText("(" + item.rating_person + ")");
+        holder.tv_origin_price.setText(item.origin_price + "원");
+        holder.tv_price.setText(item.price+"원");
+
+        if(item.rating_person == 0){
+            holder.ratingBar.setVisibility(View.INVISIBLE);
+            holder.tv_rate_person.setVisibility(View.INVISIBLE);
+        }else{
+            holder.ratingBar.setRating(item.rating);
+            holder.tv_rate_person.setText("(" + item.rating_person + ")");
+        }
 
         return convertView;
     }

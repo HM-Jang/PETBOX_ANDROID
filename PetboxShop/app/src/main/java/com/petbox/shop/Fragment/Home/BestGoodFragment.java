@@ -39,6 +39,8 @@ public class BestGoodFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public static final int DEFAULT_INTERVAL = 5000;
+
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
 
@@ -46,6 +48,8 @@ public class BestGoodFragment extends Fragment {
     ArrayList<BestGoodInfo> mItemList;
     BestGoodGridAdapter gridAdapter;
     PageIndicator mIndicator;
+
+    public int interval = DEFAULT_INTERVAL;
 
     /**
      * Use this factory method to create a new instance of
@@ -86,9 +90,9 @@ public class BestGoodFragment extends Fragment {
 
         mItemList = new ArrayList<BestGoodInfo>();
 
-        BestGoodInfo info[] = new BestGoodInfo[6];
+        BestGoodInfo info[] = new BestGoodInfo[20];
 
-        for(int i=0; i<6; i++){
+        for(int i=0; i<20; i++){
             info[i] = new BestGoodInfo();
 
             info[i].name = "상품명\n"+i;
@@ -101,28 +105,32 @@ public class BestGoodFragment extends Fragment {
             mItemList.add(info[i]);
         }
 
-
         View headerView = inflater.inflate(R.layout.custom_slide_image, null);
         viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
 
         BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
         viewPager.setAdapter(bestGoodPagerAdapter);
 
+        viewPager.setCurrentItem(3);
+
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
         mIndicator = circlePageIndicator;
         mIndicator.setViewPager(viewPager);
 
-        circlePageIndicator.setPageColor(0xFF6d6d6d);
-        circlePageIndicator.setFillColor(0xFFe46c0a);
-        circlePageIndicator.setStrokeColor(0x00000000);
+        circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
+        circlePageIndicator.setFillColor(0xFFe46c0a);   //선택된 원 색상
+        circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
         gridView = (GridViewWithHeaderAndFooter)v.findViewById(R.id.grid_best_good);
         gridAdapter = new BestGoodGridAdapter(getActivity().getApplicationContext(), mItemList);
         gridView.addHeaderView(headerView);
         gridView.setAdapter(gridAdapter);
 
-
         return  v;
+    }
+
+    public void initViewPager(){
+        viewPager.setCurrentItem(0);
     }
 
     public void refreshGridView(ArrayList<BestGoodInfo> itemList){
