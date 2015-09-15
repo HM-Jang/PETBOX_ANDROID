@@ -10,7 +10,7 @@
         android:src="@drawable/no_image"
         android:scaleType="fitXY"
         android:layout_weight="1"
-        android:padding="10dp" />
+        android:padding="5dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,20 +18,23 @@
         android:layout_height="match_parent"
         android:id="@+id/linear_best_good_grid"
         android:layout_weight="1.5"
-        android:padding="10dp">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="상품명이 두줄이어도 \n 두줄까지는 노출"
-            android:id="@+id/tv_best_good_grid_name" />
+            android:id="@+id/tv_best_good_grid_name"
+            android:textColor="#ff000000" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:paddingTop="5dp">
 
             <FrameLayout
