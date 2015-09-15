@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/frame_best_good"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/pager_best_good">
+
+    </android.support.v4.view.ViewPager>
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator_best_good"
+        android:layout_gravity="bottom|center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="6dp"
+        app:centered="true"
+        app:fillColor="#FFFFFFFF"
+        app:pageColor="#88FFFFFF"
+        app:radius="4dp"
+        app:strokeColor="#FF1047A9"
+        app:strokeWidth="1dp" />
+
+
+</FrameLayout>

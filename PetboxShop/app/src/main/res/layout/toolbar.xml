@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#e46c0a"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:layout_gravity="center_vertical">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/ibtn_menu_category"
+                android:layout_gravity="left|center_vertical"
+                android:src="@drawable/btn_m"
+                android:layout_alignParentLeft="true"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_centerVertical="true" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/ibtn_menu_cart"
+                android:layout_gravity="center_vertical|right"
+                android:src="@drawable/btn_c"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/iv_logo"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/logo"
+                android:layout_alignParentTop="false"
+                android:layout_toRightOf="@+id/ibtn_menu_category"
+                android:paddingLeft="3dp"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:visibility="visible"
+                android:paddingRight="3dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/frame_search"
+                android:layout_toRightOf="@+id/iv_logo"
+                android:layout_toLeftOf="@+id/ibtn_menu_cart"
+                android:layout_centerVertical="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/edit_search"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_search"
+                        android:editable="true" />
+                </FrameLayout>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/iv_search"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@drawable/btn_search" />
+
+            </FrameLayout>
+        </RelativeLayout>
+</LinearLayout>
+
+
