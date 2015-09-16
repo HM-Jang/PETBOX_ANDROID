@@ -5,11 +5,21 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.petbox.shop.Adapter.List.ChanceDealListAdapter;
+import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
+import com.petbox.shop.BestGoodInfo;
 import com.petbox.shop.R;
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.PageIndicator;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +38,17 @@ public class ChanceDealFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ViewPager viewPager;
+    PageIndicator mIndicator;
+
+    PullToRefreshListView listView;
+    ChanceDealListAdapter listAdapter;
+
+    ArrayList<BestGoodInfo> mItemList;
+
+    Spinner spin_category1, spin_category2, spin_category3;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +87,50 @@ public class ChanceDealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chance_deal, container, false);
+        View v = inflater.inflate(R.layout.fragment_chance_deal, container, false);
+
+        mItemList = new ArrayList<BestGoodInfo>();
+
+        BestGoodInfo info[] = new BestGoodInfo[20];
+
+        for(int i=0; i<20; i++){
+            info[i] = new BestGoodInfo();
+
+            info[i].name = "상품명\n"+i;
+            info[i].rate = ""+i;
+            info[i].origin_price = (i+1)+ "5,000";
+            info[i].price = (i+1)+"0,000";
+            info[i].rating = 3;
+            info[i].rating_person = i;
+
+            mItemList.add(info[i]);
+        }
+
+        spin_category1 = (Spinner) v.findViewById(R.id.spin_chance_deal_category1);
+        spin_category2 = (Spinner) v.findViewById(R.id.spin_chance_deal_category2);
+        spin_category3 = (Spinner) v.findViewById(R.id.spin_chance_deal_category3);
+
+        View headerView = inflater.inflate(R.layout.custom_slide_image, null);
+        viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
+
+        BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
+        viewPager.setAdapter(bestGoodPagerAdapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
+        mIndicator = circlePageIndicator;
+        mIndicator.setViewPager(viewPager);
+
+        circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
+        circlePageIndicator.setFillColor(0xFFe46c0a);   //선택된 원 색상
+        circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
+
+
+        listView = (PullToRefreshListView) v.findViewById(R.id.list_chance_deal);
+        listAdapter = new ChanceDealListAdapter(getActivity().getApplicationContext(), mItemList);
+        listView.addHeaderView(headerView);
+        listView.setAdapter(listAdapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

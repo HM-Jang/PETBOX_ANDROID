@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.petbox.shop.R;
 
@@ -54,6 +55,16 @@ public class BestGoodPagerAdapter extends PagerAdapter {
         */
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setImageResource(images[position]);
+
+        final int pos = position;
+
+        imageView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, pos + "번째, 이미지 클릭", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ((ViewPager) container).addView(imageView, 0);
 

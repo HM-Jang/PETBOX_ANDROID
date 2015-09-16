@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.petbox.shop.Adapter.Grid.BestGoodGridAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
 import com.petbox.shop.BestGoodInfo;
@@ -35,16 +36,17 @@ public class BestGoodFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public static final int DEFAULT_INTERVAL = 5000;
+    public final int DEFAULT_INTERVAL = 5000;
 
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
 
-    GridViewWithHeaderAndFooter gridView;
+    PullToRefreshGridView gridView;
     ArrayList<BestGoodInfo> mItemList;
     BestGoodGridAdapter gridAdapter;
     PageIndicator mIndicator;
@@ -111,7 +113,7 @@ public class BestGoodFragment extends Fragment {
         BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
         viewPager.setAdapter(bestGoodPagerAdapter);
 
-        viewPager.setCurrentItem(3);
+        //viewPager.setCurrentItem(3);
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
         mIndicator = circlePageIndicator;
@@ -121,7 +123,7 @@ public class BestGoodFragment extends Fragment {
         circlePageIndicator.setFillColor(0xFFe46c0a);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
-        gridView = (GridViewWithHeaderAndFooter)v.findViewById(R.id.grid_best_good);
+        gridView = (PullToRefreshGridView)v.findViewById(R.id.grid_best_good);
         gridAdapter = new BestGoodGridAdapter(getActivity().getApplicationContext(), mItemList);
         gridView.addHeaderView(headerView);
         gridView.setAdapter(gridAdapter);

@@ -7,13 +7,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
+    <com.handmark.pulltorefresh.library.PullToRefreshGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/grid_best_good"
         android:numColumns="auto_fit"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="5dp">
-    </in.srain.cube.views.GridViewWithHeaderAndFooter>
+    </com.handmark.pulltorefresh.library.PullToRefreshGridView>
 
 </RelativeLayout>

@@ -58,15 +58,15 @@ public class BestGoodGridAdapter extends BaseAdapter {
 
         if(convertView == null){
 
-            convertView = inflater.inflate(R.layout.grid_best_good_item, parent, false);
+            convertView = inflater.inflate(R.layout.grid_style_item, parent, false);
             holder = new ViewHolder();
-            holder.iv_image = (ImageView) convertView.findViewById(R.id.iv_best_good_grid);
-            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_best_good_grid_name);
-            holder.tv_rate = (TextView) convertView.findViewById(R.id.tv_best_good_grid_rate);
-            holder.tv_origin_price = (TextView) convertView.findViewById(R.id.tv_best_good_grid_origin_price);
-            holder.tv_price = (TextView) convertView.findViewById(R.id.tv_best_good_grid_price);
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-            holder.tv_rate_person = (TextView) convertView.findViewById(R.id.tv_best_good_grid_rate_person);
+            holder.iv_image = (ImageView) convertView.findViewById(R.id.iv_grid_image);
+            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_grid_name);
+            holder.tv_rate = (TextView) convertView.findViewById(R.id.tv_grid_rate);
+            holder.tv_origin_price = (TextView) convertView.findViewById(R.id.tv_grid_origin_price);
+            holder.tv_price = (TextView) convertView.findViewById(R.id.tv_grid_price);
+            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rb_grid);
+            holder.tv_rate_person = (TextView) convertView.findViewById(R.id.tv_grid_rate_person);
 
             convertView.setTag(holder);
         }else{
