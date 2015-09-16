@@ -8,7 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.petbox.shop.Item.PlanningItemInfo;
+import com.petbox.shop.Item.BestGoodInfo;
+import com.petbox.shop.Item.PopularSearchInfo;
 import com.petbox.shop.R;
 
 import java.util.ArrayList;
@@ -16,23 +17,24 @@ import java.util.ArrayList;
 /**
  * Created by petbox on 2015-09-16.
  */
-
-//기획전 페이지
-public class PlanningListAdapter extends BaseAdapter {
+public class PopularSearchListAdapter extends BaseAdapter {
 
     Context mContext;
+    ArrayList<PopularSearchInfo> mItemList;
     LayoutInflater inflater;
-    ArrayList<PlanningItemInfo> mItemList;
 
-    public PlanningListAdapter(){}
+    public PopularSearchListAdapter(){}
 
-    public PlanningListAdapter(Context context){mContext = context;}
+    public PopularSearchListAdapter(Context context){
+        mContext = context;
+    }
 
-    public PlanningListAdapter(Context context, ArrayList<PlanningItemInfo> itemList){
+    public PopularSearchListAdapter(Context context, ArrayList<PopularSearchInfo> itemList){
         mContext = context;
         mItemList = itemList;
         inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
@@ -56,26 +58,38 @@ public class PlanningListAdapter extends BaseAdapter {
 
         if(convertView == null){
 
-            convertView = inflater.inflate(R.layout.list_style_planning, parent, false);
+            convertView = inflater.inflate(R.layout.list_style_popular_search, parent, false);
             holder = new ViewHolder();
-            holder.iv_image = (ImageView) convertView.findViewById(R.id.iv_list_plan_image);
-            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_list_plan_name);
+            holder.iv_image = (ImageView) convertView.findViewById(R.id.iv_popular_circle);
+            holder.tv_rank = (TextView) convertView.findViewById(R.id.tv_popular_rank);
+            holder.tv_title = (TextView) convertView.findViewById(R.id.tv_popular_title);
 
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
 
-       PlanningItemInfo item = mItemList.get(position);
+        PopularSearchInfo item = mItemList.get(position);
 
         //holder.iv_image.setImageResource(R.drawable.no_image);
-        holder.tv_name.setText(item.name);
+
+        int rank = item.ranking;
+
+        if(rank <= 3){  // 1,2,3 [3순위]
+            holder.iv_image.setImageResource(R.drawable.ranking_circle_mint);
+        }else{
+            holder.iv_image.setImageResource(R.drawable.ranking_circle_gray);
+        }
+
+        holder.tv_rank.setText(""+item.ranking);
+        holder.tv_title.setText(item.title);
 
         return convertView;
     }
 
     public class ViewHolder{
-        ImageView iv_image; //기획전 이미지
-        TextView tv_name ; // 기획전 명
+        ImageView iv_image; // 원
+        TextView tv_rank; // 순위
+        TextView tv_title ; // 타이틀
     }
 }

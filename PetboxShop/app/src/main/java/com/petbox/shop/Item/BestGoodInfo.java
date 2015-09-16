@@ -1,4 +1,4 @@
-package com.petbox.shop;
+package com.petbox.shop.Item;
 
 /**
  * Created by petbox on 2015-09-15.

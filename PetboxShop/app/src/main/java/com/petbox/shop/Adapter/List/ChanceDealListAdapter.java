@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.petbox.shop.BestGoodInfo;
+import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.R;
 
 import java.util.ArrayList;
@@ -90,10 +90,15 @@ public class ChanceDealListAdapter extends BaseAdapter {
         holder.tv_origin_price.setText(item.origin_price + "원");
         holder.tv_price.setText(item.price+"원");
 
-        if(item.rating_person == 0){
+        int rating_person = item.rating_person;
+
+        if(rating_person == 0){
             holder.ratingBar.setVisibility(View.INVISIBLE);
             holder.tv_rate_person.setVisibility(View.INVISIBLE);
         }else{
+            holder.ratingBar.setVisibility(View.VISIBLE);
+            holder.tv_rate_person.setVisibility(View.VISIBLE);
+
             holder.ratingBar.setRating(item.rating);
             holder.tv_rate_person.setText("(" + item.rating_person + ")");
         }

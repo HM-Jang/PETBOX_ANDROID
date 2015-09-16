@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.petbox.shop.Adapter.List.RecentSearchListAdapter;
+import com.petbox.shop.Item.PopularSearchInfo;
+import com.petbox.shop.Item.RecentSearchInfo;
 import com.petbox.shop.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +36,10 @@ public class RecentSearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    PullToRefreshListView listView;
+    RecentSearchListAdapter listAdapter;
+    ArrayList<RecentSearchInfo> mItemList;
 
     /**
      * Use this factory method to create a new instance of
@@ -66,7 +76,27 @@ public class RecentSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recent_search, container, false);
+        View v = inflater.inflate(R.layout.fragment_recent_search, container, false);
+
+        mItemList = new ArrayList<RecentSearchInfo>();
+
+        RecentSearchInfo info[] = new RecentSearchInfo[20];
+
+        for(int i=0; i<5; i++){
+            info[i] = new RecentSearchInfo();
+
+            info[i].title = "최근 검색어"+i;
+            info[i].date = "09.16";
+
+            mItemList.add(info[i]);
+        }
+
+        listView = (PullToRefreshListView) v.findViewById(R.id.list_recent_search);
+        listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList);
+        listView.setAdapter(listAdapter);
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

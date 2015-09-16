@@ -8,19 +8,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.petbox.shop.Adapter.Grid.BestGoodGridAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
-import com.petbox.shop.BestGoodInfo;
+import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.R;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
 import java.util.ArrayList;
-
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
 /**
  * A simple {@link Fragment} subclass.

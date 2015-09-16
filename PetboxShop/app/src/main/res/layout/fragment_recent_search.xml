@@ -4,9 +4,13 @@
     tools:context="com.petbox.shop.Fragment.Search.RecentSearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="최근검색어"
-        android:layout_gravity="center"
-        android:textSize="30dp" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_recent_search">
+
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </FrameLayout>

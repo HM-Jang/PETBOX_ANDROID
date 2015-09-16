@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/iv_list_plan_image"
         android:src="@drawable/test1"
         android:scaleType="fitXY" />
 
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="기획전 이름"
-            android:id="@+id/textView"
+            android:id="@+id/tv_list_plan_name"
             android:layout_gravity="center_vertical"
             android:textColor="#ff000000" />
     </LinearLayout>

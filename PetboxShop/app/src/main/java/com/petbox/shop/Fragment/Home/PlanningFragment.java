@@ -8,8 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.petbox.shop.Adapter.List.PlanningListAdapter;
+import com.petbox.shop.Item.PlanningItemInfo;
 import com.petbox.shop.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,17 +26,31 @@ import com.petbox.shop.R;
  * Use the {@link PlanningFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlanningFragment extends Fragment {
+public class PlanningFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final int SELECT_DOG = 0;
+    private static final int SELECT_CAT = 1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    Button btn_dog, btn_cat;
+    Spinner spin_category;
+    PullToRefreshListView listView;
+    PlanningListAdapter listAdapter_dog;
+    PlanningListAdapter listAdapter_cat;
+
+    ArrayList<PlanningItemInfo> mItemList_dog;
+    ArrayList<PlanningItemInfo> mItemList_cat;
+
+    int selected = SELECT_DOG;
 
     /**
      * Use this factory method to create a new instance of
@@ -66,8 +87,51 @@ public class PlanningFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_planning, container, false);
+        View v = inflater.inflate(R.layout.fragment_planning, container, false);
+
+        mItemList_dog = new ArrayList<PlanningItemInfo>();
+
+        PlanningItemInfo info[] = new PlanningItemInfo[5];
+
+        for(int i=0; i<5; i++){
+            info[i] = new PlanningItemInfo();
+
+            info[i].name = "강아지 기획전 이름"+(i+1);
+
+            mItemList_dog.add(info[i]);
+        }
+
+        mItemList_cat = new ArrayList<PlanningItemInfo>();
+
+        PlanningItemInfo info2[] = new PlanningItemInfo[7];
+
+        for(int i=0; i<7; i++){
+            info2[i] = new PlanningItemInfo();
+
+            info2[i].name = "고양이 기획전 이름"+(i+1);
+
+            mItemList_cat.add(info2[i]);
+        }
+
+        btn_dog = (Button) v.findViewById(R.id.btn_planning_dog);
+        btn_dog.setOnClickListener(this);
+
+        btn_cat = (Button) v.findViewById(R.id.btn_planning_cat);
+        btn_cat.setOnClickListener(this);
+
+        spin_category = (Spinner) v.findViewById(R.id.spin_planning_category);
+
+        listView = (PullToRefreshListView) v.findViewById(R.id.list_planning);
+        listAdapter_dog = new PlanningListAdapter(getActivity().getApplicationContext(), mItemList_dog);
+        listAdapter_cat = new PlanningListAdapter(getActivity().getApplicationContext(), mItemList_cat);
+
+        listView.setAdapter(listAdapter_dog);
+
+        return v;
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -91,6 +155,36 @@ public class PlanningFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void setAdapter(int selected){
+        if(selected == SELECT_DOG){
+            listView.setAdapter(listAdapter_dog);
+
+        }else if(selected == SELECT_CAT){
+            listView.setAdapter(listAdapter_cat);
+
+        }
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch(id){
+            case R.id.btn_planning_dog :
+                selected = SELECT_DOG;
+                setAdapter(selected);
+                break;
+
+            case R.id.btn_planning_cat :
+                selected = SELECT_CAT;
+                setAdapter(selected);
+                break;
+        }
+
     }
 
     /**

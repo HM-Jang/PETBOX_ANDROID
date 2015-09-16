@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.ChanceDealListAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
-import com.petbox.shop.BestGoodInfo;
+import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.R;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;

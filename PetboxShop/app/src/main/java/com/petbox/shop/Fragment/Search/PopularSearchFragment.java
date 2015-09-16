@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.petbox.shop.Adapter.List.PopularSearchListAdapter;
+import com.petbox.shop.Item.PlanningItemInfo;
+import com.petbox.shop.Item.PopularSearchInfo;
 import com.petbox.shop.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +36,10 @@ public class PopularSearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    PullToRefreshListView listView;
+    PopularSearchListAdapter listAdapter;
+    ArrayList<PopularSearchInfo> mItemList;
 
     /**
      * Use this factory method to create a new instance of
@@ -66,7 +76,27 @@ public class PopularSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular_search, container, false);
+        View v = inflater.inflate(R.layout.fragment_popular_search, container, false);
+
+        mItemList = new ArrayList<PopularSearchInfo>();
+
+        PopularSearchInfo info[] = new PopularSearchInfo[20];
+
+        for(int i=0; i<20; i++){
+            info[i] = new PopularSearchInfo();
+
+            info[i].ranking = i+1;
+            info[i].title = "검색어"+i;
+
+            mItemList.add(info[i]);
+        }
+
+
+        listView = (PullToRefreshListView) v.findViewById(R.id.list_popular_search);
+        listAdapter = new PopularSearchListAdapter(getActivity().getApplicationContext(), mItemList);
+        listView.setAdapter(listAdapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
