@@ -26,9 +26,14 @@ import android.view.View;
 
 import com.handmark.pulltorefresh.library.internal.EmptyViewMethodAccessor;
 
+import java.util.ArrayList;
+
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
 public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridViewWithHeaderAndFooter> {
+
+	//ArrayList<GridViewWithHeaderAndFooter> gridList;
+	GridViewWithHeaderAndFooter gv;
 
 	public PullToRefreshGridView(Context context) {
 		super(context);
@@ -51,22 +56,35 @@ public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridView
 		return Orientation.VERTICAL;
 	}
 
+	public void addHeaderView(View v){
+		gv.addHeaderView(v);
+	}
+
+
 	@Override
 	protected final GridViewWithHeaderAndFooter createRefreshableView(Context context, AttributeSet attrs) {
-		final GridViewWithHeaderAndFooter gv;
+		//final GridViewWithHeaderAndFooter gv;
 
-        gv = new GridViewWithHeaderAndFooter(context, attrs);
-        /*
+        //gv = new GridViewWithHeaderAndFooter(context, attrs);
+
 		if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
 			gv = new InternalGridViewSDK9(context, attrs);
 		} else {
 			gv = new InternalGridView(context, attrs);
 		}
-        */
+
 		// Use Generated ID (from res/values/ids.xml)
 		gv.setId(R.id.gridview);
+		//gridList.add(gv);
+
+		//System.out.println("PULLGRID : " + gridList.size());
+
 		return gv;
 	}
+
+
+
+
 
 	class InternalGridView extends GridViewWithHeaderAndFooter implements EmptyViewMethodAccessor {
 
@@ -83,6 +101,7 @@ public class PullToRefreshGridView extends PullToRefreshAdapterViewBase<GridView
 		public void setEmptyViewInternal(View emptyView) {
 			super.setEmptyView(emptyView);
 		}
+
 	}
 
 	@TargetApi(9)

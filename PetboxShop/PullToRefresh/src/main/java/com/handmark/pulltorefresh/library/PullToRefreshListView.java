@@ -41,6 +41,8 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 
 	private boolean mListViewExtrasEnabled;
 
+	private ListView listView;
+
 	public PullToRefreshListView(Context context) {
 		super(context);
 	}
@@ -203,13 +205,18 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 	}
 
 	protected ListView createListView(Context context, AttributeSet attrs) {
-		final ListView lv;
+
+
 		if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
-			lv = new InternalListViewSDK9(context, attrs);
+			listView = new InternalListViewSDK9(context, attrs);
 		} else {
-			lv = new InternalListView(context, attrs);
+			listView = new InternalListView(context, attrs);
 		}
-		return lv;
+		return listView;
+	}
+
+	public void addHeaderView(View v){
+		listView.addHeaderView(v);
 	}
 
 	@Override

@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/iv_best_good_grid"
+        android:id="@+id/iv_grid_image"
         android:src="@drawable/no_image"
         android:scaleType="fitXY"
         android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="상품명이 두줄이어도 \n 두줄까지는 노출"
-            android:id="@+id/tv_best_good_grid_name"
+            android:id="@+id/tv_grid_name"
             android:textColor="#ff000000" />
 
         <LinearLayout
@@ -59,11 +59,11 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="12"
-                            android:id="@+id/tv_best_good_grid_rate"
+                            android:id="@+id/tv_grid_rate"
                             android:layout_gravity="center"
-                            android:textSize="30sp"
                             android:layout_centerInParent="true"
-                            android:textColor="#ff000000" />
+                            android:textColor="#ff000000"
+                            android:textSize="30sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -71,7 +71,8 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="%"
                             android:layout_gravity="bottom"
-                            android:textColor="#ff202020" />
+                            android:textColor="#ff202020"
+                            android:textIsSelectable="false" />
 
                     </LinearLayout>
 
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="10,000원"
-                    android:id="@+id/tv_best_good_grid_origin_price"
+                    android:id="@+id/tv_grid_origin_price"
                     android:layout_weight="1" />
 
                 <TextView
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="9,000원"
-                    android:id="@+id/tv_best_good_grid_price"
+                    android:id="@+id/tv_grid_price"
                     android:layout_weight="1"
                     android:textColor="#ff000000" />
             </LinearLayout>
@@ -112,7 +113,7 @@
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ratingBar"
+                android:id="@+id/rb_grid"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_gravity="bottom" />
 
@@ -121,9 +122,10 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="(13)"
-                android:id="@+id/tv_best_good_grid_rate_person"
+                android:id="@+id/tv_grid_rate_person"
                 android:layout_gravity="bottom"
-                android:textColor="#ff000000" />
+                android:textColor="#ff000000"
+                android:paddingLeft="5dp" />
 
         </LinearLayout>
     </LinearLayout>
