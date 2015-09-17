@@ -29,6 +29,10 @@ public class BestGoodPagerAdapter extends PagerAdapter {
 
     public BestGoodPagerAdapter(){}
 
+    public int getImages(){
+        return images.length;
+    }
+
     public BestGoodPagerAdapter(Context context){
         mContext = context;
     }

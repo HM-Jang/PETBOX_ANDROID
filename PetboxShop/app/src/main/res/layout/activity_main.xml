@@ -14,7 +14,7 @@
         android:id="@+id/slide_tabs"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="#d06107"
+        android:background="@drawable/border_bottom_black"
         app:tabIndicatorHeight="4dp"
         app:tabIndicatorColor="#9e9e9e"
         android:layout_below="@+id/main_toolbar"/>
@@ -31,7 +31,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/linear_bottom_menu"
-        android:background="#000000">
+        android:background="@drawable/border_top_black">
 
         <ImageButton
             android:layout_width="match_parent"

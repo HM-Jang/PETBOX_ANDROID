@@ -36,7 +36,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btn_recent_search_delete"
+                android:src="@drawable/btn_delete"
                 android:background="#00000000"
                 android:id="@+id/ibtn_recent_search_delete"
                 android:layout_gravity="center_vertical" />

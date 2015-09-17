@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@drawable/border_bottom_black"
         android:id="@+id/linear_chance_deal_top">
 
         <Spinner
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linear_chance_deal_top"
+        android:dividerHeight="8dp"
         android:id="@+id/list_chance_deal">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 

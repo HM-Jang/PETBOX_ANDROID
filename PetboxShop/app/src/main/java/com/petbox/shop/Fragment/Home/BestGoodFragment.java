@@ -3,6 +3,8 @@ package com.petbox.shop.Fragment.Home;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +51,15 @@ public class BestGoodFragment extends Fragment {
     BestGoodGridAdapter gridAdapter;
     PageIndicator mIndicator;
 
+    BestGoodPagerAdapter bestGoodPagerAdapter;
+
     public int interval = DEFAULT_INTERVAL;
+
+    Thread  timerThread;
+    Handler handler;
+
+    Boolean isRunning = true;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -107,7 +118,7 @@ public class BestGoodFragment extends Fragment {
         View headerView = inflater.inflate(R.layout.custom_slide_image, null);
         viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
 
-        BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
+        bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
         viewPager.setAdapter(bestGoodPagerAdapter);
 
         //viewPager.setCurrentItem(3);
@@ -117,7 +128,7 @@ public class BestGoodFragment extends Fragment {
         mIndicator.setViewPager(viewPager);
 
         circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
-        circlePageIndicator.setFillColor(0xFFe46c0a);   //선택된 원 색상
+        circlePageIndicator.setFillColor(0xFF303F9F);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
         gridView = (PullToRefreshGridView)v.findViewById(R.id.grid_best_good);
@@ -125,8 +136,42 @@ public class BestGoodFragment extends Fragment {
         gridView.addHeaderView(headerView);
         gridView.setAdapter(gridAdapter);
 
+
+
+        handler = new Handler(){
+            public void handleMessage(Message msg){
+                if (viewPager.getCurrentItem() == bestGoodPagerAdapter.getImages() - 1) {
+                    viewPager.setCurrentItem(0, true);
+                }else{
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1, true);
+                }
+            }
+        };
+
+
+        timerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(isRunning){
+                    try{
+                        timerThread.sleep(3000);
+
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+
+                    //isRunning = false;
+
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }
+            }
+        });
+
+        timerThread.start();
         return  v;
     }
+
 
     public void initViewPager(){
         viewPager.setCurrentItem(0);

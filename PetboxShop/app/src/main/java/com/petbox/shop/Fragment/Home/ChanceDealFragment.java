@@ -120,8 +120,9 @@ public class ChanceDealFragment extends Fragment {
         mIndicator = circlePageIndicator;
         mIndicator.setViewPager(viewPager);
 
+
         circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
-        circlePageIndicator.setFillColor(0xFFe46c0a);   //선택된 원 색상
+        circlePageIndicator.setFillColor(0xFF303F9F);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
 

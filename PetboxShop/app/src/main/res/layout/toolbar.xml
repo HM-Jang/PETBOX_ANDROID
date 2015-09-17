@@ -7,7 +7,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#e46c0a"
+            android:background="#303F9F"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:layout_gravity="center_vertical">
@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true" />
 
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:id="@+id/iv_logo"
                 android:layout_gravity="center_vertical"
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingRight="6dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
 
@@ -75,7 +75,8 @@
                     android:layout_height="30dp"
                     android:id="@+id/iv_search"
                     android:layout_gravity="center_vertical|right"
-                    android:src="@drawable/btn_search" />
+                    android:src="@drawable/btn_search"
+                    android:paddingRight="6dp" />
 
             </FrameLayout>
         </RelativeLayout>

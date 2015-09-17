@@ -7,6 +7,7 @@
         android:layout_height="30dp"
         android:text="-"
         android:id="@+id/btn_minus"
+        android:textColor="#ff959595"
         android:background="@drawable/border_black" />
 
     <EditText
@@ -18,8 +19,8 @@
         android:background="@drawable/border_black"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btn_minus"
-        android:layout_toEndOf="@+id/btn_minus"
         android:text="0"
+        android:textColor="#ff000000"
         android:gravity="center" />
 
     <Button
@@ -29,6 +30,6 @@
         android:id="@+id/btn_plus"
         android:background="@drawable/border_black"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/edit_num"
-        android:layout_toEndOf="@+id/edit_num" />
+        android:textColor="#ff959595"
+        android:layout_toRightOf="@+id/edit_num" />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.petbox.shop;
 
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
      * The {@link ViewPager} that will host the section contents.
      */
 
+    private static final int REQ_SPLASH = 1;
+    private static final int RES_SPLASH_CANCEL = 0;
     public static final String TAG = "MainAct";
 
     private TabLayout tabLayout;
@@ -77,6 +80,10 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent i = new Intent(this, SplashActivity.class);
+        startActivityForResult(i, REQ_SPLASH);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -115,10 +122,6 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         ibtn_mypage = (ImageButton)findViewById(R.id.ibtn_mypage);
         ibtn_mypage.setOnClickListener(this);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
         fragmentManager = getSupportFragmentManager();
@@ -133,8 +136,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
 
-        tabLayout.setSelectedTabIndicatorColor(0xff00aeff);
-        tabLayout.setTabTextColors(0xffd5a781, 0xffffffff);
+        tabLayout.setSelectedTabIndicatorColor(0xff303F9F);
+        tabLayout.setTabTextColors(0xff4e91ff, 0xff000000);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -227,7 +230,10 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 break;
 
             case R.id.ibtn_menu_cart:
-                Toast.makeText(getApplicationContext(), "menu_cart", Toast.LENGTH_SHORT).show();
+                Intent cart_intnet = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(cart_intnet);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //Toast.makeText(getApplicationContext(), "menu_cart", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.ibtn_home:
@@ -256,6 +262,19 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
         }
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode){
+            case REQ_SPLASH:
+
+                if(resultCode == RES_SPLASH_CANCEL){
+                    finish();
+                }
+                break;
+        }
     }
 
     @Override
