@@ -82,7 +82,10 @@ public class RecentSearchListAdapter extends BaseAdapter  {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, pos + "번째, 검색어 클릭", Toast.LENGTH_SHORT).show();
+
+                mItemList.remove(pos);
+
+                Toast.makeText(mContext, pos + "번째, 검색어 삭제", Toast.LENGTH_SHORT).show();
             }
         });
 
