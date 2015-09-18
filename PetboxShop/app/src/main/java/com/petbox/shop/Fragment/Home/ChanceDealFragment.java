@@ -49,6 +49,7 @@ public class ChanceDealFragment extends Fragment {
 
     Spinner spin_category1, spin_category2, spin_category3;
 
+    int mainColor = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +90,8 @@ public class ChanceDealFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_chance_deal, container, false);
 
+        mainColor = getResources().getColor(R.color.colorPrimary);
+
         mItemList = new ArrayList<BestGoodInfo>();
 
         BestGoodInfo info[] = new BestGoodInfo[20];
@@ -122,7 +125,7 @@ public class ChanceDealFragment extends Fragment {
 
 
         circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
-        circlePageIndicator.setFillColor(0xFF303F9F);   //선택된 원 색상
+        circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
 

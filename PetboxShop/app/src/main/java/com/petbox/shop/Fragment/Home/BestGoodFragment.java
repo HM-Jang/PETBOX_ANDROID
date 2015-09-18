@@ -60,6 +60,7 @@ public class BestGoodFragment extends Fragment {
 
     Boolean isRunning = true;
 
+    int mainColor = 0;
 
     /**
      * Use this factory method to create a new instance of
@@ -98,6 +99,8 @@ public class BestGoodFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_best_good, container, false);
 
+        mainColor = getResources().getColor(R.color.colorPrimary);
+
         mItemList = new ArrayList<BestGoodInfo>();
 
         BestGoodInfo info[] = new BestGoodInfo[20];
@@ -128,15 +131,13 @@ public class BestGoodFragment extends Fragment {
         mIndicator.setViewPager(viewPager);
 
         circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
-        circlePageIndicator.setFillColor(0xFF303F9F);   //선택된 원 색상
+        circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
         gridView = (PullToRefreshGridView)v.findViewById(R.id.grid_best_good);
         gridAdapter = new BestGoodGridAdapter(getActivity().getApplicationContext(), mItemList);
         gridView.addHeaderView(headerView);
         gridView.setAdapter(gridAdapter);
-
-
 
         handler = new Handler(){
             public void handleMessage(Message msg){

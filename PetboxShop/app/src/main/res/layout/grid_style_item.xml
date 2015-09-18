@@ -62,7 +62,7 @@
                             android:id="@+id/tv_grid_rate"
                             android:layout_gravity="center"
                             android:layout_centerInParent="true"
-                            android:textColor="#ff000000"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="30sp" />
 
                         <TextView
@@ -71,7 +71,7 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:text="%"
                             android:layout_gravity="bottom"
-                            android:textColor="#ff202020"
+                            android:textColor="@color/colorPrimary"
                             android:textIsSelectable="false" />
 
                     </LinearLayout>

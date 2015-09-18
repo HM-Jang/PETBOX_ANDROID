@@ -1,6 +1,8 @@
 package com.petbox.shop.Adapter.List;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ public class ChanceDealListAdapter extends BaseAdapter {
     ArrayList<BestGoodInfo> mItemList;
     LayoutInflater inflater;
 
+    int mainColor = 0;
+
     private int[] images = new int[]{
             R.drawable.test1,
             R.drawable.test2,
@@ -42,6 +46,7 @@ public class ChanceDealListAdapter extends BaseAdapter {
         mContext = context;
         mItemList = itemList;
         inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mainColor = mContext.getResources().getColor(R.color.colorPrimary);
     }
 
 
@@ -76,6 +81,11 @@ public class ChanceDealListAdapter extends BaseAdapter {
             holder.tv_price = (TextView) convertView.findViewById(R.id.tv_list_price);
             holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rb_list);
             holder.tv_rate_person = (TextView) convertView.findViewById(R.id.tv_list_rate_person);
+
+            LayerDrawable stars = (LayerDrawable) holder.ratingBar.getProgressDrawable();
+
+            stars.getDrawable(2).setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP);
+            convertView.setTag(holder);
 
             convertView.setTag(holder);
         }else{

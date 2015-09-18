@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorAccent">#FF4081</item>
-        <item name="colorPrimary">#e46c0a</item>
-        <item name="colorPrimaryDark">#303F9F</item>
+        <item name="colorPrimary">#fd5d21</item>
+        <item name="colorPrimaryDark">#433326</item>
         <item name="colorControlHighlight">#00CC55</item>
         <item name="colorControlNormal">#FF0000</item>
         <item name="android:windowBackground">@android:color/white</item>

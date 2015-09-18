@@ -28,28 +28,45 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/linear_bottom_menu"
         android:background="@drawable/border_top_black">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ibtn_home"
-            android:layout_weight="1" />
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:background="#0000"
+            android:src="@drawable/btn_test" />
+
+    </FrameLayout>
+
+
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:id="@+id/ibtn_category"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:src="@drawable/btn_bottom_category_off"/>
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:id="@+id/ibtn_search"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:src="@drawable/btn_bottom_search_off"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -58,13 +75,17 @@
 
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/btn_bottom_login_off"
+                android:layout_gravity="bottom"
                 android:id="@+id/ibtn_login" />
 
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:id="@+id/ibtn_mypage"
+                android:src="@drawable/btn_bottom_mypage_off"
+                android:layout_gravity="bottom"
                 android:visibility="gone" />
         </FrameLayout>
     </LinearLayout>

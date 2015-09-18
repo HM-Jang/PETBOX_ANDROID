@@ -52,14 +52,14 @@
                         android:text="45"
                         android:id="@+id/tv_list_rate"
                         android:textSize="30sp"
-                        android:textColor="#ff000000" />
+                        android:textColor="@color/colorPrimary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="%"
-                        android:textColor="#ff202020" />
+                        android:textColor="@color/colorPrimary" />
                 </LinearLayout>
             </FrameLayout>
 

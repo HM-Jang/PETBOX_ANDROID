@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 버튼 클릭시 이미지 -->
+    <item android:drawable="@drawable/btn_bottom_mypage_on" android:state_pressed="true">
+    </item>
+
+    <!-- 기본이미지 -->
+    <item android:drawable="@drawable/btn_bottom_mypage_off">
+    </item>
+
+</selector>

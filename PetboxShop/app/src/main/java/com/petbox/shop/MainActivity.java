@@ -41,19 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentInteractionListener, RegularShippingFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener
 , PopularSearchFragment.OnFragmentInteractionListener, RecentSearchFragment.OnFragmentInteractionListener{
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-
     private static final int REQ_SPLASH = 1;
     private static final int RES_SPLASH_CANCEL = 0;
     public static final String TAG = "MainAct";
@@ -68,6 +55,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
     private FragmentManager fragmentManager;
 
+    int menu_selected = 0;  // 0: 펫박스홈, 1: 카테고리, 2: 검색, 3: 마이페이지
 
     //SlidingTabLayout mSlidingTabLayout;
 
@@ -78,6 +66,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
     EditText edit_search;
     ImageView iv_logo, iv_search;
 
+    int mainColor = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent i = new Intent(this, SplashActivity.class);
@@ -86,6 +76,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainColor = getResources().getColor(R.color.colorPrimary);
 
         //toolbar = (Toolbar)findViewById(R.id.main_toolbar);
         //setSupportActionBar(toolbar);
@@ -136,7 +128,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
 
-        tabLayout.setSelectedTabIndicatorColor(0xff303F9F);
+        tabLayout.setSelectedTabIndicatorColor(mainColor);
         tabLayout.setTabTextColors(0xff4e91ff, 0xff000000);
         tabLayout.setupWithViewPager(mViewPager);
     }
@@ -238,30 +230,82 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
             case R.id.ibtn_home:
                 //Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-                setHomePagerAdapter();
+                menu_selected = 0;
+
+                if(menu_selected == 0 ){    // 홈
+                    setHomePagerAdapter();
+
+                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_on);
+                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
+                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+
+                    if(ibtn_mypage.getVisibility() == View.VISIBLE)
+                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                }
+
+
                 break;
 
             case R.id.ibtn_category:
                 //Toast.makeText(getApplicationContext(), "category", Toast.LENGTH_SHORT).show();
-                setCategoryPagerAdapter();
+                menu_selected = 1;
+
+                if(menu_selected == 1 ) {    // 카테고리
+                    setCategoryPagerAdapter();
+
+                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
+                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_on);
+                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+
+                    if (ibtn_mypage.getVisibility() == View.VISIBLE)
+                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                }
+
                 break;
 
             case R.id.ibtn_search:
                 //Toast.makeText(getApplicationContext(), "search", Toast.LENGTH_SHORT).show();
-                setSearchPagerAdapter();
+                menu_selected = 2;
+
+                if(menu_selected == 2 ) {    // 검색
+                    setSearchPagerAdapter();
+
+                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
+                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
+                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_on);
+
+                    if (ibtn_mypage.getVisibility() == View.VISIBLE)
+                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                }
+
                 break;
 
             case R.id.ibtn_login:
-                Toast.makeText(getApplicationContext(), "login", Toast.LENGTH_SHORT).show();
+                Intent login_intnet = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(login_intnet);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //Toast.makeText(getApplicationContext(), "login", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.ibtn_mypage:
-                Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
-                setMyPagePagerAdapter();
+                menu_selected = 3;
+
+                if(menu_selected == 3) {    // 홈
+
+                    Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
+                    setMyPagePagerAdapter();
+
+                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
+                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
+                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+
+                    if (ibtn_mypage.getVisibility() == View.VISIBLE)
+                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_on);
+
+                }
+
                 break;
-
         }
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

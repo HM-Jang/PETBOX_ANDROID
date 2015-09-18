@@ -1,6 +1,9 @@
 package com.petbox.shop.Adapter.Grid;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,8 @@ public class BestGoodGridAdapter extends BaseAdapter {
     ArrayList<BestGoodInfo> mItemList;
     LayoutInflater inflater;
 
+    int mainColor = 0;
+
     public BestGoodGridAdapter(Context context){
         mContext = context;
     }
@@ -34,6 +39,7 @@ public class BestGoodGridAdapter extends BaseAdapter {
         mContext = context;
         mItemList = itemList;
         inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mainColor = mContext.getResources().getColor(R.color.colorPrimary);
     }
 
     @Override
@@ -68,7 +74,11 @@ public class BestGoodGridAdapter extends BaseAdapter {
             holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rb_grid);
             holder.tv_rate_person = (TextView) convertView.findViewById(R.id.tv_grid_rate_person);
 
+            LayerDrawable stars = (LayerDrawable) holder.ratingBar.getProgressDrawable();
+
+            stars.getDrawable(2).setColorFilter(mainColor, PorterDuff.Mode.SRC_ATOP);
             convertView.setTag(holder);
+
         }else{
             holder = (ViewHolder) convertView.getTag();
         }

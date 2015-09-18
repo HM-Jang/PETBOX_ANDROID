@@ -7,7 +7,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#303F9F"
+            android:background="#fd5d21"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
             android:layout_gravity="center_vertical">
@@ -17,33 +17,37 @@
                 android:layout_height="30dp"
                 android:id="@+id/ibtn_menu_category"
                 android:layout_gravity="left|center_vertical"
-                android:src="@drawable/btn_m"
+                android:src="@drawable/ibtn_menu_category"
+                android:background="#00ffffff"
                 android:layout_alignParentLeft="true"
                 android:layout_alignWithParentIfMissing="false"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"/>
 
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/ibtn_menu_cart"
                 android:layout_gravity="center_vertical|right"
-                android:src="@drawable/btn_c"
+                android:src="@drawable/ibtn_menu_cart"
+                android:background="#00ffffff"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY" />
 
             <ImageView
-                android:layout_width="140dp"
-                android:layout_height="40dp"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
                 android:id="@+id/iv_logo"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/logo"
                 android:layout_alignParentTop="false"
                 android:layout_toRightOf="@+id/ibtn_menu_category"
-                android:paddingLeft="3dp"
+                android:paddingLeft="15dp"
                 android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:visibility="visible"
-                android:paddingRight="3dp" />
+                android:paddingRight="15dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
