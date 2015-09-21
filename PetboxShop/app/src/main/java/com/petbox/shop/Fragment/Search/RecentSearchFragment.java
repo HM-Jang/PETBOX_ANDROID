@@ -84,7 +84,7 @@ public class RecentSearchFragment extends Fragment implements RecentSearchDelega
         mItemList = new DBConnector(getContext()).returnFromRecentSearch(); // DB내에서 최근검색어 불러옴.
 
         listView = (PullToRefreshListView) v.findViewById(R.id.list_recent_search);
-        listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList);
+        listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList, this);
         listView.setAdapter(listAdapter);
 
 
@@ -118,12 +118,15 @@ public class RecentSearchFragment extends Fragment implements RecentSearchDelega
     @Override
     public void deleteNRefresh(int rowId) {
         new DBConnector(getContext()).deleteRecentSearchInfo(rowId);
+        refreshAdapater();
 
     }
 
     public void refreshAdapater(){
         mItemList.clear();
-        listAdapter = new RecentSearchListAdapter();
+        mItemList = new DBConnector(getContext()).returnFromRecentSearch();
+        listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList, this);
+        listView.setAdapter(listAdapter);
     }
 
     /**

@@ -136,15 +136,18 @@ public class DBConnector extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
-        do{
-            int id = c.getInt(c.getColumnIndex(Constants.RECENT_SEARCH_ROWID));
-            String title = c.getString(c.getColumnIndex(Constants.RECENT_SEARCH_TITLE));
-            String date = c.getString(c.getColumnIndex(Constants.RECENT_SEARCH_DATE));
+        if(c.getCount() > 0){
+            do{
+                int id = c.getInt(c.getColumnIndex(Constants.RECENT_SEARCH_ROWID));
+                String title = c.getString(c.getColumnIndex(Constants.RECENT_SEARCH_TITLE));
+                String date = c.getString(c.getColumnIndex(Constants.RECENT_SEARCH_DATE));
 
-            RecentSearchInfo item = new RecentSearchInfo(id, title, date);
-            itemList.add(item);
+                RecentSearchInfo item = new RecentSearchInfo(id, title, date);
+                itemList.add(item);
 
-        }while(c.moveToNext());
+            }while(c.moveToNext());
+        }
+
 
         db.close();
 
