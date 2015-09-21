@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.petbox.shop.DB.DBConnector;
 import com.petbox.shop.Delegate.RecentSearchDelegate;
 import com.petbox.shop.Item.RecentSearchInfo;
 import com.petbox.shop.R;
@@ -89,8 +90,8 @@ public class RecentSearchListAdapter extends BaseAdapter  {
             public void onClick(View v) {
 
                 //mItemList.remove(pos);
-
-                //Toast.makeText(mContext, pos + "번째, 검색어 삭제", Toast.LENGTH_SHORT).show();
+                delegate.deleteNRefresh(mItemList.get(pos).rowId);
+                //Toast.makeText(mContext, pos + "번째, 검색어 삭제(rowId : " + mItemList.get(pos).rowId + ")", Toast.LENGTH_SHORT).show();
             }
         });
 

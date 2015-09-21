@@ -116,7 +116,7 @@ public class DBConnector extends SQLiteOpenHelper {
         SQLiteDatabase db = new DBConnector(mContext).getWritableDatabase();
 
         String whereClause = Constants.RECENT_SEARCH_ROWID + "=?";  // Where절
-        String[] whereArgs = new String[]{Integer.toBinaryString(rowId)};
+        String[] whereArgs = new String[]{Integer.toString(rowId)};
 
         db.delete(Constants.RECENT_SEARCH, whereClause, whereArgs);
 

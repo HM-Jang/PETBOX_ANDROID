@@ -71,7 +71,9 @@
                         android:id="@+id/edit_search"
                         android:layout_gravity="center"
                         android:background="@drawable/bg_search"
-                        android:editable="true" />
+                        android:editable="true"
+                        android:enabled="true"
+                        android:hint="검색" />
                 </FrameLayout>
 
                 <ImageView

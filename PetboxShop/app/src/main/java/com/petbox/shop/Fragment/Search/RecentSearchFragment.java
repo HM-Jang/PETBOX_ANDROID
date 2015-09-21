@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.RecentSearchListAdapter;
@@ -79,16 +81,15 @@ public class RecentSearchFragment extends Fragment implements RecentSearchDelega
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_recent_search, container, false);
-
-        mItemList = new ArrayList<RecentSearchInfo>();
-        mItemList = new DBConnector(getContext()).returnFromRecentSearch(); // DB내에서 최근검색어 불러옴.
-
         listView = (PullToRefreshListView) v.findViewById(R.id.list_recent_search);
-        listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList, this);
-        listView.setAdapter(listAdapter);
-
 
         return v;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        refreshAdapater();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -117,13 +118,14 @@ public class RecentSearchFragment extends Fragment implements RecentSearchDelega
 
     @Override
     public void deleteNRefresh(int rowId) {
+        //Log.i("RecentSearch FRAGMENT",  " : ++ deleteNRefresh ++");
         new DBConnector(getContext()).deleteRecentSearchInfo(rowId);
         refreshAdapater();
 
     }
 
     public void refreshAdapater(){
-        mItemList.clear();
+        mItemList = new ArrayList<RecentSearchInfo>();
         mItemList = new DBConnector(getContext()).returnFromRecentSearch();
         listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList, this);
         listView.setAdapter(listAdapter);

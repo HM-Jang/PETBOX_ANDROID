@@ -25,6 +25,7 @@ import com.petbox.shop.Adapter.Pager.CategoryPagerAdapter;
 import com.petbox.shop.Adapter.Pager.HomePagerAdapter;
 import com.petbox.shop.Adapter.Pager.MyPagePagerAdapter;
 import com.petbox.shop.Adapter.Pager.SearchPagerAdapter;
+import com.petbox.shop.DB.DBConnector;
 import com.petbox.shop.Fragment.Category.CategoryFragment;
 import com.petbox.shop.Fragment.Home.BestGoodFragment;
 import com.petbox.shop.Fragment.Home.ChanceDealFragment;
@@ -35,6 +36,9 @@ import com.petbox.shop.Fragment.Home.RegularShippingFragment;
 import com.petbox.shop.Fragment.MyPage.MyPageFragment;
 import com.petbox.shop.Fragment.Search.PopularSearchFragment;
 import com.petbox.shop.Fragment.Search.RecentSearchFragment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BestGoodFragment.OnFragmentInteractionListener, ChanceDealFragment.OnFragmentInteractionListener, EventFragment.OnFragmentInteractionListener,
@@ -83,8 +87,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         //setSupportActionBar(toolbar);
 
         edit_search = (EditText)findViewById(R.id.edit_search);
-        edit_search.setFocusable(false);
-        edit_search.setClickable(true);
+        //edit_search.setFocusable(false);
+        //edit_search.setClickable(true);
 
         edit_search.setOnClickListener(this);
 
@@ -205,15 +209,35 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
         switch(id){
             case R.id.edit_search:
-                iv_logo.setVisibility(View.GONE);
-                edit_search.setFocusable(true);
-                edit_search.setClickable(true);
+
+                if(iv_logo.getVisibility() == View.VISIBLE){
+                    iv_logo.setVisibility(View.GONE);
+                   // edit_search.setFocusable(true);
+                    //edit_search.setClickable(true);
+                }else if(iv_logo.getVisibility() == View.GONE){
+                    iv_logo.setVisibility(View.VISIBLE);
+                    //edit_search.setFocusable(false);
+                    //edit_search.setClickable(true);
+                }
+
                 break;
 
             case R.id.iv_search:
-                iv_logo.setVisibility(View.VISIBLE);
-                edit_search.setFocusable(false);
-                edit_search.setClickable(true);
+                String searchContent = edit_search.getText().toString();
+
+                if(!searchContent.isEmpty()){   //검색란이 비어있지 않을 때
+
+                    edit_search.setText("");
+
+                    SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+                    Date currentTime = new Date ( );
+
+                    String today = format.format(currentTime);
+                    new DBConnector(getApplicationContext()).insertToRecentSearch(searchContent, today);
+                }else{
+                    Toast.makeText(getApplicationContext(), "검색란이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case R.id.ibtn_menu_category:
