@@ -9,9 +9,16 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class LoginActivity extends AppCompatActivity {
 
+    EditText edit_id, edit_pw;
+    ImageButton ibtn_login, ibtn_regist;    // 로그인, 회원가입
+    CheckBox chk_auto_login;    // 자동로그인 체크박스
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

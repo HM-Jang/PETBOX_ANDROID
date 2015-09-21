@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.petbox.shop.Delegate.RecentSearchDelegate;
 import com.petbox.shop.Item.RecentSearchInfo;
 import com.petbox.shop.R;
 
@@ -25,16 +26,20 @@ public class RecentSearchListAdapter extends BaseAdapter  {
     ArrayList<RecentSearchInfo> mItemList;
     LayoutInflater inflater;
 
+    RecentSearchDelegate delegate;
+
     public RecentSearchListAdapter(){}
 
     public RecentSearchListAdapter(Context context){
         mContext = context;
     }
 
-    public RecentSearchListAdapter(Context context, ArrayList<RecentSearchInfo> itemList){
+    public RecentSearchListAdapter(Context context, ArrayList<RecentSearchInfo> itemList, RecentSearchDelegate _delegate){
         mContext = context;
         mItemList = itemList;
         inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        delegate = _delegate;
     }
 
     @Override
@@ -92,18 +97,8 @@ public class RecentSearchListAdapter extends BaseAdapter  {
         return convertView;
     }
 
-    /*
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
 
-        switch(id){
-            case R.id.ibtn_recent_search_delete:
-                Toast.makeText(mContext, "", )
-        }
 
-    }
-    */
     public class ViewHolder{
         TextView tv_title ; // 타이틀
         TextView tv_date; // 검색날짜

@@ -76,7 +76,7 @@ public class PopularSearchListAdapter extends BaseAdapter {
         int rank = item.ranking;
 
         if(rank <= 3){  // 1,2,3 [3순위]
-            holder.iv_image.setImageResource(R.drawable.ranking_circle_mint);
+            holder.iv_image.setImageResource(R.drawable.ranking_circle_orange);
         }else{
             holder.iv_image.setImageResource(R.drawable.ranking_circle_gray);
         }

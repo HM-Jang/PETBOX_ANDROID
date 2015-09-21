@@ -1,6 +1,7 @@
 package com.petbox.shop;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.os.Handler;
 import android.widget.Toast;
+
+import com.petbox.shop.DB.DBConnector;
 
 
 /**
@@ -101,5 +104,4 @@ public class SplashActivity extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }

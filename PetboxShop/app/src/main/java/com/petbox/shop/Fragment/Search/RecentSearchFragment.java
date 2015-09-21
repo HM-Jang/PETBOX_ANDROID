@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.RecentSearchListAdapter;
+import com.petbox.shop.DB.DBConnector;
+import com.petbox.shop.Delegate.RecentSearchDelegate;
 import com.petbox.shop.Item.PopularSearchInfo;
 import com.petbox.shop.Item.RecentSearchInfo;
 import com.petbox.shop.R;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
  * Use the {@link RecentSearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecentSearchFragment extends Fragment {
+public class RecentSearchFragment extends Fragment implements RecentSearchDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,17 +81,7 @@ public class RecentSearchFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_recent_search, container, false);
 
         mItemList = new ArrayList<RecentSearchInfo>();
-
-        RecentSearchInfo info[] = new RecentSearchInfo[20];
-
-        for(int i=0; i<5; i++){
-            info[i] = new RecentSearchInfo();
-
-            info[i].title = "최근 검색어"+i;
-            info[i].date = "09.16";
-
-            mItemList.add(info[i]);
-        }
+        mItemList = new DBConnector(getContext()).returnFromRecentSearch(); // DB내에서 최근검색어 불러옴.
 
         listView = (PullToRefreshListView) v.findViewById(R.id.list_recent_search);
         listAdapter = new RecentSearchListAdapter(getActivity().getApplicationContext(), mItemList);
@@ -123,6 +115,17 @@ public class RecentSearchFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void deleteNRefresh(int rowId) {
+        new DBConnector(getContext()).deleteRecentSearchInfo(rowId);
+
+    }
+
+    public void refreshAdapater(){
+        mItemList.clear();
+        listAdapter = new RecentSearchListAdapter();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -133,6 +136,7 @@ public class RecentSearchFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);

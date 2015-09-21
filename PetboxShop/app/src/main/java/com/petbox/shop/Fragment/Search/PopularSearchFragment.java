@@ -91,7 +91,6 @@ public class PopularSearchFragment extends Fragment {
             mItemList.add(info[i]);
         }
 
-
         listView = (PullToRefreshListView) v.findViewById(R.id.list_popular_search);
         listAdapter = new PopularSearchListAdapter(getActivity().getApplicationContext(), mItemList);
         listView.setAdapter(listAdapter);

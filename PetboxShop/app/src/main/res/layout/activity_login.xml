@@ -92,6 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="자동로그인"
                 android:id="@+id/checkBox"
+                android:button="@drawable/chk_auto_login"
                 android:layout_gravity="center_vertical" />
 
             <TextView
