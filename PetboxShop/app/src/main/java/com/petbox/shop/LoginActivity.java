@@ -2,20 +2,14 @@ package com.petbox.shop;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,7 +18,7 @@ import android.widget.Toast;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.Delegate.LoginManagerDelegate;
 import com.petbox.shop.Network.LoginManager;
-import com.petbox.shop.Network.SessionManager;
+
 
 import java.io.IOException;
 
@@ -60,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         chk_auto_login = (CheckBox) findViewById(R.id.chk_login_auto);
         chk_auto_login.setOnClickListener(this);
 
-        String isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
+                String isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
 
         System.out.println(isChecked);
 
@@ -80,20 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //super.onBackPressed();
     }
     */
-    private final Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg){
-            pDialog.dismiss();
-            String result = msg.getData().getString("RESULT");
 
-            if(result.equals("success")){
-                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,7 +107,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.ibtn_login_start: // 로그인
                 LoginManager.setDelegate(this);
                 LoginManager.getHttpClient();
-                LoginManager.connectAndLogin(edit_id.getText().toString(), edit_pw.getText().toString());
+
+                Boolean autoLogin = Boolean.parseBoolean(STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN));
+                LoginManager.connectAndLogin(edit_id.getText().toString(), edit_pw.getText().toString(), autoLogin);
                // Toast.makeText(getApplicationContext(), "로그인 버튼 누름", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -176,7 +159,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else if(responseCode == Constants.HTTP_RESPONSE_LOGIN_ERROR_DENY){
             Toast.makeText(this, "해당 아이디는 차단되어있습니다..", Toast.LENGTH_SHORT).show();
         }else if (responseCode == Constants.HTTP_RESPONSE_LOGIN_SUCCESS){
+            LoginManager.setIsLogin(true);
+
+            CookieSyncManager.createInstance(this);
+            CookieManager cookieManager = CookieManager.getInstance();
+            CookieSyncManager.getInstance().startSync();
+
+            String cookieString = LoginManager.getCookie().getName() + "=" + LoginManager.getCookie().getValue();
+            STPreferences.putString(Constants.PREF_KEY_COOKIE, cookieString);
+
+            cookieManager.setCookie(Constants.HTTP_URL_DOMAIN, cookieString);
+
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
+
+            try {
+                Thread.sleep(500);  // CookieManager Sync Time 500ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setResult(Constants.RES_LOGIN_SUCCESS);
+            this.finish();
         }
 
         pDialog.dismiss();

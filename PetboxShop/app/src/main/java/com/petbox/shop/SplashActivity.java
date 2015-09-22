@@ -21,8 +21,6 @@ import com.petbox.shop.DB.DBConnector;
  */
 public class SplashActivity extends Activity {
 
-    private static final int RES_SPLASH_CANCEL = 0;
-
     ImageView iv_splash;
     Thread  timerThread;
     Handler handler;
@@ -110,7 +108,7 @@ public class SplashActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if(keyCode == KeyEvent.KEYCODE_BACK){
            // Toast.makeText(this, "Back키 누름", Toast.LENGTH_SHORT).show();
-            setResult(RES_SPLASH_CANCEL);
+            setResult(Constants.RES_SPLASH_CANCEL);
             finish();
 
             return true;
