@@ -1,9 +1,11 @@
 package com.petbox.shop;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -11,13 +13,15 @@ import android.widget.ImageView;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.petbox.shop.DB.Constants;
 import com.petbox.shop.DB.DBConnector;
-
 
 /**
  * Created by petbox on 2015-09-17.
  */
 public class SplashActivity extends Activity {
+
+    private static final int RES_SPLASH_CANCEL = 0;
 
     ImageView iv_splash;
     Thread  timerThread;
@@ -25,11 +29,23 @@ public class SplashActivity extends Activity {
 
     boolean isRunning = true;
 
-    private static final int RES_SPLASH_CANCEL = 0;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        STPreferences.getPref(getApplicationContext());    // 싱글톤 Preferences 초기 세팅
+
+        if(!STPreferences.isExist(Constants.PREF_KEY_APP_FIRST)) {// 앱 처음 실행 시
+            STPreferences.putString(Constants.PREF_KEY_APP_FIRST, "true");
+            STPreferences.putString(Constants.PREF_KEY_AUTO_LOGIN, "false");
+        }else{
+            boolean auto_login = Boolean.parseBoolean(STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN));
+
+            if(auto_login)
+                Toast.makeText(this, "자동 로그인 기능 ON", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, "자동 로그인 기능 OFF", Toast.LENGTH_SHORT).show();
+        }
 
         iv_splash = (ImageView) findViewById(R.id.iv_splash);
 
@@ -45,16 +61,13 @@ public class SplashActivity extends Activity {
     public void activityFinish(){
         setResult(RESULT_OK);
         this.finish();
-
     }
-
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
-
 
     @Override
     protected void onStart(){

@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
-                android:id="@+id/editText"
+                android:id="@+id/edit_login_id"
                 android:background="@drawable/border_black"
                 android:hint=" 이메일" />
         </LinearLayout>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/editText2"
+                android:id="@+id/edit_login_pw"
                 android:layout_weight="1"
                 android:background="@drawable/border_black"
                 android:hint="  비밀번호" />
@@ -75,7 +75,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/imageButton"
+                android:id="@+id/ibtn_login_start"
                 android:src="@drawable/btn_login"
                 android:background="#00000000" />
         </LinearLayout>
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="자동로그인"
-                android:id="@+id/checkBox"
+                android:id="@+id/chk_login_auto"
                 android:button="@drawable/chk_auto_login"
                 android:layout_gravity="center_vertical" />
 
@@ -141,7 +141,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/imageButton2"
+                android:id="@+id/ibtn_login_regist"
                 android:src="@drawable/btn_registration_id"
                 android:layout_gravity="center" />
         </FrameLayout>
