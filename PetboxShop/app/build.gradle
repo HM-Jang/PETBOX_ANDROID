@@ -26,4 +26,6 @@ dependencies {
     compile project(':ViewPagerIndicator')
     compile project(':PullToRefresh')
     compile project(':GridViewWithHeaderAndFooter')
+    compile project(':httpclient')
+    compile project(':httpcore')
 }
