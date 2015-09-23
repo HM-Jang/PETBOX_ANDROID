@@ -50,6 +50,8 @@ public class LoginManager {
         isLogin = _isLogin;
     }
 
+    public static boolean getIsLogin(){return isLogin;}
+
     public static void setDelegate(LoginManagerDelegate _delegate){
         delegate = _delegate;
     }

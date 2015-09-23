@@ -48,8 +48,10 @@ public class STPreferences {
     }
 
     public static String getString(String key){
-        String str = pref.getString(Constants.PREF_KEY_AUTO_LOGIN, "null");
+        String str = pref.getString(key, "null");
         return str;
     }
+
+
 
 }

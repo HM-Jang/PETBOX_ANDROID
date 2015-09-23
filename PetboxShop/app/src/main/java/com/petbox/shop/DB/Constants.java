@@ -28,7 +28,9 @@ public class Constants implements BaseColumns {
     public static final String PREF_KEY_AUTO_LOGIN = "AUTO_LOGIN";  // 자동로그인 Key
     public static final String PREF_KEY_COOKIE = "COOKIE";  // stored_member_info Cookie
     public static final String PREF_KEY_ID = "ID";
-    public static final String PREF_KEY_ENCRYPTED_PW = "ENCRYPTED_PW";
+    public static final String PREF_KEY_ENCODED_BYTE = "ENCODED_BYTE";
+    public static final String PREF_KEY_PASSWORD = "PASSWORD";
+    public static final String PREF_KEY_AES_KEY = "AES_KEY";
 
     /* ### Preferecnes ### End ################################################################*/
 

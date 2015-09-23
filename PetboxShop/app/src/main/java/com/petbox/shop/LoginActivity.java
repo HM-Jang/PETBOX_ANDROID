@@ -187,13 +187,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String id = edit_id.getText().toString();
             String pw = edit_pw.getText().toString();
 
+            STPreferences.putString(Constants.PREF_KEY_ID, id);
+            STPreferences.putString(Constants.PREF_KEY_PASSWORD, pw);
+
+            /* aes 암호화
             SecretKeySpec sks = null;
+
             try {
                 SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
                 sr.setSeed("any data used as random seed".getBytes());
                 KeyGenerator kg = KeyGenerator.getInstance("AES");
-                kg.init(128, sr);
-                sks = new SecretKeySpec(kg.generateKey().getEncoded(), "AES");
+                kg.init(128, sr);   //128bit 키 생성
+
+                byte[] key =  kg.generateKey().getEncoded();
+
+                String keyStr = Base64.encodeToString(key, Base64.DEFAULT);
+
+                STPreferences.putString(Constants.PREF_KEY_AES_KEY, keyStr);
+
+                Log.e("SplashAct", "AES_KEY(LENGTH) : " + key.length + ",Value : " + key.toString());
+
+                sks = new SecretKeySpec(key, "AES");
+
             } catch (Exception e) {
                 Log.e("SplashAct", "AES encryption error");
             }
@@ -209,12 +224,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e(TAG, "AES encryption error");
             }
 
+            STPreferences.putString(Constants.PREF_KEY_ENCODED_BYTE, new String(encodedBytes));
             String encrypted_pw = Base64.encodeToString(encodedBytes, Base64.DEFAULT);
 
             STPreferences.putString(Constants.PREF_KEY_ID, id);
-            STPreferences.putString(Constants.PREF_KEY_ENCRYPTED_PW, encrypted_pw);
 
-           Log.i(TAG, "ENCRYPTED_PW : " + encrypted_pw);
+
+            Log.i(TAG, "ID : " + id);
+            Log.i(TAG, "ENCRYPTED_PW : " + encrypted_pw);
+
+            Log.i(TAG, "PREF ID : " + STPreferences.getString(Constants.PREF_KEY_ID));
+            Log.i(TAG, "PREF ENCODED_BYTE : " + STPreferences.getString(Constants.PREF_KEY_ENCODED_BYTE));
 
             byte[] decodedBytes = null;
 
@@ -230,6 +250,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String decrypted_pw = new String(decodedBytes);
 
             Log.i(TAG, "DECRYPTED_PW : " + decrypted_pw);
+            */
 
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
 

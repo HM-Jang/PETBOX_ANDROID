@@ -37,6 +37,7 @@ import com.petbox.shop.Fragment.Home.RegularShippingFragment;
 import com.petbox.shop.Fragment.MyPage.MyPageFragment;
 import com.petbox.shop.Fragment.Search.PopularSearchFragment;
 import com.petbox.shop.Fragment.Search.RecentSearchFragment;
+import com.petbox.shop.Network.LoginManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -136,6 +137,21 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         tabLayout.setTabTextColors(0xff4e91ff, 0xff000000);
         tabLayout.setupWithViewPager(mViewPager);
     }
+
+    @Override
+    public void onStart(){
+        LoginManager.getHttpClient();
+
+        if(LoginManager.getIsLogin()){
+            ibtn_login.setVisibility(View.GONE);
+            ibtn_mypage.setVisibility(View.VISIBLE);
+        }
+
+        Log.i(TAG, "++ ON START ++");
+
+        super.onStart();
+    }
+
 
     public void setHomePagerAdapter(){
         //clearBackStack();
@@ -284,7 +300,6 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
                         ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
                 }
-
                 break;
 
             case R.id.ibtn_search:
