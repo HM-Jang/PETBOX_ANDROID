@@ -19,6 +19,8 @@ import com.petbox.shop.DB.DBConnector;
  */
 public class SplashActivity extends Activity {
 
+    private static final int RES_SPLASH_CANCEL = 0;
+
     ImageView iv_splash;
     Thread  timerThread;
     Handler handler;
