@@ -1,1 +1,3 @@
 include 'GridViewWithHeaderAndFooter', ':GridViewWithHeaderAndFooter', ':PullToRefresh', ':ViewPagerIndicator', ':app'
+include 'GridViewWithHeaderAndFooter'
+

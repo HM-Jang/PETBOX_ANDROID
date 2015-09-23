@@ -32,6 +32,7 @@ public class LoginManager {
     private static DefaultHttpClient httpClient;
     private static boolean isLogin = false;
     private static LoginManagerDelegate delegate;
+    private static Cookie cookie;
 
     public static HttpClient getHttpClient(){
         if(httpClient == null){
@@ -40,16 +41,25 @@ public class LoginManager {
         return httpClient;
     }
 
+    public static Cookie getCookie(){
+        return cookie;
+    }
+
+
+    public static void setIsLogin(boolean _isLogin){
+        isLogin = _isLogin;
+    }
+
     public static void setDelegate(LoginManagerDelegate _delegate){
         delegate = _delegate;
     }
 
-    public static void connectAndLogin(String id, String pw){
+    public static void connectAndLogin(String id, String pw, Boolean autoLogin){
         LoginTask task = new LoginTask();
-        task.execute(id, pw);
+        task.execute(id, pw, autoLogin);
     }
 
-    static class LoginTask extends AsyncTask<String, Void, Integer> {
+    static class LoginTask extends AsyncTask<Object, Void, Integer> {
 
         @Override
         protected void onPreExecute(){
@@ -61,10 +71,12 @@ public class LoginManager {
         }
 
         @Override
-        protected Integer doInBackground(String... params) {
+        protected Integer doInBackground(Object... params) {
 
-            String id = params[0];
-            String pw = params[1];
+            String id = (String)params[0];  //id
+            String pw = (String)params[1];  //pw
+
+            boolean autoLogin = (Boolean)params[2];
 
             int result_code = 0;
 
@@ -76,6 +88,9 @@ public class LoginManager {
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
                 nameValuePairs.add(new BasicNameValuePair("m_id", id));
                 nameValuePairs.add(new BasicNameValuePair("password", pw));
+
+                if(autoLogin)
+                    nameValuePairs.add(new BasicNameValuePair("save_login_status", "y"));
 
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
 
@@ -97,8 +112,15 @@ public class LoginManager {
                 if (cookies.isEmpty()) {
                     System.out.println("None");
                 } else {
-                    for (int i = 0; i < cookies.size(); i++) {
-                        System.out.println("- " + cookies.get(i).toString());
+
+                    for( Cookie c : cookies){
+                        System.out.println("Cookie(Name) :  " + c.getName());
+
+                        if(c.getName().equals("stored_member_info")){
+                            cookie = c;
+                            System.out.println("Cookie Saved : stored_member_info " + c.getValue());
+                        }
+
                     }
                 }
             } catch (UnsupportedEncodingException e) {
@@ -129,6 +151,7 @@ public class LoginManager {
     /*
     private static String convertStreamToString(InputStream is)
     {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 

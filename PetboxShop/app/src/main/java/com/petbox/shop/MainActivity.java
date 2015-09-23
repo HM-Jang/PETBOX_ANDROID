@@ -25,6 +25,7 @@ import com.petbox.shop.Adapter.Pager.CategoryPagerAdapter;
 import com.petbox.shop.Adapter.Pager.HomePagerAdapter;
 import com.petbox.shop.Adapter.Pager.MyPagePagerAdapter;
 import com.petbox.shop.Adapter.Pager.SearchPagerAdapter;
+import com.petbox.shop.DB.Constants;
 import com.petbox.shop.DB.DBConnector;
 import com.petbox.shop.Fragment.Category.CategoryFragment;
 import com.petbox.shop.Fragment.Home.BestGoodFragment;
@@ -45,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentInteractionListener, RegularShippingFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener
 , PopularSearchFragment.OnFragmentInteractionListener, RecentSearchFragment.OnFragmentInteractionListener{
 
-    private static final int REQ_SPLASH = 1;
-    private static final int RES_SPLASH_CANCEL = 0;
+
     public static final String TAG = "MainAct";
 
     private TabLayout tabLayout;
@@ -75,7 +75,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent i = new Intent(this, SplashActivity.class);
-        startActivityForResult(i, REQ_SPLASH);
+        startActivityForResult(i, Constants.REQ_SPLASH);
 
 
         super.onCreate(savedInstanceState);
@@ -246,7 +246,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 break;
 
             case R.id.ibtn_menu_cart:
-                Intent cart_intnet = new Intent(MainActivity.this, CartActivity.class);
+                Intent cart_intnet = new Intent(MainActivity.this, TestWebView.class);
                 startActivity(cart_intnet);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //Toast.makeText(getApplicationContext(), "menu_cart", Toast.LENGTH_SHORT).show();
@@ -306,7 +306,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
             case R.id.ibtn_login:
                 Intent login_intnet = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(login_intnet);
+                startActivityForResult(login_intnet, Constants.REQ_LOGIN);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //Toast.makeText(getApplicationContext(), "login", Toast.LENGTH_SHORT).show();
                 break;
@@ -314,9 +314,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
             case R.id.ibtn_mypage:
                 menu_selected = 3;
 
-                if(menu_selected == 3) {    // 홈
-
-                    Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
+                if(menu_selected == 3) {    // 마이페이지
+                    //Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
                     setMyPagePagerAdapter();
 
                     ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
@@ -325,9 +324,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
                         ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_on);
-
                 }
-
                 break;
         }
     }
@@ -336,11 +333,21 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         super.onActivityResult(requestCode, resultCode, data);
 
         switch(requestCode){
-            case REQ_SPLASH:
+            case Constants.REQ_SPLASH:
 
-                if(resultCode == RES_SPLASH_CANCEL){
+                if(resultCode == Constants.RES_SPLASH_CANCEL){
                     finish();
                 }
+                break;
+
+            case Constants.REQ_LOGIN:
+
+                if(resultCode == Constants.RES_LOGIN_SUCCESS){
+                    ibtn_login.setVisibility(View.GONE);
+                    ibtn_mypage.setVisibility(View.VISIBLE);
+
+                }
+
                 break;
         }
     }

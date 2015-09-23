@@ -7,12 +7,12 @@ import android.provider.BaseColumns;
  */
 public class Constants implements BaseColumns {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 91e77c4... 웹뷰 쿠키 세션 연결 완료 외 1가지
+
     /* ### Http ### Start ################################################################*/
+
+    public static final String HTTP_URL_DOMAIN = "www.petbox.kr";
+    public static final String HTTP_URL_CART = "http://www.petbox.kr/m2/goods/cart.php";
+    public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php";
 
     public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;
     public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902;
@@ -26,11 +26,11 @@ public class Constants implements BaseColumns {
 
     public static final String PREF_KEY_APP_FIRST = "APP_FIRST";    // 앱 처음 실행 여부
     public static final String PREF_KEY_AUTO_LOGIN = "AUTO_LOGIN";  // 자동로그인 Key
+    public static final String PREF_KEY_COOKIE = "COOKIE";  // stored_member_info Cookie
 
     /* ### Preferecnes ### End ################################################################*/
 
     /* ### DB ### Start ################################################################*/
->>>>>>> parent of 91e77c4... 웹뷰 쿠키 세션 연결 완료 외 1가지
     public static final String DATABASE = "petbox";
     public static int DATABASE_VERSION = 1;
 
@@ -41,14 +41,18 @@ public class Constants implements BaseColumns {
     public static final String RECENT_SEARCH_TITLE = "title";   // 검색어
     public static final String RECENT_SEARCH_DATE = "date"; //검색날짜
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+    /* ### DB ### End ################################################################*/
 
-=======
+    /* ### DB ### Start ################################################################*/
+
+    public static final int REQ_SPLASH = 1; // startActivityForResult에서 Splash엑티비티
+    public static final int RES_SPLASH_CANCEL = 0;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+
+    public static final int REQ_LOGIN = 2;
+    public static final int RES_LOGIN_FAILED = 0;   //
+    public static final int RES_LOGIN_SUCCESS = 1;  // 로그인 성공 시, setResult
+
+
     /* ### DB ### End ################################################################*/
->>>>>>> parent of 91e77c4... 웹뷰 쿠키 세션 연결 완료 외 1가지
-=======
-    /* ### DB ### End ################################################################*/
->>>>>>> parent of 91e77c4... 웹뷰 쿠키 세션 연결 완료 외 1가지
 
 }

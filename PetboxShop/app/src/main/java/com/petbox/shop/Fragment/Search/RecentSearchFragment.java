@@ -121,7 +121,6 @@ public class RecentSearchFragment extends Fragment implements RecentSearchDelega
         //Log.i("RecentSearch FRAGMENT",  " : ++ deleteNRefresh ++");
         new DBConnector(getContext()).deleteRecentSearchInfo(rowId);
         refreshAdapater();
-
     }
 
     public void refreshAdapater(){

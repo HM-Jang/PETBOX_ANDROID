@@ -7,9 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
-import com.petbox.shop.DB.Constants;
 import com.petbox.shop.R;
 
 /**
@@ -25,8 +23,6 @@ public class MyPageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    WebView webView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,14 +65,7 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
-
-        webView = (WebView) v.findViewById(R.id.webview_mypage);
-        //webView.loadUrl(Con);
-
-
-        return v;
+        return inflater.inflate(R.layout.fragment_my_page, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
