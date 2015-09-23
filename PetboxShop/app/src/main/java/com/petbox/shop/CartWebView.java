@@ -9,7 +9,7 @@ import com.petbox.shop.DB.Constants;
 /**
  * Created by petbox on 2015-09-22.
  */
-public class TestWebView extends AppCompatActivity {
+public class CartWebView extends AppCompatActivity {
 
     WebView webView;
 
@@ -19,9 +19,8 @@ public class TestWebView extends AppCompatActivity {
         setContentView(R.layout.activity_test_webview);
 
         webView = (WebView) findViewById(R.id.webview_test);
-        webView.loadUrl(Constants.HTTP_URL_MYPAGE);
+        webView.loadUrl(Constants.HTTP_URL_CART);
         webView.getSettings().setJavaScriptEnabled(true);
-
     }
 
 }

@@ -9,12 +9,15 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 import android.os.Handler;
 import android.widget.Toast;
 
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.DB.DBConnector;
+import com.petbox.shop.Network.LoginManager;
 
 /**
  * Created by petbox on 2015-09-17.
@@ -39,10 +42,30 @@ public class SplashActivity extends Activity {
         }else{
             boolean auto_login = Boolean.parseBoolean(STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN));
 
-            if(auto_login)
+            if(auto_login) {
+                LoginManager.getHttpClient();
+
+                CookieSyncManager.createInstance(this);
+                CookieManager cookieManager = CookieManager.getInstance();
+                CookieSyncManager.getInstance().startSync();
+
+                String cookieString = STPreferences.getString(Constants.PREF_KEY_COOKIE);
+
+                if(!cookieString.equals("null")){   // stored_member_info Cookie가 존재할 시
+                    cookieManager.setCookie(Constants.HTTP_URL_DOMAIN, cookieString);
+                }
+
                 Toast.makeText(this, "자동 로그인 기능 ON", Toast.LENGTH_SHORT).show();
-            else
+            }
+            else {
+                CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(this);
+                CookieManager cookieManager = CookieManager.getInstance();
+                cookieManager.setAcceptCookie(true);
+                cookieManager.removeSessionCookie();
+                cookieSyncManager.sync();
+
                 Toast.makeText(this, "자동 로그인 기능 OFF", Toast.LENGTH_SHORT).show();
+            }
         }
 
         iv_splash = (ImageView) findViewById(R.id.iv_splash);

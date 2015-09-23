@@ -39,7 +39,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
-        <activity android:name=".TestWebView"
+        <activity android:name=".CartWebView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>

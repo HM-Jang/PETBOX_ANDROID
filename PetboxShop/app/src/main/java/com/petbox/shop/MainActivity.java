@@ -246,7 +246,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 break;
 
             case R.id.ibtn_menu_cart:
-                Intent cart_intnet = new Intent(MainActivity.this, TestWebView.class);
+                Intent cart_intnet = new Intent(MainActivity.this, CartWebView.class);
                 startActivity(cart_intnet);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //Toast.makeText(getApplicationContext(), "menu_cart", Toast.LENGTH_SHORT).show();

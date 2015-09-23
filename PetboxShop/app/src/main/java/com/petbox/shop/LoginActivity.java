@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +23,20 @@ import com.petbox.shop.Network.LoginManager;
 
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginManagerDelegate {
+
+    private static final String TAG = "LoginAct";
 
     EditText edit_id, edit_pw;
     ImageButton ibtn_login, ibtn_regist;    // 로그인, 회원가입
@@ -54,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         chk_auto_login = (CheckBox) findViewById(R.id.chk_login_auto);
         chk_auto_login.setOnClickListener(this);
 
-                String isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
+        String isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
 
         System.out.println(isChecked);
 
@@ -169,6 +183,53 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             STPreferences.putString(Constants.PREF_KEY_COOKIE, cookieString);
 
             cookieManager.setCookie(Constants.HTTP_URL_DOMAIN, cookieString);
+
+            String id = edit_id.getText().toString();
+            String pw = edit_pw.getText().toString();
+
+            SecretKeySpec sks = null;
+            try {
+                SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+                sr.setSeed("any data used as random seed".getBytes());
+                KeyGenerator kg = KeyGenerator.getInstance("AES");
+                kg.init(128, sr);
+                sks = new SecretKeySpec(kg.generateKey().getEncoded(), "AES");
+            } catch (Exception e) {
+                Log.e("SplashAct", "AES encryption error");
+            }
+
+            byte[] encodedBytes = null;
+
+            try {
+                Cipher c = Cipher.getInstance("AES");
+                c.init(Cipher.ENCRYPT_MODE, sks);
+                encodedBytes = c.doFinal(pw.getBytes());
+
+            } catch (Exception e) {
+                Log.e(TAG, "AES encryption error");
+            }
+
+            String encrypted_pw = Base64.encodeToString(encodedBytes, Base64.DEFAULT);
+
+            STPreferences.putString(Constants.PREF_KEY_ID, id);
+            STPreferences.putString(Constants.PREF_KEY_ENCRYPTED_PW, encrypted_pw);
+
+           Log.i(TAG, "ENCRYPTED_PW : " + encrypted_pw);
+
+            byte[] decodedBytes = null;
+
+            try {
+                Cipher c = Cipher.getInstance("AES");
+                c.init(Cipher.DECRYPT_MODE, sks);
+                decodedBytes = c.doFinal(encodedBytes);
+
+            } catch (Exception e) {
+                Log.e(TAG, "AES decryption error");
+            }
+
+            String decrypted_pw = new String(decodedBytes);
+
+            Log.i(TAG, "DECRYPTED_PW : " + decrypted_pw);
 
             Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
 

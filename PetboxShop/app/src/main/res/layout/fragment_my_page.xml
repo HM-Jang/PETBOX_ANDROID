@@ -3,9 +3,9 @@
     android:layout_height="match_parent" tools:context="com.petbox.shop.Fragment.MyPage.MyPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="마이페이지"
-        android:layout_gravity="center"
-        android:textSize="30dp" />
 
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview_mypage" />
 </FrameLayout>
