@@ -41,12 +41,12 @@
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:id="@+id/ibtn_home"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:background="#0000"
-            android:src="@drawable/btn_test" />
+            android:src="@drawable/bot_home_on" />
 
     </FrameLayout>
 
@@ -58,7 +58,9 @@
             android:id="@+id/ibtn_category"
             android:layout_weight="1"
             android:layout_gravity="bottom"
-            android:src="@drawable/btn_bottom_category_off"/>
+            android:src="@drawable/bot_category_off"
+            android:scaleType="fitXY"
+            android:background="#0000" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -66,7 +68,9 @@
             android:id="@+id/ibtn_search"
             android:layout_weight="1"
             android:layout_gravity="bottom"
-            android:src="@drawable/btn_bottom_search_off"/>
+            android:src="@drawable/bot_search_off"
+            android:scaleType="fitXY"
+            android:background="#0000" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -76,17 +80,21 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:src="@drawable/btn_bottom_login_off"
+                android:src="@drawable/bot_login_off"
                 android:layout_gravity="bottom"
-                android:id="@+id/ibtn_login" />
+                android:id="@+id/ibtn_login"
+                android:background="#0000"
+                android:scaleType="fitXY" />
 
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:id="@+id/ibtn_mypage"
-                android:src="@drawable/btn_bottom_mypage_off"
+                android:src="@drawable/bot_mypage_off"
                 android:layout_gravity="bottom"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="#0000"
+                android:scaleType="fitXY" />
         </FrameLayout>
     </LinearLayout>
 

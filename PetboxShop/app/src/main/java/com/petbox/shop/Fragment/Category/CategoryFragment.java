@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.petbox.shop.R;
 
@@ -19,7 +21,7 @@ import com.petbox.shop.R;
  * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,6 +41,13 @@ public class CategoryFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment CategoryFragment.
      */
+
+    private LinearLayout linear_planning;
+    private LinearLayout linear_primium;
+    private LinearLayout linear_dog;
+    private LinearLayout linear_cat;
+
+
     // TODO: Rename and change types and number of parameters
     public static CategoryFragment newInstance(String param1, String param2) {
         CategoryFragment fragment = new CategoryFragment();
@@ -66,7 +75,21 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View v = inflater.inflate(R.layout.fragment_category, container, false);
+
+        linear_planning = (LinearLayout)v.findViewById(R.id.linear_category_planning);
+        linear_planning.setOnClickListener(this);
+
+        linear_primium = (LinearLayout)v.findViewById(R.id.linear_category_primium);
+        linear_primium.setOnClickListener(this);
+
+        linear_dog = (LinearLayout)v.findViewById(R.id.linear_category_dog);
+        linear_dog.setOnClickListener(this);
+
+        linear_cat = (LinearLayout)v.findViewById(R.id.linear_category_cat);
+        linear_cat.setOnClickListener(this);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -92,6 +115,32 @@ public class CategoryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+
+        switch(id){
+            case R.id.linear_category_planning:
+                Toast.makeText(getContext(), "기획전", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_category_primium:
+                Toast.makeText(getContext(), "프리미엄몰", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_category_dog:
+                Toast.makeText(getContext(), "애견", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_category_cat:
+                Toast.makeText(getContext(), "애묘", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+
     }
 
     /**

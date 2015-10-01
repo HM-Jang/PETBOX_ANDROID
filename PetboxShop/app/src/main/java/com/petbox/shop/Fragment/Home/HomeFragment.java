@@ -1,8 +1,9 @@
 package com.petbox.shop.Fragment.Home;
 
-import android.app.Activity;
+
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -23,12 +24,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link PrimiumFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PrimiumFragment extends Fragment {
+public class HomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,11 +63,11 @@ public class PrimiumFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PrimiumFragment.
+     * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PrimiumFragment newInstance(String param1, String param2) {
-        PrimiumFragment fragment = new PrimiumFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,7 +75,7 @@ public class PrimiumFragment extends Fragment {
         return fragment;
     }
 
-    public PrimiumFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -166,7 +165,8 @@ public class PrimiumFragment extends Fragment {
         });
 
         timerThread.start();
-        return  v;
+
+        return v;
     }
 
     public void initViewPager(){
@@ -187,15 +187,4 @@ public class PrimiumFragment extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
 }

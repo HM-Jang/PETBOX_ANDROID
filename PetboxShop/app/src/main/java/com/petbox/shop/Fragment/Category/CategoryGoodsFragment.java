@@ -1,16 +1,18 @@
-package com.petbox.shop.Fragment.Home;
+package com.petbox.shop.Fragment.Category;
 
-import android.app.Activity;
-import android.net.Uri;
+
 import android.os.Bundle;
-
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.ChanceDealListAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
@@ -23,12 +25,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link ChanceDealFragment#newInstance} factory method to
+ * Use the {@link CategoryGoodsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChanceDealFragment extends Fragment {
+public class CategoryGoodsFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,19 +38,6 @@ public class ChanceDealFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ViewPager viewPager;
-    PageIndicator mIndicator;
-
-    PullToRefreshListView listView;
-    ChanceDealListAdapter listAdapter;
-
-    ArrayList<BestGoodInfo> mItemList;
-
-    Spinner spin_category1, spin_category2, spin_category3;
-
-    int mainColor = 0;
-
-    //private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -58,11 +45,26 @@ public class ChanceDealFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ChanceDealFragment.
+     * @return A new instance of fragment CategoryGoodsFragment.
      */
+
+    int mainColor = 0;
+
+    private Spinner spin_main, spin_sub;
+    private ArrayAdapter<String> adapter;
+
+    private ImageButton btn_sort;
+
+    private ViewPager viewPager;
+    PageIndicator mIndicator;
+
+    private PullToRefreshListView listView;
+    ChanceDealListAdapter listAdapter;
+    ArrayList<BestGoodInfo> mItemList;
+
     // TODO: Rename and change types and number of parameters
-    public static ChanceDealFragment newInstance(String param1, String param2) {
-        ChanceDealFragment fragment = new ChanceDealFragment();
+    public static CategoryGoodsFragment newInstance(String param1, String param2) {
+        CategoryGoodsFragment fragment = new CategoryGoodsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,7 +72,7 @@ public class ChanceDealFragment extends Fragment {
         return fragment;
     }
 
-    public ChanceDealFragment() {
+    public CategoryGoodsFragment() {
         // Required empty public constructor
     }
 
@@ -87,9 +89,34 @@ public class ChanceDealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_chance_deal, container, false);
+        View v = inflater.inflate(R.layout.fragment_category_goods, container, false);
+
+        spin_main = (Spinner)v.findViewById(R.id.spin_category_goods_main);
+
+        String[] first_category = getResources().getStringArray(R.array.first_category);
+
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, first_category);
+        spin_main.setAdapter(adapter);
+
+        spin_sub = (Spinner)v.findViewById(R.id.spin_category_goods_sub);
+        btn_sort = (ImageButton)v.findViewById(R.id.btn_category_goods_sort);
 
         mainColor = getResources().getColor(R.color.colorPrimary);
+
+        View headerView = inflater.inflate(R.layout.custom_slide_image, null);
+        viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
+
+        BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
+        viewPager.setAdapter(bestGoodPagerAdapter);
+
+        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
+        mIndicator = circlePageIndicator;
+        mIndicator.setViewPager(viewPager);
+
+        circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
+        circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
+        circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
+
 
         mItemList = new ArrayList<BestGoodInfo>();
 
@@ -108,25 +135,7 @@ public class ChanceDealFragment extends Fragment {
             mItemList.add(info[i]);
         }
 
-        spin_category1 = (Spinner) v.findViewById(R.id.spin_chance_deal_category1);
-        spin_category2 = (Spinner) v.findViewById(R.id.spin_chance_deal_category2);
-        spin_category3 = (Spinner) v.findViewById(R.id.spin_chance_deal_category3);
-
-        View headerView = inflater.inflate(R.layout.custom_slide_image, null);
-        viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
-
-        BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
-        viewPager.setAdapter(bestGoodPagerAdapter);
-
-        CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
-        mIndicator = circlePageIndicator;
-        mIndicator.setViewPager(viewPager);
-
-        circlePageIndicator.setPageColor(0xFF6d6d6d);   // Normal 원 색상
-        circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
-        circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
-
-        listView = (PullToRefreshListView) v.findViewById(R.id.list_chance_deal);
+        listView = (PullToRefreshListView)v.findViewById(R.id.list_category_goods);
         listAdapter = new ChanceDealListAdapter(getActivity().getApplicationContext(), mItemList);
         listView.addHeaderView(headerView);
         listView.setAdapter(listAdapter);
@@ -134,21 +143,15 @@ public class ChanceDealFragment extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-
-    }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onClick(View v) {
+        int id = v.getId();
 
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
+        switch(id){
+            case R.id.btn_category_goods_sort:
+                break;
+        }
     }
 
 }

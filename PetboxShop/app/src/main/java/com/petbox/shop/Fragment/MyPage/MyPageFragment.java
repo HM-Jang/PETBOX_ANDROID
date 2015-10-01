@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.R;
@@ -72,8 +73,21 @@ public class MyPageFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 
         webView = (WebView)v.findViewById(R.id.webview_mypage);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
         webView.loadUrl(Constants.HTTP_URL_MYPAGE);
         webView.getSettings().setJavaScriptEnabled(true);
+
 
         return v;
     }

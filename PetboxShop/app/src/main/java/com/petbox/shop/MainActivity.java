@@ -43,8 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, BestGoodFragment.OnFragmentInteractionListener, ChanceDealFragment.OnFragmentInteractionListener, EventFragment.OnFragmentInteractionListener,
-PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentInteractionListener, RegularShippingFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, EventFragment.OnFragmentInteractionListener,
+ RegularShippingFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener
 , PopularSearchFragment.OnFragmentInteractionListener, RecentSearchFragment.OnFragmentInteractionListener{
 
 
@@ -275,12 +275,12 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 if(menu_selected == 0 ){    // 홈
                     setHomePagerAdapter();
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_on);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_on);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
 
                     if(ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
 
 
@@ -293,12 +293,12 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 if(menu_selected == 1 ) {    // 카테고리
                     setCategoryPagerAdapter();
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_on);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_on);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
                 break;
 
@@ -309,12 +309,12 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 if(menu_selected == 2 ) {    // 검색
                     setSearchPagerAdapter();
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_on);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_on);
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
 
                 break;
@@ -333,12 +333,13 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                     //Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
                     setMyPagePagerAdapter();
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
+
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_on);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_on);
                 }
                 break;
         }

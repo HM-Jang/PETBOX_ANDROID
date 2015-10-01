@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_width="135dp"
+            android:layout_height="50dp"
+            android:id="@+id/spin_category_goods_main"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:layout_width="135dp"
+            android:layout_height="50dp"
+            android:id="@+id/spin_category_goods_sub"
+            android:spinnerMode="dropdown" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/btn_category_goods_sort"
+            android:src="@drawable/category_sort_low_price"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_vertical"
+            android:background="#0000" />
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_category_goods" />
+
+
+</LinearLayout>
