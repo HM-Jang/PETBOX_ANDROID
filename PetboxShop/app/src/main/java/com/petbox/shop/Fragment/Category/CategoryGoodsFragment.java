@@ -2,7 +2,9 @@ package com.petbox.shop.Fragment.Category;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.ChanceDealListAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
+import com.petbox.shop.DB.Constants;
+import com.petbox.shop.Delegate.CategoryDelegate;
 import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.R;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -57,16 +62,31 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
 
     private ViewPager viewPager;
     PageIndicator mIndicator;
+    BestGoodPagerAdapter bestGoodPagerAdapter;
 
     private PullToRefreshListView listView;
     ChanceDealListAdapter listAdapter;
     ArrayList<BestGoodInfo> mItemList;
 
+    CategoryDelegate delegate;
+
+    public int interval = Constants.AUTO_SLIDE_TIME;
+
+    Thread  timerThread;
+    Handler handler;
+
+    Boolean isRunning = true;
+
+    LinearLayout linear_slide_btn;  //헤더의 강아지 고양이 버튼묶음
+
+
     // TODO: Rename and change types and number of parameters
-    public static CategoryGoodsFragment newInstance(String param1, String param2) {
+    public static CategoryGoodsFragment newInstance(CategoryDelegate _delegate, String param2) {
         CategoryGoodsFragment fragment = new CategoryGoodsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+
+        fragment.delegate = _delegate;
+        //args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -100,13 +120,14 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
 
         spin_sub = (Spinner)v.findViewById(R.id.spin_category_goods_sub);
         btn_sort = (ImageButton)v.findViewById(R.id.btn_category_goods_sort);
+        btn_sort.setOnClickListener(this);
 
         mainColor = getResources().getColor(R.color.colorPrimary);
 
         View headerView = inflater.inflate(R.layout.custom_slide_image, null);
         viewPager = (ViewPager)headerView.findViewById(R.id.pager_best_good);
 
-        BestGoodPagerAdapter bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
+        bestGoodPagerAdapter = new BestGoodPagerAdapter(getContext());
         viewPager.setAdapter(bestGoodPagerAdapter);
 
         CirclePageIndicator circlePageIndicator = (CirclePageIndicator)headerView.findViewById(R.id.indicator_best_good);
@@ -117,6 +138,8 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
         circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
+        linear_slide_btn = (LinearLayout) headerView.findViewById(R.id.linear_slide_btn);
+        linear_slide_btn.setVisibility(View.GONE);
 
         mItemList = new ArrayList<BestGoodInfo>();
 
@@ -140,7 +163,51 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
         listView.addHeaderView(headerView);
         listView.setAdapter(listAdapter);
 
+        handler = new Handler(){
+            public void handleMessage(Message msg){
+                if (viewPager.getCurrentItem() == bestGoodPagerAdapter.getImages() - 1) {
+                    viewPager.setCurrentItem(0, true);
+                }else{
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1, true);
+                }
+            }
+        };
+
+
+        timerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(isRunning){
+                    try{
+                        timerThread.sleep(3000);
+
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+
+                    //isRunning = false;
+
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }
+            }
+        });
+
+        timerThread.start();
+
         return v;
+    }
+
+    public void initViewPager(){
+        viewPager.setCurrentItem(0);
+    }
+
+    public void refreshLIstView(ArrayList<BestGoodInfo> itemList){
+        mItemList.clear();
+        mItemList = itemList;
+
+        listAdapter = new ChanceDealListAdapter(getActivity().getApplicationContext(), mItemList);
+        listView.setAdapter(listAdapter);
     }
 
 
@@ -150,7 +217,8 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
 
         switch(id){
             case R.id.btn_category_goods_sort:
-                break;
+
+                 break;
         }
     }
 

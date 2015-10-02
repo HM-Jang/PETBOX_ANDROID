@@ -39,7 +39,6 @@ public class PlanningFragment extends Fragment implements View.OnClickListener{
     private String mParam2;
 
     Button btn_dog, btn_cat;
-    Spinner spin_category;
     PullToRefreshListView listView;
     PlanningListAdapter listAdapter_dog;
     PlanningListAdapter listAdapter_cat;
@@ -116,8 +115,6 @@ public class PlanningFragment extends Fragment implements View.OnClickListener{
         btn_cat = (Button) v.findViewById(R.id.btn_planning_cat);
         btn_cat.setOnClickListener(this);
 
-        spin_category = (Spinner) v.findViewById(R.id.spin_planning_category);
-
         listView = (PullToRefreshListView) v.findViewById(R.id.list_planning);
         listAdapter_dog = new PlanningListAdapter(getActivity().getApplicationContext(), mItemList_dog);
         listAdapter_cat = new PlanningListAdapter(getActivity().getApplicationContext(), mItemList_cat);
@@ -126,8 +123,6 @@ public class PlanningFragment extends Fragment implements View.OnClickListener{
 
         return v;
     }
-
-
 
 
     // TODO: Rename method, update argument and hook method into UI event

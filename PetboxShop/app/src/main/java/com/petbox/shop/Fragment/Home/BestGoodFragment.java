@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.petbox.shop.Adapter.Grid.BestGoodGridAdapter;
@@ -25,12 +27,11 @@ import java.util.Timer;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BestGoodFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link BestGoodFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BestGoodFragment extends Fragment {
+public class BestGoodFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,6 +53,8 @@ public class BestGoodFragment extends Fragment {
     PageIndicator mIndicator;
 
     BestGoodPagerAdapter bestGoodPagerAdapter;
+
+    Button btn_dog, btn_cat;
 
     public int interval = DEFAULT_INTERVAL;
 
@@ -134,6 +137,12 @@ public class BestGoodFragment extends Fragment {
         circlePageIndicator.setFillColor(mainColor);   //선택된 원 색상
         circlePageIndicator.setStrokeColor(0x00000000); //테두리 INVISIBLE
 
+        btn_dog = (Button) headerView.findViewById(R.id.btn_slide_dog);
+        btn_dog.setOnClickListener(this);
+
+        btn_cat = (Button) headerView.findViewById(R.id.btn_slide_cat);
+        btn_cat.setOnClickListener(this);
+
         gridView = (PullToRefreshGridView)v.findViewById(R.id.grid_best_good);
         gridAdapter = new BestGoodGridAdapter(getActivity().getApplicationContext(), mItemList);
         gridView.addHeaderView(headerView);
@@ -202,6 +211,22 @@ public class BestGoodFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch(id){
+            case R.id.btn_slide_dog:
+                Toast.makeText(getContext(), "강아지", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.btn_slide_cat:
+                Toast.makeText(getContext(), "고양이", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
     }
 

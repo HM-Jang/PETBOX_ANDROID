@@ -118,6 +118,8 @@ public class SplashActivity extends Activity implements LoginManagerDelegate {
                 cookieManager.removeSessionCookie();
                 cookieSyncManager.sync();
 
+                finishable = true;
+
                 Toast.makeText(this, "자동 로그인 기능 OFF", Toast.LENGTH_SHORT).show();
             }
         }

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.petbox.shop.Fragment.Category.CategoryGoodsFragment;
 import com.petbox.shop.Fragment.Home.BestGoodFragment;
 import com.petbox.shop.Fragment.Home.ChanceDealFragment;
 import com.petbox.shop.Fragment.Home.EventFragment;
@@ -39,6 +40,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
 
             case 2: //찬스딜
                 return ChanceDealFragment.newInstance("","");
+                //return CategoryGoodsFragment.newInstance(delegate,"");
 
             case 3: //기획전
                 return PlanningFragment.newInstance("","");

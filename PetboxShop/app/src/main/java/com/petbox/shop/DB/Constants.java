@@ -8,6 +8,11 @@ import android.provider.BaseColumns;
 public class Constants implements BaseColumns {
 
 
+    /* ### Static Values ### Start #######################################################*/
+    public static final int AUTO_SLIDE_TIME = 5000;
+
+    /* ### Static Values ### End #######################################################*/
+
     /* ### Http ### Start ################################################################*/
 
     public static final String HTTP_URL_DOMAIN = "www.petbox.kr";
