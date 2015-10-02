@@ -14,11 +14,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.petbox.shop.Adapter.List.ChanceDealListAdapter;
 import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
+import com.petbox.shop.CustomView.SortDialog;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.Delegate.CategoryDelegate;
 import com.petbox.shop.Item.BestGoodInfo;
@@ -79,6 +81,7 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
 
     LinearLayout linear_slide_btn;  //헤더의 강아지 고양이 버튼묶음
 
+    SortDialog  dialog;
 
     // TODO: Rename and change types and number of parameters
     public static CategoryGoodsFragment newInstance(CategoryDelegate _delegate, String param2) {
@@ -110,6 +113,8 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category_goods, container, false);
+
+        dialog = new SortDialog(getContext());
 
         spin_main = (Spinner)v.findViewById(R.id.spin_category_goods_main);
 
@@ -218,7 +223,15 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
         switch(id){
             case R.id.btn_category_goods_sort:
 
-                 break;
+                if(!dialog.isShowing())
+                    dialog.show();
+                else
+                    dialog.dismiss();
+
+
+
+                //Toast.makeText(getContext(), "정렬 버튼", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
