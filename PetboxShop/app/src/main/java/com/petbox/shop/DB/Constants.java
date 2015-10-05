@@ -8,11 +8,16 @@ import android.provider.BaseColumns;
 public class Constants implements BaseColumns {
 
 
+    /* ### Static Values ### Start #######################################################*/
+    public static final int AUTO_SLIDE_TIME = 5000;
+
+    /* ### Static Values ### End #######################################################*/
+
     /* ### Http ### Start ################################################################*/
 
     public static final String HTTP_URL_DOMAIN = "www.petbox.kr";
-    public static final String HTTP_URL_CART = "http://www.petbox.kr/m2/goods/cart.php";
-    public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php";
+    public static final String HTTP_URL_CART = "http://www.petbox.kr/m2/goods/cart.php?app=3";
+    public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php?app=3";
 
     public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;
     public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902;
@@ -27,6 +32,10 @@ public class Constants implements BaseColumns {
     public static final String PREF_KEY_APP_FIRST = "APP_FIRST";    // 앱 처음 실행 여부
     public static final String PREF_KEY_AUTO_LOGIN = "AUTO_LOGIN";  // 자동로그인 Key
     public static final String PREF_KEY_COOKIE = "COOKIE";  // stored_member_info Cookie
+    public static final String PREF_KEY_ID = "ID";
+    public static final String PREF_KEY_ENCODED_BYTE = "ENCODED_BYTE";
+    public static final String PREF_KEY_PASSWORD = "PASSWORD";
+    public static final String PREF_KEY_AES_KEY = "AES_KEY";
 
     /* ### Preferecnes ### End ################################################################*/
 

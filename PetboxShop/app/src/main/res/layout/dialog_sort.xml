@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:orientation="vertical" android:gravity="center"
+    android:background="#0000">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="207dp"
+        android:background="@drawable/border_black"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="198dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_bottom_black"
+            android:layout_margin="1dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="정렬">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="198dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_bottom_black"
+            android:layout_margin="1dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="낮은 가격순">
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="198dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_bottom_black"
+            android:layout_margin="1dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="높은 가격순">
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="198dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_bottom_black"
+            android:layout_margin="1dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="최신 상품순">
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

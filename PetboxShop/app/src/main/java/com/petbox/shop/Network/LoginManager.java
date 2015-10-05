@@ -50,6 +50,8 @@ public class LoginManager {
         isLogin = _isLogin;
     }
 
+    public static boolean getIsLogin(){return isLogin;}
+
     public static void setDelegate(LoginManagerDelegate _delegate){
         delegate = _delegate;
     }
@@ -89,7 +91,7 @@ public class LoginManager {
                 nameValuePairs.add(new BasicNameValuePair("m_id", id));
                 nameValuePairs.add(new BasicNameValuePair("password", pw));
 
-                if(autoLogin)
+                //if(autoLogin)
                     nameValuePairs.add(new BasicNameValuePair("save_login_status", "y"));
 
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));

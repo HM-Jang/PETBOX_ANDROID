@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="first_category">
+        <item>애견사료</item>
+        <item>의약부외품</item>
+        <item>위생/배변</item>
+        <item>하우스/가구</item>
+        <item>줄/이름표</item>
+        <item>급식기/급수기</item>
+        <item>장난감/훈련용품</item>
+        <item>간식</item>
+        <item>영양제</item>
+        <item>목욕용품</item>
+        <item>이동장/철장</item>
+        <item>패션/악세서리/팬시</item>
+        <item>미용용품</item>
+    </string-array>
+    
+    <string-array name="dog_feed">
+        <item>브랜드사료</item>
+        <item>연령/기능별사료</item>
+    </string-array>
+    
+    <string-array name="dog_feed_brand">
+        <item>ANF</item>
+        <item>K9</item>
+        <item>고우(GO!)</item>
+        <item>나우(NOW)</item>
+        <item>내추럴홀릭</item>
+        <item>내추럴코어</item>
+        <item>뉴웨이브</item>
+        <item>뉴트라골드</item>
+        <item>뉴트램</item>
+        <item>뉴트리나</item>
+        <item>뉴트리오</item>
+        <item>닥터하비</item>
+        <item>데이스포</item>
+        <item>런치박스</item>
+        <item>로얄캐닌</item>
+        <item>로투스</item>
+        <item>메라독</item>
+        <item>메릭</item>
+        <item>블랙우드</item>
+        <item>빌잭</item>
+        <item>사이언스다이어트</item>
+        <item>선데이펫</item>
+        <item>아나멧</item>
+        <item>아보덤</item>
+        <item>아침애</item>
+        <item>에보</item>
+        <item>오리진</item>
+        <item>오븐베이크</item>
+        <item>이노바</item>
+        <item>이퀄리브리오</item>
+        <item>치킨수프</item>
+        <item>캐니대</item>
+        <item>캘리포니아내추럴</item>
+        <item>토우</item>
+        <item>트로벳</item>
+        <item>펫보타닉스</item>
+        <item>풀무원아미오</item>
+        <item>퓨리나</item>
+        <item>프리미엄엣지</item>
+        <item>피너클</item>
+        <item>홀리스틱블랜드</item>
+        <item>지위픽</item>
+        <item>건강백서</item>
+        <item>뉴트로초이스</item>
+        <item>인스팅트</item>
+        <item>프레리</item>
+    </string-array>
+    
+    <string-array name="dog_feed_age_func">
+        <item>전체</item>
+        <item>분유/이유식</item>
+        <item>자격용</item>
+        <item>성견용</item>
+        <item>전연령견용</item>
+        <item>노견용/비만견용</item>
+        <item>민감체질/피부개선</item>
+        <item>위장개선/치석제거</item>
+        <item>임신견/수유견용</item>
+        <item>대형견용</item>        
+    </string-array>
+    
+    <string-array name="dog_medicine">
+        <item>구강관련</item>
+        <item>귀관련</item>
+        <item>눈관련</item>
+        <item>피부관련</item>
+        <item>치료보조관련</item>
+        <item>기타</item>
+    </string-array>
+        
+    
+    <string-array name="dog_hygienic">
+        <item>탈취/소독</item>
+        <item>배변패드</item>
+        <item>배변판(토일렛)</item>
+        <item>기저귀/팬티</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name="dog_house">
+        <item>방석/하우스</item>
+        <item>하드타입하우스</item>
+        <item>스텝/계단</item>
+        <item>안전용품</item>
+    </string-array>
+
+    <string-array name="dog_line">
+        <item>가슴줄(하네스)</item>
+        <item>목줄</item>
+        <item>일반리드줄</item>
+        <item>자동리드줄</item>
+        <item>이름표줄</item>
+    </string-array>
+
+    <string-array name="dog_drinkers">
+        <item>급식기</item>
+        <item>급수기</item>
+        <item>자동급식기</item>
+        <item>사료보관용기</item>
+        <item>젖병</item>
+    </string-array>
+    
+    <string-array name="dog_toy">
+        <item>장난감</item>
+        <item>훈련용품</item>
+        <item>서적</item>
+        <item>티셔츠</item>
+    </string-array>
+    
+    <string-array name="dog_snack">
+        <item>사사미</item>
+        <item>캔</item>
+        <item>개껌</item>
+        <item>비스킷/쿠키</item>
+        <item>묶음간식</item>
+        <item>기타</item>
+        <item>져키/소시지</item>
+    </string-array>
+    
+    <string-array name="dog_nutrients">
+        <item>종합영양제</item>
+        <item>피모영양제</item>
+        <item>칼슘/관절영양제</item>
+        <item>장/소취관련</item>
+        <item>사료+보충제</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name="dog_bath">
+        <item>샴푸</item>
+        <item>샴푸/린스</item>
+        <item>린스</item>
+        <item>약용샴푸(피모관련)</item>
+        <item>트리트먼트/에센스</item>
+        <item>타올/티슈</item>
+    </string-array>
+
+    <string-array name="dog_fence">
+        <item>이동가방</item>
+        <item>이동장</item>
+        <item>철장/울타리</item>
+        <item>안전문</item>
+    </string-array>
+
+    <string-array name="dog_accessory">
+        <item>티셔츠</item>
+        <item>올인원</item>
+        <item>원피스</item>
+        <item>자켓</item>
+        <item>신발/양말</item>
+        <item>목걸이/이름표</item>
+        <item>머리핀/고무줄</item>
+        <item>패션소픔</item>
+        <item>팬시</item>
+    </string-array>
+
+    <string-array name="dog_beauty">
+        <item>브러쉬류</item>
+        <item>이발기구/클리퍼</item>
+        <item>미용가위</item>
+        <item>발톱깍기</item>
+        <item>향수/염색약</item>
+        <item>스케일러/랩핑관련</item>
+        <item>기타</item>
+    </string-array>
+
+</resources>

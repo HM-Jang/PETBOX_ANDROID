@@ -1,33 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/frame_best_good"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/border_bottom_black">
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
+        android:id="@+id/frame_best_good"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:id="@+id/pager_best_good">
-
-    </android.support.v4.view.ViewPager>
-
-    <com.viewpagerindicator.CirclePageIndicator
-        android:id="@+id/indicator_best_good"
-        android:layout_gravity="bottom|center"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:padding="6dp"
-        app:centered="true"
-        app:fillColor="#FFFFFFFF"
-        app:pageColor="#88FFFFFF"
-        app:radius="4dp"
-        app:strokeColor="#FF1047A9"
-        app:strokeWidth="1dp" />
+        android:background="@drawable/border_bottom_black">
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:id="@+id/pager_best_good">
+
+        </android.support.v4.view.ViewPager>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator_best_good"
+            android:layout_gravity="bottom|center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="6dp"
+            app:centered="true"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#88FFFFFF"
+            app:radius="4dp"
+            app:strokeColor="#FF1047A9"
+            app:strokeWidth="1dp" />
 
 
-</FrameLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/linear_slide_btn">
+
+        <Button
+            android:id="@+id/btn_slide_dog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="강아지"/>
+
+        <Button
+            android:id="@+id/btn_slide_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고양이"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+

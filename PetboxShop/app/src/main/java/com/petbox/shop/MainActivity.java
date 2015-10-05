@@ -25,8 +25,10 @@ import com.petbox.shop.Adapter.Pager.CategoryPagerAdapter;
 import com.petbox.shop.Adapter.Pager.HomePagerAdapter;
 import com.petbox.shop.Adapter.Pager.MyPagePagerAdapter;
 import com.petbox.shop.Adapter.Pager.SearchPagerAdapter;
+import com.petbox.shop.CustomView.NonSwipeableViewPager;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.DB.DBConnector;
+import com.petbox.shop.Delegate.CategoryDelegate;
 import com.petbox.shop.Fragment.Category.CategoryFragment;
 import com.petbox.shop.Fragment.Home.BestGoodFragment;
 import com.petbox.shop.Fragment.Home.ChanceDealFragment;
@@ -37,20 +39,19 @@ import com.petbox.shop.Fragment.Home.RegularShippingFragment;
 import com.petbox.shop.Fragment.MyPage.MyPageFragment;
 import com.petbox.shop.Fragment.Search.PopularSearchFragment;
 import com.petbox.shop.Fragment.Search.RecentSearchFragment;
+import com.petbox.shop.Network.LoginManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, BestGoodFragment.OnFragmentInteractionListener, ChanceDealFragment.OnFragmentInteractionListener, EventFragment.OnFragmentInteractionListener,
-PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentInteractionListener, RegularShippingFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener, MyPageFragment.OnFragmentInteractionListener
-, PopularSearchFragment.OnFragmentInteractionListener, RecentSearchFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CategoryDelegate {
 
 
     public static final String TAG = "MainAct";
 
     private TabLayout tabLayout;
-    private ViewPager mViewPager;
+    private NonSwipeableViewPager mViewPager;
 
     private HomePagerAdapter homePagerAdapter;
     private CategoryPagerAdapter categoryPagerAdapter;
@@ -118,12 +119,12 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         ibtn_mypage = (ImageButton)findViewById(R.id.ibtn_mypage);
         ibtn_mypage.setOnClickListener(this);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
 
         fragmentManager = getSupportFragmentManager();
 
         homePagerAdapter = new HomePagerAdapter(fragmentManager);
-        categoryPagerAdapter = new CategoryPagerAdapter(fragmentManager);
+        categoryPagerAdapter = new CategoryPagerAdapter(fragmentManager, this);
         searchPagerAdapter = new SearchPagerAdapter(fragmentManager);
         myPagePagerAdapter = new MyPagePagerAdapter(fragmentManager);
 
@@ -131,16 +132,37 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
         tabLayout = (TabLayout)findViewById(R.id.slide_tabs);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
+        //tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         tabLayout.setSelectedTabIndicatorColor(mainColor);
         tabLayout.setTabTextColors(0xff4e91ff, 0xff000000);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    public void setVisibleForTab(int viewMode){
+        tabLayout.setVisibility(viewMode);
+    }
+
+    @Override
+    public void onStart(){
+        LoginManager.getHttpClient();
+
+        if(LoginManager.getIsLogin()){
+            ibtn_login.setVisibility(View.GONE);
+            ibtn_mypage.setVisibility(View.VISIBLE);
+        }
+
+        Log.i(TAG, "++ ON START ++");
+
+        super.onStart();
+    }
+
+
     public void setHomePagerAdapter(){
         //clearBackStack();
         //Log.i("TAG", "MNGR[COUNT] : "+fragmentManager.getFragments().size());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
+        mViewPager.setSwipeEnabled(true);
         mViewPager.setAdapter(homePagerAdapter);
         mViewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(mViewPager);
@@ -149,7 +171,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
     public void setCategoryPagerAdapter(){
         //clearBackStack();
         //Log.i("TAG", "MNGR[COUNT] : "+fragmentManager.getFragments().size());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
+        mViewPager.setSwipeEnabled(false);
         mViewPager.setAdapter(categoryPagerAdapter);
         mViewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(mViewPager);
@@ -158,7 +181,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
     public void setSearchPagerAdapter(){
         //clearBackStack();
         //Log.i("TAG", "MNGR[COUNT] : "+fragmentManager.getFragments().size());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
+        mViewPager.setSwipeEnabled(true);
         mViewPager.setAdapter(searchPagerAdapter);
         mViewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(mViewPager);
@@ -166,7 +190,8 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
     public void setMyPagePagerAdapter(){
         //clearBackStack();
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (NonSwipeableViewPager) findViewById(R.id.pager);
+        mViewPager.setSwipeEnabled(false);
         mViewPager.setAdapter(myPagePagerAdapter);
         mViewPager.setCurrentItem(0);
         tabLayout.setupWithViewPager(mViewPager);
@@ -246,7 +271,7 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 break;
 
             case R.id.ibtn_menu_cart:
-                Intent cart_intnet = new Intent(MainActivity.this, TestWebView.class);
+                Intent cart_intnet = new Intent(MainActivity.this, CartWebView.class);
                 startActivity(cart_intnet);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //Toast.makeText(getApplicationContext(), "menu_cart", Toast.LENGTH_SHORT).show();
@@ -258,15 +283,16 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
                 if(menu_selected == 0 ){    // 홈
                     setHomePagerAdapter();
+                    setVisibleForTab(View.VISIBLE);
+                    tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_on);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_on);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
 
                     if(ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
-
 
                 break;
 
@@ -276,15 +302,15 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
                 if(menu_selected == 1 ) {    // 카테고리
                     setCategoryPagerAdapter();
+                    setVisibleForTab(View.GONE);
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_on);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_on);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
-
                 break;
 
             case R.id.ibtn_search:
@@ -293,13 +319,15 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
 
                 if(menu_selected == 2 ) {    // 검색
                     setSearchPagerAdapter();
+                    setVisibleForTab(View.VISIBLE);
+                    tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_on);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_on);
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_off);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
                 }
 
                 break;
@@ -317,13 +345,15 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
                 if(menu_selected == 3) {    // 마이페이지
                     //Toast.makeText(getApplicationContext(), "mypage", Toast.LENGTH_SHORT).show();
                     setMyPagePagerAdapter();
+                    setVisibleForTab(View.GONE);
 
-                    ibtn_home.setImageResource(R.drawable.btn_bottom_home_off);
-                    ibtn_category.setImageResource(R.drawable.btn_bottom_category_off);
-                    ibtn_search.setImageResource(R.drawable.btn_bottom_search_off);
+                    ibtn_home.setImageResource(R.drawable.bot_home_off);
+                    ibtn_category.setImageResource(R.drawable.bot_category_off);
+                    ibtn_search.setImageResource(R.drawable.bot_search_off);
+
 
                     if (ibtn_mypage.getVisibility() == View.VISIBLE)
-                        ibtn_mypage.setImageResource(R.drawable.btn_bottom_mypage_on);
+                        ibtn_mypage.setImageResource(R.drawable.bot_mypage_on);
                 }
                 break;
         }
@@ -353,7 +383,63 @@ PlanningFragment.OnFragmentInteractionListener, PrimiumFragment.OnFragmentIntera
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void clickCategoryGoods(int select) {
+        mViewPager.setCurrentItem(1);   // 카테고리 상품 화면
+    }
+
+    @Override
+    public void backCategory() {
+        mViewPager.setCurrentItem(0);   // 카테고리 화면
+    }
+
+    /*
+    @Override
+    public void clickPlanning() {
+        //Toast.makeText(this, "Main - Click Planning", Toast.LENGTH_SHORT).show();
+
+        menu_selected = 0;
+
+        if(menu_selected == 0 ){    // 홈
+            setHomePagerAdapter();
+            setVisibleForTab(View.VISIBLE);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+            ibtn_home.setImageResource(R.drawable.bot_home_on);
+            ibtn_category.setImageResource(R.drawable.bot_category_off);
+            ibtn_search.setImageResource(R.drawable.bot_search_off);
+
+            if(ibtn_mypage.getVisibility() == View.VISIBLE)
+                ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
+        }
+
+        mViewPager.setCurrentItem(3);   //기획전
 
     }
+
+    @Override
+    public void clickPrimium() {
+        //Toast.makeText(this, "Main - Click Primium", Toast.LENGTH_SHORT).show();
+
+        menu_selected = 0;
+
+        if(menu_selected == 0 ){    // 홈
+            setHomePagerAdapter();
+            setVisibleForTab(View.VISIBLE);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+            ibtn_home.setImageResource(R.drawable.bot_home_on);
+            ibtn_category.setImageResource(R.drawable.bot_category_off);
+            ibtn_search.setImageResource(R.drawable.bot_search_off);
+
+            if(ibtn_mypage.getVisibility() == View.VISIBLE)
+                ibtn_mypage.setImageResource(R.drawable.bot_mypage_off);
+        }
+        mViewPager.setCurrentItem(4);   //프리미엄몰
+    }
+
+    @Override
+    public void clickCategoryGoods() {
+        categoryPagerAdapter.setMode(1);
+    }
+    */
 }
