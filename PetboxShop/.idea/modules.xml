@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/FlurryAds-6.1.0/FlurryAds-6.1.0.iml" filepath="$PROJECT_DIR$/FlurryAds-6.1.0/FlurryAds-6.1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlurryAnalytics-6.1.0/FlurryAnalytics-6.1.0.iml" filepath="$PROJECT_DIR$/FlurryAnalytics-6.1.0/FlurryAnalytics-6.1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/GridViewWithHeaderAndFooter/GridViewWithHeaderAndFooter.iml" filepath="$PROJECT_DIR$/GridViewWithHeaderAndFooter/GridViewWithHeaderAndFooter.iml" />
       <module fileurl="file://$PROJECT_DIR$/PetboxShop.iml" filepath="$PROJECT_DIR$/PetboxShop.iml" />
       <module fileurl="file://$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" filepath="$PROJECT_DIR$/PullToRefresh/PullToRefresh.iml" />

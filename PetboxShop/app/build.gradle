@@ -21,11 +21,14 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:design:23.0.1'
     compile project(':ViewPagerIndicator')
     compile project(':PullToRefresh')
     compile project(':GridViewWithHeaderAndFooter')
     compile project(':httpclient')
     compile project(':httpcore')
+    compile project(':FlurryAds-6.1.0')
+    compile project(':FlurryAnalytics-6.1.0')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.google.android.gms:play-services-ads:7.3.0'
 }
