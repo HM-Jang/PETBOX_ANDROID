@@ -2,9 +2,9 @@ package com.petbox.shop.Fragment.Home;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -131,7 +131,7 @@ public class PlanningGoodsFragment extends Fragment {
             mItemList.add(info[i]);
         }
 
-        listView = (PullToRefreshListView)v.findViewById(R.id.list_category_goods);
+        listView = (PullToRefreshListView)v.findViewById(R.id.list_planning_goods);
         listAdapter = new ChanceDealListAdapter(getActivity().getApplicationContext(), mItemList);
         listView.addHeaderView(headerView);
         listView.setAdapter(listAdapter);

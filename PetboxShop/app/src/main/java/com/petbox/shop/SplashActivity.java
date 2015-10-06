@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.DB.DBConnector;
 import com.petbox.shop.Delegate.LoginManagerDelegate;
@@ -174,6 +175,14 @@ public class SplashActivity extends Activity implements LoginManagerDelegate {
        // }
         timerThread.start();
         super.onStart();
+        //FlurryAgent.onStartSession(this, Constants.FLURRY_APIKEY);
+    }
+
+    @Override
+    public void onStop(){
+        //Log.i(TAG, "++ ON STOP ++");
+        super.onStop();
+       // FlurryAgent.onEndSession(this);
     }
 
     @Override

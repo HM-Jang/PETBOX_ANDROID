@@ -9,7 +9,9 @@ import com.petbox.shop.Fragment.Category.CategoryGoodsFragment;
 import com.petbox.shop.Fragment.Home.BestGoodFragment;
 import com.petbox.shop.Fragment.Home.ChanceDealFragment;
 import com.petbox.shop.Fragment.Home.EventFragment;
+import com.petbox.shop.Fragment.Home.Home2Fragment;
 import com.petbox.shop.Fragment.Home.HomeFragment;
+import com.petbox.shop.Fragment.Home.IntegrationPlanningFragment;
 import com.petbox.shop.Fragment.Home.PlanningFragment;
 import com.petbox.shop.Fragment.Home.PrimiumFragment;
 import com.petbox.shop.Fragment.Home.RegularShippingFragment;
@@ -33,7 +35,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
         switch(position){
 
             case 0: // 펫박스 홈
-                return HomeFragment.newInstance("","");
+                return Home2Fragment.newInstance("", "");
 
             case 1: //베스트상품
                 return BestGoodFragment.newInstance("","");

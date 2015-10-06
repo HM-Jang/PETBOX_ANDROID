@@ -23,6 +23,7 @@ import com.petbox.shop.Adapter.Pager.BestGoodPagerAdapter;
 import com.petbox.shop.CustomView.SortDialog;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.Delegate.CategoryDelegate;
+import com.petbox.shop.Delegate.SortDelegate;
 import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.R;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
  * Use the {@link CategoryGoodsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CategoryGoodsFragment extends Fragment implements View.OnClickListener {
+public class CategoryGoodsFragment extends Fragment implements View.OnClickListener, SortDelegate {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -114,7 +115,7 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category_goods, container, false);
 
-        dialog = new SortDialog(getContext());
+        dialog = new SortDialog(getContext(), this);
 
         spin_main = (Spinner)v.findViewById(R.id.spin_category_goods_main);
 
@@ -235,4 +236,23 @@ public class CategoryGoodsFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    @Override
+    public void sort(int mode) {
+        switch(mode){
+            case 0: //낮은 가격순
+                btn_sort.setImageResource(R.drawable.category_sort_low_price);
+                Toast.makeText(getContext(), "낮은 가격순", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 1: //높은 가격순
+                btn_sort.setImageResource(R.drawable.category_sort_high_price);
+                Toast.makeText(getContext(), "높은 가격순", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 2: //최신 상품순
+                btn_sort.setImageResource(R.drawable.category_sort_recent);
+                Toast.makeText(getContext(), "최신 상품순", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 }
