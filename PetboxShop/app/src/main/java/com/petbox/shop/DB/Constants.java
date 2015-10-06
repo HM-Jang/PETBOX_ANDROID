@@ -8,10 +8,18 @@ import android.provider.BaseColumns;
 public class Constants implements BaseColumns {
 
 
+
     /* ### Static Values ### Start #######################################################*/
     public static final int AUTO_SLIDE_TIME = 5000;
 
     /* ### Static Values ### End #######################################################*/
+
+
+    /* ### Static Values ### Start #######################################################*/
+    public static final String FLURRY_APIKEY = "FJ4GZG2YXGGDT98V7NVQ";
+
+    /* ### Static Values ### End #######################################################*/
+
 
     /* ### Http ### Start ################################################################*/
 

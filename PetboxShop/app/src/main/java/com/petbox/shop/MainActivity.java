@@ -21,6 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+import com.flurry.android.ads.FlurryAdErrorType;
+import com.flurry.android.ads.FlurryAdInterstitial;
+import com.flurry.android.ads.FlurryAdInterstitialListener;
 import com.petbox.shop.Adapter.Pager.CategoryPagerAdapter;
 import com.petbox.shop.Adapter.Pager.HomePagerAdapter;
 import com.petbox.shop.Adapter.Pager.MyPagePagerAdapter;
@@ -66,21 +70,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Toolbar toolbar;
     ImageButton ibtn_home, ibtn_category, ibtn_search, ibtn_login, ibtn_mypage;
-    ImageButton ibtn_menu_category, ibtn_menu_cart;
+    ImageButton ibtn_menu_wish, ibtn_menu_cart;
 
     EditText edit_search;
     ImageView iv_logo, iv_search;
 
     int mainColor = 0;
 
+    /* FLURRY
+    FlurryAdInterstitialListener interstitialListener = new FlurryAdInterstitialListener() {
+        @Override
+        public void onFetched(FlurryAdInterstitial flurryAdInterstitial) {
+            flurryAdInterstitial.displayAd();
+        }
+
+        @Override
+        public void onError(FlurryAdInterstitial flurryAdInterstitial, FlurryAdErrorType flurryAdErrorType, int i) {
+            flurryAdInterstitial.destroy();
+        }
+
+        @Override
+        public void onRendered(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+
+        @Override
+        public void onDisplay(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+
+        @Override
+        public void onClose(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+
+        @Override
+        public void onAppExit(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+
+        @Override
+        public void onClicked(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+
+        @Override
+        public void onVideoCompleted(FlurryAdInterstitial flurryAdInterstitial) {
+
+        }
+    };
+
+    private FlurryAdInterstitial mFlurryAdInterstitial = null;
+    private String mAdSpaceName = "INTERSTITIAL_ADSPACE";
+    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent i = new Intent(this, SplashActivity.class);
         startActivityForResult(i, Constants.REQ_SPLASH);
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* FLURRY
+        mFlurryAdInterstitial = new FlurryAdInterstitial(this, mAdSpaceName);
+        mFlurryAdInterstitial.setListener(interstitialListener);
+        */
 
         mainColor = getResources().getColor(R.color.colorPrimary);
 
@@ -98,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         iv_logo = (ImageView)findViewById(R.id.iv_logo);
 
-        ibtn_menu_category = (ImageButton)findViewById(R.id.ibtn_menu_category);
-        ibtn_menu_category.setOnClickListener(this);
+        ibtn_menu_wish = (ImageButton)findViewById(R.id.ibtn_menu_wish);
+        ibtn_menu_wish.setOnClickListener(this);
 
         ibtn_menu_cart = (ImageButton)findViewById(R.id.ibtn_menu_cart);
         ibtn_menu_cart.setOnClickListener(this);
@@ -123,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fragmentManager = getSupportFragmentManager();
 
+
+
         homePagerAdapter = new HomePagerAdapter(fragmentManager);
         categoryPagerAdapter = new CategoryPagerAdapter(fragmentManager, this);
         searchPagerAdapter = new SearchPagerAdapter(fragmentManager);
@@ -145,18 +202,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onStart(){
+        Log.i(TAG, "++ ON START ++");
+
         LoginManager.getHttpClient();
 
         if(LoginManager.getIsLogin()){
             ibtn_login.setVisibility(View.GONE);
             ibtn_mypage.setVisibility(View.VISIBLE);
         }
-
-        Log.i(TAG, "++ ON START ++");
-
         super.onStart();
+        FlurryAgent.onStartSession(this, Constants.FLURRY_APIKEY);
+        //mFlurryAdInterstitial.fetchAd(); FLURRY
     }
 
+    @Override
+    public void onStop(){
+        Log.i(TAG, "++ ON STOP ++");
+        FlurryAgent.onEndSession(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        //mFlurryAdInterstitial.destroy(); FLURRY
+        super.onDestroy();
+    }
 
     public void setHomePagerAdapter(){
         //clearBackStack();
@@ -265,9 +335,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.ibtn_menu_category:
-                setCategoryPagerAdapter();
-                //Toast.makeText(getApplicationContext(), "menu_category", Toast.LENGTH_SHORT).show();
+            case R.id.ibtn_menu_wish:
+                //setCategoryPagerAdapter();
+                Toast.makeText(getApplicationContext(), "찜하기 페이지 이동", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.ibtn_menu_cart:

@@ -1,7 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.petbox.shop.Fragment.Home.HomeFragment">
+<com.handmark.pulltorefresh.library.PullToRefreshScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/sc_home"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+    <include
+        layout="@layout/custom_slide_image"
+        android:id="@+id/header_home_slide"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_home_best"
+        android:layout_below="@id/header_home_slide">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가장 인기가 많은 BEST 상품">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:id="@+id/list_home_best"
+        android:layout_below="@id/linear_home_best"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_home_dc"
+        android:layout_below="@id/list_home_best">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="파격적인 기회를 잡아라">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:id="@+id/list_home_dc"
+        android:layout_below="@id/linear_home_dc"/>
+
+    </RelativeLayout>
+
+</com.handmark.pulltorefresh.library.PullToRefreshScrollView>
