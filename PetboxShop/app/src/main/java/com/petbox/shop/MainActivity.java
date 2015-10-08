@@ -178,8 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fragmentManager = getSupportFragmentManager();
 
-
-
         homePagerAdapter = new HomePagerAdapter(fragmentManager);
         categoryPagerAdapter = new CategoryPagerAdapter(fragmentManager, this);
         searchPagerAdapter = new SearchPagerAdapter(fragmentManager);
