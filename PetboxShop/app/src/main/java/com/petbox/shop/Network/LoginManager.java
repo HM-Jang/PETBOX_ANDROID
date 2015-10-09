@@ -1,6 +1,8 @@
 package com.petbox.shop.Network;
 
 import android.os.AsyncTask;
+
+import com.petbox.shop.DB.Constants;
 import com.petbox.shop.Delegate.LoginManagerDelegate;
 
 import org.apache.http.HttpEntity;
@@ -27,7 +29,6 @@ import java.util.List;
 public class LoginManager {
 
     private static final String TAG = "LoginManager";
-    public final static String SERVER_LOGIN_URL = "http://www.petbox.kr/m2/mem/login_ok.php";
 
     private static DefaultHttpClient httpClient;
     private static boolean isLogin = false;
@@ -46,7 +47,7 @@ public class LoginManager {
     }
 
 
-    public static void setIsLogin(boolean _isLogin){
+        public static void setIsLogin(boolean _isLogin){
         isLogin = _isLogin;
     }
 
@@ -67,7 +68,7 @@ public class LoginManager {
         protected void onPreExecute(){
 
             if(delegate != null)
-                delegate.prevRunning();
+                delegate.prevRunningLogin();
 
             super.onPreExecute();
         }
@@ -83,7 +84,7 @@ public class LoginManager {
             int result_code = 0;
 
             try {
-                HttpPost httpPost = new HttpPost(SERVER_LOGIN_URL);
+                HttpPost httpPost = new HttpPost(Constants.HTTP_URL_LOGIN);
 
                 List<Cookie> cookies = httpClient.getCookieStore().getCookies();
 
@@ -134,7 +135,7 @@ public class LoginManager {
             }
 
             if(delegate != null)
-                delegate.running();
+                delegate.runningLogin();
             //httpClient.getConnectionManager().shutdown();
             return result_code;
         }
@@ -142,7 +143,7 @@ public class LoginManager {
         @Override
         protected  void onPostExecute(Integer result){
             if(delegate != null)
-                delegate.afterRunning(result);
+                delegate.afterRunningLogin(result);
 
             delegate = null;
 

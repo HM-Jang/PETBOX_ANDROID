@@ -66,6 +66,13 @@
 
     </ScrollView>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/iv_regist_ok"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/linear_regist_top" />
 
 
 </RelativeLayout>

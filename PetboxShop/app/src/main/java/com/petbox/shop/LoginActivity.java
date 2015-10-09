@@ -119,6 +119,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case Constants.REQ_REGIST:
+                if (resultCode == Constants.RES_REGIST_LOGIN_SUCCESS) {
+                    setResult(Constants.RES_LOGIN_SUCCESS);
+                    finish();
+                }
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -136,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.ibtn_login_regist:    //등록
                 //Toast.makeText(getApplicationContext(), "등록버튼 누름", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, Constants.REQ_REGIST);
                 break;
 
             case R.id.chk_login_auto:
@@ -158,21 +171,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
     /* LoginManagerDelegate */
 
     @Override
-    public void prevRunning() {
+    public void prevRunningLogin() {
         pDialog.show();
     }
 
     @Override
-    public void running() {
+    public void runningLogin() {
 
     }
 
     @Override
-    public void afterRunning(int responseCode) {
+    public void afterRunningLogin(int responseCode) {
 
         if(responseCode == Constants.HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH ){
             Toast.makeText(this, "아이디나 비밀번호를 확인하세요..", Toast.LENGTH_SHORT).show();

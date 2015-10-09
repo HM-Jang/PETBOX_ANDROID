@@ -206,17 +206,17 @@ public class SplashActivity extends Activity implements LoginManagerDelegate {
     }
 
     @Override
-    public void prevRunning() {
+    public void prevRunningLogin() {
 
     }
 
     @Override
-    public void running() {
+    public void runningLogin() {
 
     }
 
     @Override
-    public void afterRunning(int responseCode) {
+    public void afterRunningLogin(int responseCode) {
         if(responseCode == Constants.HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH ){
             Toast.makeText(this, "아이디나 비밀번호를 확인하세요..", Toast.LENGTH_SHORT).show();
         }else if(responseCode == Constants.HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE){

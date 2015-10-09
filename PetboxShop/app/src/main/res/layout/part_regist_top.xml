@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_black"
+                android:inputType="textEmailAddress"
                 android:hint=" * 이메일"/>
 
         </LinearLayout>
@@ -70,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_black"
+                android:inputType="textPassword"
                 android:hint=" * 비밀번호"/>
 
             <EditText
@@ -77,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_black"
+                android:inputType="textPassword"
                 android:hint=" * 비밀번호 확인"/>
 
         </LinearLayout>
