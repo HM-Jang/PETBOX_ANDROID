@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="regist_dog">
+        <item>품종</item>
+        <item>고든세터</item>
+        <item>골든 리트리버</item>
+        <item>그레이트 데인</item>
+        <item>그레이트 스위스 마운틴 도그</item>
+        <item>그레이트 피레니즈</item>
+        <item>그레이하운드</item>
+        <item>네오폴리탄 마스티프</item>
+        <item>노르웨이 엘크하운드</item>
+        <item>노르위치 테리어</item>
+        <item>노퍽 테리어</item>
+        <item>뉴펀들랜드</item>
+        <item>닥스훈트</item>
+        <item>달마티안</item>
+        <item>댄디 딘몬트 테리어</item>
+        <item>도고 아르헨티노</item>
+        <item>도베르만 핀셔</item>
+        <item>도사견</item>
+        <item>딩고</item>
+        <item>라사압소</item>
+        <item>래브라도 리트리버</item>
+        <item>레이크랜드 테리어</item>
+        <item>로디지아 리지백</item>
+        <item>로트와일러</item>
+        <item>롱코트치와와</item>
+        <item>마스티프</item>
+        <item>말티즈</item>
+        <item>맨체스터 테리어</item>
+        <item>미니어처 불테리어</item>
+        <item>미니어처 슈나우저</item>
+        <item>미니어처 핀셔</item>
+        <item>바센지</item>
+        <item>바셋 하운드</item>
+        <item>바이마라너</item>
+        <item>버니즈 마운틴 독</item>
+        <item>베들링턴 테리어</item>
+        <item>벨지안 쉽도그 그로넨달</item>
+        <item>벨지안 쉽도그 라케노이즈</item>
+        <item>벨지안 쉽도그 말리노이즈</item>
+        <item>벨지안 쉽도그 터뷰런</item>
+        <item>보더 콜리</item>
+        <item>보더 테리어</item>
+        <item>보르조이</item>
+        <item>보스턴 테리어</item>
+        <item>복서</item>
+        <item>부비에 데 플랑드르</item>
+        <item>불 마스티프</item>
+        <item>불 테리어</item>
+        <item>불독</item>
+        <item>브뤼셀 그리펀</item>
+        <item>브리아드</item>
+        <item>브리타니</item>
+        <item>블랙 앤 탄 쿤하운드</item>
+        <item>블러드 하운드</item>
+        <item>비글</item>
+        <item>비숑 프리제</item>
+        <item>비어디드 콜리</item>
+        <item>비즐라</item>
+        <item>사모예드</item>
+        <item>삽살개</item>
+        <item>샤페이</item>
+        <item>세인트 버나드</item>
+        <item>셔틀랜드 쉽독</item>
+        <item>소프트코티드 휘튼 테리어</item>
+        <item>슈나우저</item>
+        <item>스무스 폭스테리어</item>
+        <item>스카이 테리어</item>
+        <item>스코티쉬 디어하운드</item>
+        <item>스코티쉬 테리어</item>
+        <item>스키퍼키</item>
+        <item>스탠더드 푸들</item>
+        <item>스테포드셔 불 테리어</item>
+        <item>시바 이누</item>
+        <item>시베리안 허스키</item>
+        <item>시츄</item>
+        <item>시코쿠</item>
+        <item>실리엄 테리어</item>
+        <item>실키테리어</item>
+        <item>아메리칸 코카 스파니엘</item>
+        <item>아이리쉬 세터</item>
+        <item>아이리쉬 울프하운드</item>
+        <item>아이리쉬 테리어</item>
+        <item>아키타</item>
+        <item>아펜핀셔</item>
+        <item>아프칸 하운드</item>
+        <item>알래스칸 맬러뮤트</item>
+        <item>에어데일 테리어</item>
+        <item>오스트레일리안 캐틀독</item>
+        <item>오스트레일리언 셰퍼드</item>
+        <item>올드 잉글리쉬 쉽독</item>
+        <item>와이어 폭스테리어</item>
+        <item>요크셔 테리어</item>
+        <item>웨스트 하이랜드 화이트 테리어</item>
+        <item>웰시 스프링거 스파니엘</item>
+        <item>웰시 코기</item>
+        <item>웰시 테리어</item>
+        <item>이비전 하운드</item>
+        <item>이탈리안 그레이하운드</item>
+        <item>잉글리쉬 세터</item>
+        <item>잉글리쉬 코카 스파니엘</item>
+        <item>잉글리쉬 폭스하운드</item>
+        <item>자이언트 슈나우저</item>
+        <item>재패니즈 스피츠</item>
+        <item>재패니즈 친</item>
+        <item>재패니즈 테리어</item>
+        <item>잭 러셀 테리어</item>
+        <item>저먼 세퍼드 도그</item>
+        <item>진돗개</item>
+        <item>차우차우</item>
+        <item>차이니즈 크레스티드</item>
+        <item>체사피크 베이 리트리버</item>
+        <item>치와와</item>
+        <item>케리 블루 테리어</item>
+        <item>케언 테리어</item>
+        <item>케이스 혼트</item>
+        <item>케인 코르소</item>
+        <item>코몬돌</item>
+        <item>코튼 드 툴리어</item>
+        <item>콜리</item>
+        <item>크로아티안 쉽독</item>
+        <item>클럼버 스파니엘</item>
+        <item>킹 찰스 스파니엘</item>
+        <item>티벳탄 스파니엘</item>
+        <item>티벳탄 테리어</item>
+        <item>파피용</item>
+        <item>퍼그</item>
+        <item>페키니즈</item>
+        <item>포메라니안</item>
+        <item>포인터</item>
+        <item>푸들</item>
+        <item>풀리</item>
+        <item>풍산개</item>
+        <item>프렌치 블독</item>
+        <item>플랫 코티드 리트리버</item>
+        <item>필라 브라질레이로</item>
+        <item>핏불 테리어</item>
+        <item>해리어</item>
+        <item>홋카이도</item>
+        <item>휘펫</item>
+        <item>한국토종견</item>
+        <item>기타견종</item>
+        <item>견종모름</item>
+    </string-array>
+
+    <string-array name="regist_cat">
+        <item>품종</item>
+        <item>맹크스</item>
+        <item>메인쿤</item>
+        <item>샴</item>
+        <item>아메리카쇼트헤어</item>
+        <item>아비시니아</item>
+    </string-array>
+
+    <string-array name="regist_age">
+        <item>나이</item>
+        <item>2개월 이하</item>
+        <item>2~4개월</item>
+        <item>4~6개월</item>
+        <item>6~8개월</item>
+        <item>8~10개월</item>
+        <item>10~12개월</item>
+        <item>1~2년</item>
+        <item>2~3년</item>
+        <item>3~4년</item>
+        <item>4~5년</item>
+        <item>5~6년</item>
+        <item>6~7년</item>
+        <item>8년 이상</item>
+    </string-array>
+
+    <string-array name="regist_weight">
+        <item>무게</item>
+        <item>1kg 이하</item>
+        <item>2kg</item>
+        <item>3kg</item>
+        <item>4kg</item>
+        <item>5kg</item>
+        <item>6kg</item>
+        <item>7kg</item>
+        <item>8kg</item>
+        <item>9kg</item>
+        <item>10kg</item>
+        <item>11kg</item>
+        <item>12kg</item>
+        <item>13kg</item>
+        <item>14kg</item>
+        <item>15kg</item>
+        <item>16kg</item>
+        <item>17kg</item>
+        <item>18kg</item>
+        <item>19kg</item>
+        <item>20kg</item>
+        <item>20kg이상</item>
+    </string-array>
+
+    <string-array name="regist_allergy">
+        <item>알러지</item>
+        <item>해산물</item>
+        <item>연어</item>
+        <item>칠면조</item>
+        <item>오리고기</item>
+        <item>양고기</item>
+        <item>소고기</item>
+        <item>돼지고기</item>
+        <item>닭고기</item>
+        <item>기타</item>
+    </string-array>
+
+</resources>

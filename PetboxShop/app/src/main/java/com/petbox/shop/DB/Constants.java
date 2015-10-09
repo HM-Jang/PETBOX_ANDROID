@@ -26,11 +26,19 @@ public class Constants implements BaseColumns {
     public static final String HTTP_URL_DOMAIN = "www.petbox.kr";
     public static final String HTTP_URL_CART = "http://www.petbox.kr/m2/goods/cart.php?app=3";
     public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php?app=3";
+    public final static String HTTP_URL_LOGIN = "http://www.petbox.kr/m2/mem/login_ok.php";
+    public final static String HTTP_URL_REGIST = "http://www.petbox.kr/m2/mem/indb.php";
 
-    public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;
-    public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902;
-    public static final int HTTP_RESPONSE_LOGIN_ERROR_DENY = 903;
-    public static final int HTTP_RESPONSE_LOGIN_SUCCESS = 200;
+    public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;  // 아이디&비밀번호 매치 x
+    public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902; // 아이디|비밀번호 형식 틀림
+    public static final int HTTP_RESPONSE_LOGIN_ERROR_DENY = 903;   // 차단된 아이디
+    public static final int HTTP_RESPONSE_LOGIN_SUCCESS = 200;  //로그인 성공
+
+    public static final int HTTP_RESPONSE_REGIST_ERROR_INPUT_TYPE_ID = 801; //이메일 형식 틀림
+    public static final int HTTP_RESPONSE_REGIST_ERROR_EXIST = 802; // 이미 가입된 아이디(중복)
+    public static final int HTTP_RESPONSE_REGIST_ERROR_INPUT_TYPE_PW = 803;    // 비밀번호 형식 틀림
+    public static final int HTTP_RESPONSE_REGIST_ERROR_INPUT_TYPE_NAME = 804; //이름 형식 틀림
+    public static final int HTTP_RESPONSE_REGIST_SUCCESS = 805;
 
 
     /* ### Http ### End ################################################################*/
@@ -68,6 +76,11 @@ public class Constants implements BaseColumns {
     public static final int REQ_LOGIN = 2;
     public static final int RES_LOGIN_FAILED = 0;   //
     public static final int RES_LOGIN_SUCCESS = 1;  // 로그인 성공 시, setResult
+
+    public static final int REQ_REGIST = 30;
+    public static final int RES_REGIST_LOGIN_FAILED = 31;
+    public static final int RES_REGIST_LOGIN_SUCCESS = 32;
+
 
 
     /* ### DB ### End ################################################################*/

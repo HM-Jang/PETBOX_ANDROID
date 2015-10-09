@@ -1,6 +1,7 @@
 package com.petbox.shop;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -68,18 +69,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         chk_auto_login = (CheckBox) findViewById(R.id.chk_login_auto);
         chk_auto_login.setOnClickListener(this);
 
-        String isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
+        String isChecked = null;
 
-        System.out.println(isChecked);
+        if(STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN) == null){
 
-        if(isChecked.equals("false")){
-            chk_auto_login.setChecked(false);
-            //Toast.makeText(getApplicationContext(), "초기상태 : false", Toast.LENGTH_SHORT).show();
-        }else if(isChecked.equals("true")){
-            chk_auto_login.setChecked(true);
-            //Toast.makeText(getApplicationContext(), "초기상태 : true", Toast.LENGTH_SHORT).show();
+        }else{
+            isChecked = STPreferences.getString(Constants.PREF_KEY_AUTO_LOGIN);
+
+            if(isChecked.equals("false")){
+                chk_auto_login.setChecked(false);
+                //Toast.makeText(getApplicationContext(), "초기상태 : false", Toast.LENGTH_SHORT).show();
+            }else if(isChecked.equals("true")){
+                chk_auto_login.setChecked(true);
+                //Toast.makeText(getApplicationContext(), "초기상태 : true", Toast.LENGTH_SHORT).show();
+            }
         }
 
+        System.out.println(isChecked);
     }
 
     /*
@@ -113,6 +119,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case Constants.REQ_REGIST:
+                if (resultCode == Constants.RES_REGIST_LOGIN_SUCCESS) {
+                    setResult(Constants.RES_LOGIN_SUCCESS);
+                    finish();
+                }
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -128,7 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.ibtn_login_regist:    //등록
-                Toast.makeText(getApplicationContext(), "등록버튼 누름", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "등록버튼 누름", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivityForResult(intent, Constants.REQ_REGIST);
                 break;
 
             case R.id.chk_login_auto:
@@ -150,21 +171,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
     /* LoginManagerDelegate */
 
     @Override
-    public void prevRunning() {
+    public void prevRunningLogin() {
         pDialog.show();
     }
 
     @Override
-    public void running() {
+    public void runningLogin() {
 
     }
 
     @Override
-    public void afterRunning(int responseCode) {
+    public void afterRunningLogin(int responseCode) {
 
         if(responseCode == Constants.HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH ){
             Toast.makeText(this, "아이디나 비밀번호를 확인하세요..", Toast.LENGTH_SHORT).show();
