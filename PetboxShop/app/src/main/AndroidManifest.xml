@@ -47,7 +47,13 @@
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".GoodsInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_goods_info"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

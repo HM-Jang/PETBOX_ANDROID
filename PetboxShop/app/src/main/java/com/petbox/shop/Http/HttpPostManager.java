@@ -55,7 +55,6 @@ public class HttpPostManager {
                 delegate.prevRunningHttpPost();
 
             super.onPreExecute();
-
         }
 
 
@@ -75,7 +74,6 @@ public class HttpPostManager {
                 HttpEntity entity = response.getEntity();
 
                 result_code = response.getStatusLine().getStatusCode();
-
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

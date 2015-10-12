@@ -7,8 +7,6 @@ import android.provider.BaseColumns;
  */
 public class Constants implements BaseColumns {
 
-
-
     /* ### Static Values ### Start #######################################################*/
     public static final int AUTO_SLIDE_TIME = 5000;
 
@@ -70,8 +68,10 @@ public class Constants implements BaseColumns {
 
     /* ### DB ### Start ################################################################*/
 
-    public static final int REQ_SPLASH = 1; // startActivityForResult에서 Splash엑티비티
-    public static final int RES_SPLASH_CANCEL = 0;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int REQ_SPLASH = 10; // startActivityForResult에서 Splash엑티비티
+    public static final int RES_SPLASH_CANCEL = 11;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int RES_SPLASH_LOGIN_SUCCESS = 12;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int RES_SPLASH_LOGIN_FAILED = 13;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
 
     public static final int REQ_LOGIN = 2;
     public static final int RES_LOGIN_FAILED = 0;   //
