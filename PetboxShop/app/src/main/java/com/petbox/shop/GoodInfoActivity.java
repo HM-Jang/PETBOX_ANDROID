@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +28,9 @@ import com.petbox.shop.Adapter.List.SelectOptionListAdpater;
 import com.petbox.shop.Adapter.List.SelectedGoodListAdapter;
 import com.petbox.shop.DB.Constants;
 import com.petbox.shop.Delegate.GoodInfoDelegate;
+import com.petbox.shop.Delegate.HttpPostDelegate;
 import com.petbox.shop.Delegate.NumberPickerDelegate;
+import com.petbox.shop.Http.HttpPostManager;
 import com.petbox.shop.Item.AddOptionInfo;
 import com.petbox.shop.Item.BestGoodInfo;
 import com.petbox.shop.Item.GoodOptionInfo;
@@ -36,9 +39,11 @@ import com.petbox.shop.Utility.Utility;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,9 +56,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
 
 
-public class GoodInfoActivity extends AppCompatActivity implements View.OnClickListener, NumberPickerDelegate{
+public class GoodInfoActivity extends AppCompatActivity implements View.OnClickListener, NumberPickerDelegate, HttpPostDelegate{
 
     /* 상단 탭 */
     ImageButton ibtn_back,ibtn_search, ibtn_cart;
@@ -84,7 +91,8 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     /* 컨텐츠(중) */
     Button btn_intro, btn_review, btn_ship; // 상품소개, 리뷰보기, 상품/배송정보
     FrameLayout frame_middle_content;       // 컨텐츠
-    ImageView iv_intro;
+    //ImageView iv_intro;
+    //WebView webView;
 
     /* 컨텐츠(하) */
     ListView listView; // 추천상품리스트
@@ -114,7 +122,6 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     ListView list_select_good;  //선택했던 상품 정보
     ListView list_select_item; // 선택한 옵션의 리스트
 
-
     int option_count = 0;   // 구매옵션 개수
     boolean isDoubleOption = false; // 2단 연계옵션 true
     boolean isNoOption = false; // 아무 옵션 없을 시,
@@ -124,8 +131,8 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     int selected_add_num = 0; // 추가옵션 내의 항목
     int selected_what = 0; // 0: 구매옵션 선택(최근), 1: 추가옵션 선택(최근)
 
-
     ArrayList<String> arrOptionName;    //옵션명
+    String optionOriginFirstName = "";
     SelectOptionListAdpater listOptionAdapter;
     ArrayList<String> arrAddOptionName; //추가옵션명
     SelectOptionListAdpater listAddOptionAdapter;
@@ -138,10 +145,10 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<GoodOptionInfo> selectedGoodList; //선택된
     SelectedGoodListAdapter selectedGoodListAdapter;
 
+
+
     int order_price = 0;    // 주문금액
     TextView tv_all_price;
-
-
 
     /* Data */
     int goodsno = 0;	// 상품번호
@@ -167,6 +174,8 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     int max_ea = 0; //최대 구매수량
     int open_mobile = 0; // 상품노출여부(O : 노출x, 1: 노출o)
 
+    ArrayList<Integer> iconList;
+
     int goods_price = 0; //상품판매가
     int goods_consumer = 0; // 상품 소비자가
 
@@ -183,11 +192,11 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<String> option1List = new ArrayList<String>();    // 1차 구매옵션
     ArrayList<ArrayList<OptionInfo>> arrOption2List = new ArrayList<ArrayList<OptionInfo>>();   // 2차 구매옵션
 
-
     int addOptionNamesSize = 0; // 추가 옵션갯수
     ArrayList<String> addOptionNames = new ArrayList<String>(); // 추가 옵션 스피너 텍스트들
     ArrayList<ArrayList<AddOptionInfo>>  arrAddOptionList = new ArrayList<ArrayList<AddOptionInfo>>();// 추가옵션 스피너 누르면 나오는 항목
 
+    int firstOptionSelected = 0;    // 2단 구매옵션 시, 1차 구매옵션 클릭했던 position
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,7 +254,10 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
         btn_ship.setOnClickListener(this);
 
         frame_middle_content = (FrameLayout)findViewById(R.id.frame_good_info_middle_content);
-        iv_intro = (ImageView)findViewById(R.id.iv_good_info_intro);
+        //iv_intro = (ImageView)findViewById(R.id.iv_good_info_intro);
+
+       // webView = (WebView) findViewById(R.id.webview_good_info);
+        //webView.getSettings().setJavaScriptEnabled(true);
 
         mItemList = new ArrayList<BestGoodInfo>();
 
@@ -320,6 +332,7 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
         //arrAddOptionList = new ArrayList<ArrayList<GoodOptionInfo>>();
 
         selectedGoodList = new ArrayList<GoodOptionInfo>();
+        iconList = new ArrayList<Integer>();
 
         init();
     }
@@ -335,70 +348,6 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
 
         JsonParseTask task = new JsonParseTask(Constants.HTTP_URL_GOOD_INFO);
         task.execute();
-
-        /*
-        arrOptionName.add("선택 옵션1");
-        arrOptionName.add("선택 옵션2");
-
-        arrAddOptionName.add("추가 옵션1");
-        arrAddOptionName.add("추가 옵션2");
-
-        option_count = arrOptionName.size();
-        add_option_count = arrAddOptionName.size();
-
-        ArrayList<GoodOptionInfo>  tempList;
-
-        for(int i=1; i<=option_count; i++){
-            tempList = new ArrayList<GoodOptionInfo>();
-
-            for(int j=1; j<=5; j++){
-                GoodOptionInfo item = new GoodOptionInfo();
-                item.name = "옵션 " + i + "-" + j;
-                item.count = 100*j;
-                item.price = 10000 * j;
-
-                tempList.add(item);
-            }
-            arrOptionList.add(tempList);
-        }
-
-        for(int i=1; i<=add_option_count; i++){
-            tempList = new ArrayList<GoodOptionInfo>();
-
-            for(int j=1; j<=5; j++){
-                GoodOptionInfo item = new GoodOptionInfo();
-                item.name = "추가 옵션 " + i + "-" + j;
-                item.count = 200*j;
-                item.price = 20000 * j;
-
-                tempList.add(item);
-            }
-            arrAddOptionList.add(tempList);
-        }
-
-        if(option_count == 0) {
-            linear_list_default.setVisibility(View.GONE);
-            bool_option = true;
-        }else{
-            listOptionAdapter = new SelectOptionListAdpater(this, arrOptionName);
-            list_default.setAdapter(listOptionAdapter);
-        }
-
-
-        if(add_option_count == 0) {
-            linear_list_add.setVisibility(View.GONE);
-            bool_add_option = true;
-        }else{
-            listAddOptionAdapter = new SelectOptionListAdpater(this, arrAddOptionName);
-            list_add.setAdapter(listAddOptionAdapter);
-        }
-
-        // 아무 옵션이 없을시, List2에 아이템 하나 추가
-        if(bool_option && bool_add_option ){
-            isNoOption = true;
-
-         }
-         */
 
         //타임할인 쓰레드 초기화
         timerHandler = new Handler();
@@ -510,7 +459,10 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.btn_good_info_buy_ok:
-                Toast.makeText(this, "buy_ok", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "buy_ok", Toast.LENGTH_SHORT).show();
+                HttpPostManager httpPostManager = new HttpPostManager(this);
+                httpPostManager.start();
+
                 break;
 
             case R.id.btn_good_info_cart_ok:
@@ -529,21 +481,52 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
         GoodOptionInfo item = new GoodOptionInfo();
 
         if(selected_what == 0) {    //구매옵션
-            OptionInfo optionItem = arrOption2List.get(selected_num).get(position);
+            if(optionNamesSize == 1){   //구매옵션 한개일때
+                OptionInfo optionItem = arrOption2List.get(selected_num).get(position);
 
-            item.name = optionItem.opt1;
-            item.count = optionItem.stock;
-            item.price = optionItem.price;
-            item.order_count = 0;
+                item.sno = optionItem.sno;
+                item.name = optionItem.opt1;
+                item.count = optionItem.stock;
+                item.price = optionItem.price;
+                item.order_count = 0;
+            }else if(optionNamesSize == 2){
+
+                if(selected_num == 0){  //구매옵션 1차
+                    optionNames.remove(0);
+                    optionNames.add(0, option1List.get(position));
+
+                    firstOptionSelected = position;
+
+                    listOptionAdapter = new SelectOptionListAdpater(getApplicationContext(), optionNames);  // 구매옵션1 선택한 것으로 텍스트 변경
+                    list_default.setAdapter(listOptionAdapter);
+                    return;
+
+                }else if(selected_num == 1){    //구매옵션 2차
+                    OptionInfo optionItem = arrOption2List.get(firstOptionSelected).get(position);
+
+                    item.sno = optionItem.sno;
+                    item.name = optionItem.opt1 + "/" + optionItem.opt2;
+                    item.count = optionItem.stock;
+                    item.price = optionItem.price;
+                    item.order_count = 0;
+
+                }
+
+            }
+
 
         }
         else if(selected_what == 1) {   //추가옵션
+            System.out.println("추가옵션 클릭");
             AddOptionInfo addOptionItem = arrAddOptionList.get(selected_add_num).get(position);
 
+            item.sno = addOptionItem.sno;
             item.name = addOptionItem.opt;
             item.count = 999;
             item.price = addOptionItem.addprice;
             item.order_count = 0;
+            item.isAddOption = true;
+            item.optionName = addOptionItem.optionName;
         }
 
         if(!selectedGoodList.isEmpty()){
@@ -646,6 +629,83 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
         tv_all_price.setText("총상품가 : " + order_price + "원");
     }
 
+    @Override
+    public void prevRunningHttpPost() {
+
+    }
+
+    @Override
+    public String getPostUrl() {
+        return Constants.HTTP_URL_GO_CART;
+    }
+
+    @Override
+    public List<NameValuePair> getNameValuePairs() {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+        /* 고정값 */
+
+        nameValuePairs.add(new BasicNameValuePair("mode", "addItem"));
+        nameValuePairs.add(new BasicNameValuePair("goodsno", Integer.toString(goodsno)));
+        //nameValuePairs.add(new BasicNameValuePair("goodsno", "2755"));
+        nameValuePairs.add(new BasicNameValuePair("goodsCoupon", "0"));
+
+        /*
+        nameValuePairs.add(new BasicNameValuePair("min_ea", "1"));
+        nameValuePairs.add(new BasicNameValuePair("max_ea", "200"));
+
+        nameValuePairs.add(new BasicNameValuePair("realprice", ""+order_price));
+        nameValuePairs.add(new BasicNameValuePair("ea", "1"));
+
+        System.out.println("realprice : "+ order_price);
+        */
+
+        int count = 0;
+
+        for(int i=0; i<selectedGoodList.size(); i++) {
+            GoodOptionInfo item = selectedGoodList.get(i);
+
+            if (item.order_count == 0)   // 주문 갯수 0개 패스
+                continue;
+
+            System.out.println("goodsno : " + goodsno);
+
+            if (!item.isAddOption) {  //구매옵션일경우
+                /*
+                nameValuePairs.add(new BasicNameValuePair("multi_ea[0]", "1"));
+                nameValuePairs.add(new BasicNameValuePair("multi_opt[0][]", "나우스몰브리드퍼피2.72kg"));
+                */
+                nameValuePairs.add(new BasicNameValuePair("multi_ea[" + count + "]", Integer.toString(item.order_count)));
+                nameValuePairs.add(new BasicNameValuePair("multi_opt[" + count + "][]", item.name));
+
+                System.out.println("multi_ea[" + count + "]" + " : " + item.order_count);
+                System.out.println("multi_opt[" + count + "][]" + " : " + item.name);
+                count++;
+            } else {
+                String param = item.sno + "^" + item.optionName + "^" + item.name;
+
+                if (item.order_count == 1)
+                    param += "^" + item.price;
+                else
+                    param += "#" + item.order_count + "^" + item.price;
+                nameValuePairs.add(new BasicNameValuePair("multi_addopt[0][]", param));
+
+                System.out.println("multi_addopt[0][]" + " : " + param);
+            }
+        }
+        return nameValuePairs;
+    }
+
+    @Override
+    public void runningHttpPost() {
+
+    }
+
+    @Override
+    public void afterRunningHttpPost(int responseCode) {
+        System.out.println("장바구니 요청[responseCode] : " + responseCode);
+    }
+
     class JsonParseTask extends AsyncTask<String, Void, String>{
 
         InputStream is = null;
@@ -716,8 +776,15 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                 reserve = Integer.parseInt(data.getString("reserve"));// 적립금
                 point = Integer.parseInt(data.getString("point"));   // 리뷰점수 (고객선호도)
 
+                String longdesc = data.getString("longdesc");
+
+                //webView.loadData(longdesc, "text/html", "UTF-8");
+                System.out.println("longdesc : " + longdesc);
+
                 img_i = data.getString("img_i");// 상품 이미지
-                //int icon = Integer.parseInt(data.getString("icon"));    //상품 특성 아이콘
+                int icon = Integer.parseInt(data.getString("icon"));    //상품 특성 아이콘
+                iconList = parseValidBinary(icon);
+
                 option_name = data.getString("option_name"); // 구매옵션 이름들
                 opttype = data.getString("opttype"); // 구매 옵션(single : 일체형, double : 분리형)
                 option_value = data.getString("option_value");   // 옵션 Value
@@ -765,98 +832,85 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
 
                     JSONArray jsonArr_opt = main.getJSONArray("opt");
 
-                    String[] temp_option1List = option_name.split("[|]")[0].split(",");   // 구매옵션1에 들어간 항목(0번 인덱스) 파싱
+                    String[] temp_option1List = option_value.split("[|]")[0].split(",");   // 구매옵션1에 들어간 항목(0번 인덱스) 파싱
 
                     //파싱해서 나온 1차 구매옵션 리스트 설정
                     for(int i=0; i < temp_option1List.length; i++){
-                        option1List.add(temp_option1List[i]);   // string[] -> ArrayList
-                        //System.out.println("구매옵션 : " + temp_option1List[i]);
+
+                        option1List.add(temp_option1List[i].trim());   // string[] -> ArrayList
+                        //System.out.println("파싱 : " + "[" + i + "]" + temp_option1List[i]);
 
                         ArrayList<OptionInfo> itemList = new ArrayList<OptionInfo>();
                         arrOption2List.add(itemList);
                     }
 
-                    for(int i=0; i<jsonArr_opt.length(); i++){
-                        JSONObject opt = jsonArr_opt.getJSONObject(i);
 
-                        OptionInfo item = new OptionInfo();
-                        item.sno = Integer.parseInt(opt.getString("sno"));
-                        item.opt1 = opt.getString("opt1");
-                        item.opt2 = opt.getString("opt2");
-                        item.stock = Integer.parseInt(opt.getString("stock"));
-                        item.price = Integer.parseInt(opt.getString("price"));
+                    //구매옵션 0개 혹은 1개
+                    if(optionNamesSize == 0 || optionNamesSize == 1){
+                        for(int i=0; i<jsonArr_opt.length(); i++){
+                            JSONObject opt = jsonArr_opt.getJSONObject(i);
 
-                        if(optionNamesSize == 1){
-                            arrOption2List.get(0).add(item);
-                            System.out.println("구매옵션 : " + item.opt1);
-                        }else{
+                            OptionInfo item = new OptionInfo();
+                            item.sno = Integer.parseInt(opt.getString("sno"));
+                            item.opt1 = opt.getString("opt1");
+                            item.opt2 = opt.getString("opt2");
+                            item.stock = Integer.parseInt(opt.getString("stock"));
+                            item.price = Integer.parseInt(opt.getString("price"));
+
+                            if(optionNamesSize == 1){
+                                arrOption2List.get(0).add(item);
+                                System.out.println("구매옵션1 : " + item.opt1);
+                            }else{
+                                int position = -1;
+
+                                for(int j=0; j< temp_option1List.length; j++ ){
+                                    if(temp_option1List.equals(item.opt1)){
+                                        position = i;
+                                        break;
+                                    }
+                                }
+
+                                if(position > -1) {
+                                    arrOption2List.get(position).add(item);
+                                    System.out.println("["+position+"]"+"구매옵션 : " + item.opt1);
+                                }else{
+                                    System.out.println("position is -1");
+                                }
+                            }
+                        }
+                    }else{//구매옵션 2개
+
+                        optionOriginFirstName = optionNames.get(0);
+
+                        for(int i=0; i<jsonArr_opt.length(); i++){
+                            JSONObject opt = jsonArr_opt.getJSONObject(i);
+
+                            OptionInfo item = new OptionInfo();
+                            item.sno = Integer.parseInt(opt.getString("sno"));
+                            item.opt1 = opt.getString("opt1");
+                            item.opt2 = opt.getString("opt2");
+                            item.stock = Integer.parseInt(opt.getString("stock"));
+                            item.price = Integer.parseInt(opt.getString("price"));
+
                             int position = -1;
 
-                            for(int j=0; j< temp_option1List.length; j++ ){
-                                if(temp_option1List.equals(item.opt1)){
-                                    position = i;
+                            for(int j=0; j< option1List.size(); j++ ){
+                                //System.out.println("비교 : "+ option1List.get(j) + "!=" + item.opt1);
+                                if(option1List.get(j).equals(item.opt1)){
+
+                                    position = j;
                                     break;
                                 }
                             }
 
                             if(position > -1) {
                                 arrOption2List.get(position).add(item);
-                                System.out.println("구매옵션 : " + item.opt1);
+                                //System.out.println("["+position +": "+ item.opt1 +"]"+"구매옵션2 : " + item.opt2 + "// 가격 : " + item.price);
                             }else{
-                                System.out.println("position is -1");
+                                System.out.println("position is -1 : " + item.opt1 + "// "+ item.opt2);
                             }
                         }
                     }
-
-                    //opt 갯수대로 2단 ArrayList에 넣음
-                   /*
-                    for(int i=0; i < opt.length(); i++){
-                    }
-                    */
-
-                    /*
-                    if(optionNamesSize == 1){   // 구매옵션 1개일 시,
-
-                        optionName = option_name;   // 스피너에 출력될 텍스트
-
-                        //opt 추출 : 스피너 누르면 나오는 리스트
-                        for(int i=0; i < opt.length(); i++ ){
-                            OptionInfo item = new OptionInfo();
-                            item.sno = Integer.parseInt(opt.getString("sno"));
-                            item.opt1 = opt.getString("opt1");
-                            item.opt2 = opt.getString("opt2");
-                            item.stock = Integer.parseInt(opt.getString("stock"));
-                            item.price = Integer.parseInt(opt.getString("price"));
-
-                            optionList.add(item);
-                        }
-
-                    }else if(optionNamesSize == 2){ // 구매옵션 2개 일시,
-
-                        String[] temp_option1List = option_name.split("|")[0].split(",");   // 구매옵션1에 들어간 항목(0번 인덱스) 파싱
-
-                        //파싱해서 나온 1차 구매옵션 리스트 설정
-                        for(int i=0; i < temp_option1List.length; i++){
-                            option1List.add(temp_option1List[i]);   // string[] -> ArrayList
-
-                            ArrayList<OptionInfo> itemList = new ArrayList<OptionInfo>();
-                            arrOption2List.add(itemList);
-                        }
-
-                        //opt 갯수대로 2단 ArrayList에 넣음
-                        for(int i=0; i < opt.length(); i++){
-                            OptionInfo item = new OptionInfo();
-                            item.sno = Integer.parseInt(opt.getString("sno"));
-                            item.opt1 = opt.getString("opt1");
-                            item.opt2 = opt.getString("opt2");
-                            item.stock = Integer.parseInt(opt.getString("stock"));
-                            item.price = Integer.parseInt(opt.getString("price"));
-
-                            int position = option1List.indexOf(item.opt1);
-                            arrOption2List.get(position).add(item);
-                        }
-                    }
-                    */
                 }
 
                 String[] temp_addOptionNames = addoptnm.split("[|]");
@@ -870,8 +924,14 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                     //JSONObject addopt = jsonArray.getJSONObject(2);
                      //JSONObject addopt = main.getJSONObject("addopt");
 
-                    for(int i=0; i<addOptionNamesSize; i++){
-                        addOptionNames.add(temp_addOptionNames[i]);
+                    for(int i=0; i< addOptionNamesSize; i++){
+
+                        String[] str = temp_addOptionNames[i].split("\\^\\^S"); //^^S 파싱
+                        //String addOptionItem = temp_addOptionNames[i].split("^^S");
+                        //System.out.println("addOptionItem : "+ str[0]);
+
+                        //addOptionNames.add(temp_addOptionNames[i]);
+                        addOptionNames.add(str[0]);
                     }
 
                     JSONArray jsonArr_addopt = main.getJSONArray("addopt");
@@ -890,19 +950,30 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                         item.step = Integer.parseInt(addopt.getString("step"));
                         item.opt = addopt.getString("opt");
                         item.addprice = Integer.parseInt(addopt.getString("addprice"));
+                        item.optionName = addOptionNames.get(item.step);
 
                         //addOptionNames.add(item.opt);
                         arrAddOptionList.get(item.step).add(item);
                     }
-
-                    /*
-                    //step에 해당되는 ArrayList에 item 넣음.
-                    for(int i=0; i > addOptionNamesSize; i++ ){
-
-                    }
-                    */
                 }
 
+
+                for(int i=1; i<=iconList.size(); i++){
+                    int id = getResources().getIdentifier("icon"+iconList.get(i-1),"drawable" , "com.petbox.shop");
+
+                    System.out.println("아이콘 세팅");
+
+                    if(i==1){
+                        iv_icon1.setImageResource(id);
+                        iv_icon1.setVisibility(View.VISIBLE);
+                    }else if(i==2){
+                        iv_icon2.setImageResource(id);
+                        iv_icon2.setVisibility(View.VISIBLE);
+                    }else if(i==3){
+                        iv_icon3.setImageResource(id);
+                        iv_icon3.setVisibility(View.VISIBLE);
+                    }
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -920,12 +991,9 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
             if(review_cnt == 0)
                 frame_review.setVisibility(View.GONE);
 
-
-
             int output_price = 0;
             double rate = ((double)(goods_consumer-goods_price)/goods_consumer) * 100;
             int dc_rate = (int) Math.ceil(rate) + use_goods_discount;
-
 
             if(discount_time == 0){
                 output_price = goods_price;
@@ -982,33 +1050,72 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                 listAddOptionAdapter = new SelectOptionListAdpater(getApplicationContext(), addOptionNames);
                 list_add.setAdapter(listAddOptionAdapter);
             }
-
         }
     }
+
+    // icon값에서 숫자 추출
+    public ArrayList<Integer> parseValidBinary(int icon){
+        ArrayList<Integer> itemList = new ArrayList<Integer>();
+
+        for(int i=0; i<10; i++){
+            int check = (int)Math.pow(2, i);
+
+            if((check&icon) == check){
+                System.out.println("아이콘 추출 : " + check);
+                itemList.add(check);
+            }
+        }
+        return itemList;
+    }
+
 
     // 상품, 옵션
     class DefaultOptionItemClickListener implements AdapterView.OnItemClickListener{
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            linear_list1.setVisibility(View.GONE);
-            list_select_good.setVisibility(View.GONE);
-            list_select_item.setVisibility(View.VISIBLE);
 
             selected_num = position;
             selected_what = 0;  // 구매옵션 선택
-
-            if(optionNamesSize == 2){
-
+            if(optionNamesSize == 1){
+                //defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertSimpleOptionInfo(option1List));
+                defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertOptionInfo(arrOption2List.get(0), 1));
+                list_select_item.setAdapter(defaultOptionListAdapter);
+            }else if(optionNamesSize == 2){
                 if(selected_num == 0){ //1차 옵션
                     defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertSimpleOptionInfo(option1List));
                     defaultOptionListAdapter.setMode(1);    // 심플모드
 
                 }else if(selected_num == 1){ // 2차 구매옵션
-                    defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertOptionInfo(arrOption2List.get(position)));
-                    list_select_item.setAdapter(defaultOptionListAdapter);
+
+                    if(optionNames.get(0).equals(optionOriginFirstName)){   // 1차 구매옵션 아무것도 선택하지 않았다면
+                        Toast.makeText(getApplicationContext(), "첫번째 구매옵션을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if(!optionNames.get(0).equals(optionOriginFirstName)){  // 1차 구매옵션 선택 완료.
+
+                        defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertOptionInfo(arrOption2List.get(firstOptionSelected), 2));
+                        System.out.println("firstOptionSelected : " + firstOptionSelected);
+                        for(int i=0; i<arrOption2List.get(position).size(); i++){
+                            System.out.println(arrOption2List.get(position).get(i).opt2);
+                        }
+
+                        /*
+                        int pos = option1List.indexOf(optionNames.get(0));
+
+                        if(pos == -1)
+                            Toast.makeText(getApplicationContext(), "1차구매옵션에서 찾을 수 없음.", Toast.LENGTH_SHORT).show();
+                            return;
+                        else{
+                            defaultOptionListAdapter = new OptionListAdapter(getApplicationContext(), convertOptionInfo(arrOption2List.get(position)));
+                        }
+                        */
+                    }
                 }
+                list_select_item.setAdapter(defaultOptionListAdapter);
             }
+            linear_list1.setVisibility(View.GONE);
+            list_select_good.setVisibility(View.GONE);
+            list_select_item.setVisibility(View.VISIBLE);
         }
     }
 
@@ -1029,16 +1136,23 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
         return itemList;
     }
 
-    public ArrayList<GoodOptionInfo> convertOptionInfo(ArrayList<OptionInfo> optionList){
+    // OptionInfo -> GoodOptionInfo, praseNum[ 1: opt1, 2: opt2)
+    public ArrayList<GoodOptionInfo> convertOptionInfo(ArrayList<OptionInfo> optionList, int parseNum){
         ArrayList<GoodOptionInfo> itemList = new ArrayList<GoodOptionInfo>();
 
         for(int i=0; i < optionList.size(); i++){
             OptionInfo optionItem = optionList.get(i);
             GoodOptionInfo item = new GoodOptionInfo();
 
-            item.name = optionItem.opt1;
+            if(parseNum == 1)
+                item.name = optionItem.opt1;
+            else if(parseNum == 2)
+                item.name = optionItem.opt2;
+
+            item.sno = optionItem.sno;
             item.count = optionItem.stock;
             item.price = optionItem.price;
+            item.dc_price = goods_price - optionItem.price; // 할인 금액
             item.order_count = 0;
 
             itemList.add(item);
@@ -1053,10 +1167,13 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
             AddOptionInfo addOptionItem = addOptionList.get(i);
             GoodOptionInfo item = new GoodOptionInfo();
 
+            item.sno = addOptionItem.sno;
             item.name = addOptionItem.opt;
             item.count = 999;
             item.price = addOptionItem.addprice;
-            item.order_count = 0;
+            item.order_count = option_count;
+            item.isAddOption = true;
+            item.optionName = addOptionItem.optionName;
 
             itemList.add(item);
         }
@@ -1212,9 +1329,7 @@ public class GoodInfoActivity extends AppCompatActivity implements View.OnClickL
                         tv_time.setText(timeTxt);
                     }
                 });
-
             }
         }
     }
-
 }

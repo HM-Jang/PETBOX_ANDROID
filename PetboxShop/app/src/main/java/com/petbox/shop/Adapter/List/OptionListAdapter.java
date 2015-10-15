@@ -77,7 +77,14 @@ public class OptionListAdapter extends BaseAdapter {
 
             holder.tv_name.setText(item.name);
             holder.tv_count.setText("잔여 : " + item.count + "개");
-            holder.tv_price.setText(item.price + "원");
+
+            if(item.dc_price > 0){
+                holder.tv_price.setText("(+"+item.dc_price + "원)");
+            }else if(item.dc_price < 0){
+                holder.tv_price.setText("(-"+item.dc_price + "원)");
+            }else{
+                holder.tv_price.setText("(가격 동일)");
+            }
 
             return convertView;
         }else if(mode == 1){    //심플 모드

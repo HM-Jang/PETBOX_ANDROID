@@ -36,7 +36,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/test3"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY"
+                        android:visibility="gone"/>
 
                 </FrameLayout>
 
@@ -52,7 +53,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/test2"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY"
+                        android:visibility="gone"/>
 
                 </FrameLayout>
 
@@ -62,7 +64,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/test1"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:visibility="gone"/>
 
             </LinearLayout>
         </LinearLayout>

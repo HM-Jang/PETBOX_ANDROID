@@ -36,14 +36,14 @@
     <FrameLayout
         android:id="@+id/frame_good_info_middle_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/linear_good_info_middle_top">
 
-        <ImageView
-            android:id="@+id/iv_good_info_intro"
+        <WebView
+            android:id="@+id/webview_good_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/test_good"/>
+            android:layout_height="match_parent"/>
+
 
     </FrameLayout>
 

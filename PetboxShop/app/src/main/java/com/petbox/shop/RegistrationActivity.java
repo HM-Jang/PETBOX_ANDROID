@@ -526,7 +526,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void afterRunningHttpPost(int responseCode) {
-        //Toast.makeText(this, responseCode+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, responseCode+"", Toast.LENGTH_SHORT).show();
 
         if(responseCode == Constants.HTTP_RESPONSE_REGIST_ERROR_INPUT_TYPE_ID){
             //Toast.makeText(this, "서버(801) : 이메일 형식 틀림", Toast.LENGTH_SHORT).show();
