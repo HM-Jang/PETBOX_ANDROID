@@ -7,8 +7,6 @@ import android.provider.BaseColumns;
  */
 public class Constants implements BaseColumns {
 
-
-
     /* ### Static Values ### Start #######################################################*/
     public static final int AUTO_SLIDE_TIME = 5000;
 
@@ -23,11 +21,13 @@ public class Constants implements BaseColumns {
 
     /* ### Http ### Start ################################################################*/
 
-    public static final String HTTP_URL_DOMAIN = "www.petbox.kr";
+    public static final String HTTP_URL_DOMAIN = "http://www.petbox.kr";
     public static final String HTTP_URL_CART = "http://www.petbox.kr/m2/goods/cart.php?app=3";
     public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php?app=3";
     public final static String HTTP_URL_LOGIN = "http://www.petbox.kr/m2/mem/login_ok.php";
-    public final static String HTTP_URL_REGIST = "http://www.petbox.kr/m2/mem/indb.php";
+    public final static String HTTP_URL_REGIST = "http://www.petbox.kr/m2/mem/app_indb.php";
+    public final static String HTTP_URL_GOOD_INFO = "http://petbox.kr/petboxjson/goods_view.php?goodsno=2755";
+    public final static String HTTP_URL_GO_CART = "http://www.petbox.kr/shop/goods/app_cart.php";
 
     public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;  // 아이디&비밀번호 매치 x
     public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902; // 아이디|비밀번호 형식 틀림
@@ -70,8 +70,10 @@ public class Constants implements BaseColumns {
 
     /* ### DB ### Start ################################################################*/
 
-    public static final int REQ_SPLASH = 1; // startActivityForResult에서 Splash엑티비티
-    public static final int RES_SPLASH_CANCEL = 0;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int REQ_SPLASH = 10; // startActivityForResult에서 Splash엑티비티
+    public static final int RES_SPLASH_CANCEL = 11;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int RES_SPLASH_LOGIN_SUCCESS = 12;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
+    public static final int RES_SPLASH_LOGIN_FAILED = 13;  // 스플래쉬 백버튼 눌렀을 시, setResult에 세팅
 
     public static final int REQ_LOGIN = 2;
     public static final int RES_LOGIN_FAILED = 0;   //

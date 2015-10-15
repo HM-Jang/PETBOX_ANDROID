@@ -207,7 +207,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(LoginManager.getIsLogin()){
             ibtn_login.setVisibility(View.GONE);
             ibtn_mypage.setVisibility(View.VISIBLE);
+        }else{
+            ibtn_login.setVisibility(View.VISIBLE);
+            ibtn_mypage.setVisibility(View.GONE);
         }
+
         super.onStart();
         FlurryAgent.onStartSession(this, Constants.FLURRY_APIKEY);
         //mFlurryAdInterstitial.fetchAd(); FLURRY
@@ -335,7 +339,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.ibtn_menu_wish:
                 //setCategoryPagerAdapter();
-                Toast.makeText(getApplicationContext(), "찜하기 페이지 이동", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, GoodInfoActivity.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), "찜하기 페이지 이동", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.ibtn_menu_cart:
@@ -433,8 +439,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(requestCode){
             case Constants.REQ_SPLASH:
 
-                if(resultCode == Constants.RES_SPLASH_CANCEL){
+                if(resultCode == Constants.RES_SPLASH_CANCEL){  //스플래시 화면에서 백버튼 눌렀을 시
                     finish();
+                }else if(resultCode == Constants.RES_SPLASH_LOGIN_SUCCESS){ // 스플래시에서 로그인 처리가 성공했을 시
+
+
+                }else if(resultCode == Constants.RES_SPLASH_LOGIN_FAILED){  // 스플래시에서 로그인 처리를 못했을 시
+
                 }
                 break;
 

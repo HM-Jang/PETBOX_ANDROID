@@ -1,65 +1,339 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.petbox.shop.GoodInfoActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_good_info"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_good_info">
+        android:layout_height="40dp"
+        android:id="@+id/frame_good_info_top"
+        android:background="@color/colorPrimary"
+        android:paddingRight="15dp">
+
+        <ImageButton
+            android:id="@+id/ibtn_good_info_back"
+            android:background="#0000"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/nav_back"/>
 
         <TextView
+            android:layout_toRightOf="@id/ibtn_good_info_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#ffff"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="[파인솔] 강아지 애견 다목적 세정제 솔향/레몬/라벤더"
-            android:id="@+id/tv_good_info_name" />
+            android:textStyle="bold"
+            android:text="상품 보기"
+            android:layout_centerVertical="true" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <ImageButton
+            android:id="@+id/ibtn_good_info_cart"
+            android:background="#0000"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ibtn_menu_cart"
+            android:scaleType="fitXY"/>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/ibtn_good_info_cart"
+            android:paddingRight="10dp"
+            android:layout_toRightOf="@+id/ibtn_good_info_back"
+            android:layout_toEndOf="@+id/ibtn_good_info_back">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="69%"
-                android:id="@+id/textView4"
-                android:layout_weight="1.5" />
+            <ImageButton
+                android:id="@+id/ibtn_good_info_search"
+                android:background="#0000"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical|right"
+                android:src="@drawable/nav_search_click"/>
 
-            <LinearLayout
-                android:orientation="vertical"
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/relative_good_info_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/ibtn_good_info_wish"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#0000"
+            android:src="@drawable/info_wish_off"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"/>
+
+        <Button
+            android:id="@+id/btn_good_info_buy"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:text="구매하기"
+            android:layout_toLeftOf="@id/ibtn_good_info_wish"
+            android:textColor="#ffff"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sc_good_info"
+        android:layout_above="@id/relative_good_info_bottom"
+        android:layout_below="@id/frame_good_info_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                layout="@layout/part_good_info_top"
+                android:id="@+id/layout_good_info_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_alignParentTop="true"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="1300원"
-                    android:id="@+id/textView5" />
+            <include
+                layout="@layout/part_good_info_middle"
+                android:id="@+id/layout_good_info_middle"
+                android:layout_below="@id/layout_good_info_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="4,000원"
-                    android:id="@+id/tv_good_info_price" />
-            </LinearLayout>
+            <include
+                layout="@layout/part_good_info_bottom"
+                android:id="@+id/layout_good_info_bottom"
+                android:layout_below="@id/layout_good_info_middle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_below="@id/frame_good_info_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingTop="45dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:id="@+id/ibtn_good_info_top"
+                android:background="#0000"
+                android:src="@drawable/info_go_top"
+                android:scaleType="fitXY"/>
+
         </LinearLayout>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:id="@+id/ibtn_good_info_zoom"
+            android:background="#0000"
+            android:src="@drawable/info_zoom"
+            android:scaleType="fitXY"/>
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/relative_good_info_bottom"
+        android:layout_below="@id/frame_good_info_top">
+
+        <ImageView
+            android:id="@+id/iv_good_info_wish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/info_wish_image"
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_good_info_bottom2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/linear_good_info_bottom2_bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border_black">
+
+
+                    <Button
+                        android:id="@+id/btn_good_info_cart_ok"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:text="장바구니담기"
+                        android:background="#cfcfcf"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <Button
+                        android:id="@+id/btn_good_info_buy_ok"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:text="즉시 구매"
+                        android:background="@color/colorPrimary"
+                        android:textColor="#ffff" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_above="@id/linear_good_info_bottom2_bottom"
+                    android:id="@+id/linear_good_info_bottom2_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#cfcfcf">
+
+                    <TextView
+                        android:id="@+id/tv_good_info_all_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="총상품가 : 0원"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_above="@id/linear_good_info_bottom2_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_good_info_submenu_onoff"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="접기"
+                            android:background="#cfcfcf"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </FrameLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linear_good_info_bottom2_lists"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#cfcfcf"
+                        android:orientation="vertical"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+
+
+                        <LinearLayout
+                            android:id="@+id/linear_good_info_list1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/linear_good_info_list_default"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="구매옵션"/>
+
+                                <ListView
+                                    android:id="@+id/list_good_info_default"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linear_good_info_list_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="추가옵션"/>
+
+                                <ListView
+                                    android:id="@+id/list_good_info_add"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ListView
+                            android:id="@+id/list_good_info_select_good"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"/>
+
+
+                        <ListView
+                            android:id="@+id/list_good_info_select_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:visibility="gone"/>
+
+                </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

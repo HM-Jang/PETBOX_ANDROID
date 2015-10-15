@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
+
+    <TextView
+        android:id="@+id/tv_good_info_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="상품 선택"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="5dp"
+        android:background="@drawable/border_black"/>
+
+</LinearLayout>

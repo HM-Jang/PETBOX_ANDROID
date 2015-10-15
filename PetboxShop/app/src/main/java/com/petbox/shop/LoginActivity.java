@@ -60,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edit_id = (EditText)findViewById(R.id.edit_login_id);
         edit_pw = (EditText)findViewById(R.id.edit_login_pw);
 
+        edit_id.setText("petbox12@nate.com");
+        edit_pw.setText("aaaa11");
+
         ibtn_login = (ImageButton) findViewById(R.id.ibtn_login_start);
         ibtn_login.setOnClickListener(this);
 
