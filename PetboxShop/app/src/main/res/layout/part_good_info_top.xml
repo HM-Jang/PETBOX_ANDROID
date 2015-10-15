@@ -121,15 +121,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="1300원"
-                    android:id="@+id/tv_good_info_price_dc" />
+                    android:text="4000원"
+                    android:id="@+id/tv_good_info_price"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="4,000원"
-                    android:id="@+id/tv_good_info_price" />
+                    android:text="1300원"
+                    android:id="@+id/tv_good_info_price_dc"/>
             </LinearLayout>
 
             <FrameLayout
@@ -200,7 +200,8 @@
                     android:id="@+id/rating_good_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:isIndicator="true"/>
 
             </FrameLayout>
 
@@ -220,6 +221,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/frame_good_info_top_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp">

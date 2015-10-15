@@ -61,6 +61,7 @@
 
 
     <RelativeLayout
+        android:visibility="visible"
         android:id="@+id/relative_good_info_bottom"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -118,6 +119,7 @@
                 android:layout_below="@id/layout_good_info_middle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
         </RelativeLayout>
 
     </ScrollView>
@@ -174,95 +176,164 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_good_info_bottom2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_good_info_submenu_onoff"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:text="접기"
-                android:background="#cfcfcf"
-                android:layout_gravity="center"
-                android:gravity="center"/>
-
-        </FrameLayout>
-
         <LinearLayout
+            android:id="@+id/linear_good_info_bottom2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#cfcfcf"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+            android:visibility="gone">
 
-            <ListView
-                android:id="@+id/list_good_info_select"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
 
-            <ListView
-                android:id="@+id/list_good_info_select_good"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"/>
-
-            <ListView
-                android:id="@+id/list_good_info_select_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tv_good_info_all_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="총상품가 : 6500원"
-                android:visibility="gone"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:background="@drawable/border_black">
+                <LinearLayout
+                    android:id="@+id/linear_good_info_bottom2_bottom"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border_black">
 
 
-            <Button
-                android:id="@+id/btn_good_info_cart_ok"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="장바구니담기"
-                android:background="#cfcfcf"
-                android:textColor="@color/colorPrimary"/>
+                    <Button
+                        android:id="@+id/btn_good_info_cart_ok"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:text="장바구니담기"
+                        android:background="#cfcfcf"
+                        android:textColor="@color/colorPrimary"/>
 
-            <Button
-                android:id="@+id/btn_good_info_buy_ok"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="즉시 구매"
-                android:background="@color/colorPrimary"
-                android:textColor="#ffff" />
+                    <Button
+                        android:id="@+id/btn_good_info_buy_ok"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:text="즉시 구매"
+                        android:background="@color/colorPrimary"
+                        android:textColor="#ffff" />
 
-        </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_above="@id/linear_good_info_bottom2_bottom"
+                    android:id="@+id/linear_good_info_bottom2_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#cfcfcf">
+
+                    <TextView
+                        android:id="@+id/tv_good_info_all_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="총상품가 : 0원"
+                        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_above="@id/linear_good_info_bottom2_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_good_info_submenu_onoff"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="접기"
+                            android:background="#cfcfcf"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </FrameLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linear_good_info_bottom2_lists"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#cfcfcf"
+                        android:orientation="vertical"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+
+
+                        <LinearLayout
+                            android:id="@+id/linear_good_info_list1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/linear_good_info_list_default"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="구매옵션"/>
+
+                                <ListView
+                                    android:id="@+id/list_good_info_default"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linear_good_info_list_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="추가옵션"/>
+
+                                <ListView
+                                    android:id="@+id/list_good_info_add"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ListView
+                            android:id="@+id/list_good_info_select_good"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"/>
+
+
+                        <ListView
+                            android:id="@+id/list_good_info_select_item"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:visibility="gone"/>
+
+                </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+
+
+        </RelativeLayout>
     </LinearLayout>
-
 
 </RelativeLayout>

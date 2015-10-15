@@ -39,7 +39,7 @@
 
 
             <ImageButton
-                android:id="@+id/tv_list_select_good_delete"
+                android:id="@+id/ibtn_list_select_good_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000"
@@ -54,11 +54,13 @@
             android:paddingTop="10dp">
 
             <com.petbox.shop.CustomView.CustomNumberPicker
+                android:id="@+id/picker_list_select_good"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"/>
 
             <TextView
+                android:id="@+id/tv_list_select_good_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

@@ -26,6 +26,7 @@ public class Constants implements BaseColumns {
     public static final String HTTP_URL_MYPAGE = "http://www.petbox.kr/m2/myp/menu_list.php?app=3";
     public final static String HTTP_URL_LOGIN = "http://www.petbox.kr/m2/mem/login_ok.php";
     public final static String HTTP_URL_REGIST = "http://www.petbox.kr/m2/mem/indb.php";
+    public final static String HTTP_URL_GOOD_INFO = "http://petbox.kr/petboxjson/goods_view.php?goodsno=3358";
 
     public static final int HTTP_RESPONSE_LOGIN_ERROR_NOT_MATCH = 901;  // 아이디&비밀번호 매치 x
     public static final int HTTP_RESPONSE_LOGIN_ERROR_INPUT_TYPE = 902; // 아이디|비밀번호 형식 틀림

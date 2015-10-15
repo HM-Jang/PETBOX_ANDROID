@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.petbox.shop.Delegate.NumberPickerDelegate;
 import com.petbox.shop.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -28,14 +31,43 @@ public class CustomNumberPicker extends LinearLayout implements View.OnClickList
 
     int num = 0;
 
+   HashMap<String, Integer> params; //파라미터
+
+    NumberPickerDelegate delegate;
+
+    public void setDelegate(NumberPickerDelegate delegate){
+        this.delegate = delegate;
+    }
+
     public void setMax(int _max){
         max = _max;
+    }
+
+    public void setMin(int _min){min = _min;}
+
+    public void setNum(int _num){
+        num = _num;
+        edit_num.setText(num+"");
+    }
+
+    public void setOne(){
+        params.put("before_order_count", num);
+        num = 1;
+        edit_num.setText("1");
+
+        params.put("order_count", 1);
+
+        delegate.setNum(params);
+    }
+
+    //position, price, , max
+    public void setParam(HashMap<String, Integer> params){
+        this.params = params;
     }
 
     public int getNum(){
         return Integer.parseInt(edit_num.getText().toString());
     }
-
 
     public CustomNumberPicker(Context context) {
         super(context);
@@ -86,12 +118,17 @@ public class CustomNumberPicker extends LinearLayout implements View.OnClickList
 
         switch(id){
             case R.id.btn_minus:
-                if(num <= 0)
-                    num = 0;
+                if(num <= min)
+                    num = min;
                 else
                     num -= 1;
 
-                edit_num.setText(""+num);
+                edit_num.setText("" + num);
+
+                params.put("order_count", num);
+
+                if(delegate != null)
+                    delegate.clickDecrease(params);
 
                 break;
 
@@ -103,6 +140,11 @@ public class CustomNumberPicker extends LinearLayout implements View.OnClickList
                     num += 1;
 
                 edit_num.setText(""+num);
+
+                params.put("order_count", num);
+
+                if(delegate != null)
+                    delegate.clickIncrease(params);
 
                 break;
 
